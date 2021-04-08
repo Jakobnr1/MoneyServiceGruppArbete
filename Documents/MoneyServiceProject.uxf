@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>7</zoom_level>
+  <zoom_level>5</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>245</y>
-      <w>147</w>
-      <h>133</h>
+      <x>505</x>
+      <y>295</y>
+      <w>105</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>MoneyServiceApp
 --
 
 --
-
++Main()
 --
 Responsibilities
 </panel_attributes>
@@ -22,10 +22,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>371</x>
-      <y>714</y>
-      <w>147</w>
-      <h>133</h>
+      <x>210</x>
+      <y>610</y>
+      <w>105</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>Config
 --
@@ -41,35 +41,37 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1120</x>
-      <y>532</y>
-      <w>147</w>
-      <h>133</h>
+      <x>975</x>
+      <y>645</y>
+      <w>165</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>Rapport
 --
 -id: Long
 -day:LocalDate
--dailyTransaction: List&lt;Transaction&gt;
+-dailyTransactions: List&lt;Transaction&gt;
 --
 +Rapport(): ctor
++addTransaction()
 --
-Responsibilities
+Contains all transactions made during a session.
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>784</x>
-      <y>714</y>
-      <w>147</w>
-      <h>133</h>
+      <x>665</x>
+      <y>630</y>
+      <w>105</w>
+      <h>95</h>
     </coordinates>
-    <panel_attributes>Currency
+    <panel_attributes>Notes
 --
 -Fiat: String
 -denominations:List&lt;Integer&gt;
+Map&lt;String&gt;,List&lt;Notes&gt;&gt;
 --
 +Currency(): ctor
 --
@@ -80,16 +82,17 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>336</x>
+      <x>345</x>
       <y>420</y>
-      <w>147</w>
-      <h>133</h>
+      <w>105</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>Order
 --
 -id: Long
 -date: LocalDate
 typeOfTransaction: enum(Sell, Buy, Split)
+orderFilled
 --
 #Operation(i: int): int
 Order(): ctor
@@ -100,15 +103,16 @@ Responsibilities</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>336</x>
-      <y>245</y>
-      <w>147</w>
-      <h>133</h>
+      <x>345</x>
+      <y>295</y>
+      <w>105</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>ClientAPP
 --
 -id: Long
 -PayService:Info
++Receipts:List&lt;Receipt&gt;
 --
 +ClientAPP(): ctor
 +chooseSite()
@@ -122,10 +126,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
+      <x>505</x>
       <y>420</y>
-      <w>175</w>
-      <h>133</h>
+      <w>125</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>Exchange-site
 --
@@ -136,6 +140,9 @@ Responsibilities
 +sellCurrency
 +buyCurrency
 +parseOrder()
++updateBox()
++queryBox()
++sendReceipt()
 --
 Responsibilities
 </panel_attributes>
@@ -144,10 +151,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1001</x>
-      <y>714</y>
-      <w>147</w>
-      <h>168</h>
+      <x>820</x>
+      <y>630</y>
+      <w>105</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>MoneyServiceIO
 --
@@ -170,17 +177,21 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>714</y>
-      <w>147</w>
-      <h>133</h>
+      <x>435</x>
+      <y>630</y>
+      <w>195</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>MoneyBox
 --
 -id: Long
--Contents: List&lt;Currency&gt;
+-FreeContents: Map&lt;String,List&lt;Currency&gt;&gt;
+-ReservedContents:Map&lt;String,List&lt;Currency&gt;&gt;
 --
++update()
 +orderPickup()
++getNotes()
++SaveBox() //Uses Timestamps(localdateTime)+Transaction.
 --
 Responsibilities
 </panel_attributes>
@@ -189,15 +200,18 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>756</x>
-      <y>245</y>
-      <w>147</w>
-      <h>133</h>
+      <x>635</x>
+      <y>295</y>
+      <w>105</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>User
 --
 -name: String
 -Priorities: enum
+-type:enum (Customer,Employee,Admin)
+-password: String
+
 --
 +User():ctor
 --
@@ -208,28 +222,31 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>700</x>
-      <y>735</y>
-      <w>98</w>
-      <h>28</h>
+      <x>625</x>
+      <y>645</y>
+      <w>50</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>1...n
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>875</x>
-      <y>77</y>
-      <w>70</w>
-      <h>49</h>
+      <x>730</x>
+      <y>175</y>
+      <w>50</w>
+      <h>35</h>
     </coordinates>
-    <panel_attributes>Date: 2021-04-07
+    <panel_attributes>First version: Date: 2021-04-07
 
 Project Manager = Jakob, 
 Sys Architect = Johannes, 
 Programmer = ALL.
+
+Second version: 2021-04-08
+
 
 style=wordwrap</panel_attributes>
     <additional_attributes/>
@@ -237,22 +254,22 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>623</x>
-      <y>546</y>
-      <w>28</w>
-      <h>182</h>
+      <x>550</x>
+      <y>535</y>
+      <w>20</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>1
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;240.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;190.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>98</x>
-      <y>245</y>
-      <w>147</w>
-      <h>133</h>
+      <x>175</x>
+      <y>295</y>
+      <w>105</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>PayService
 --
@@ -267,10 +284,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>238</x>
-      <y>259</y>
-      <w>112</w>
-      <h>28</h>
+      <x>275</x>
+      <y>305</y>
+      <w>80</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>1
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
@@ -279,10 +296,10 @@ lt=&lt;&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>791</x>
-      <y>441</y>
-      <w>245</w>
-      <h>133</h>
+      <x>940</x>
+      <y>290</y>
+      <w>175</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>CustomerDatabase
 --
@@ -294,6 +311,7 @@ customerOrderHistory: Map&lt;String, List&lt;Order&gt;&gt;
 +CustomerDatabase(): ctor
 +Export()
 +Import()
++SearchDataBase():Boolean // tips: Switch + Namn, orderID,TransactionsID,Belopp, Currency.
 --
 Responsibilities
 </panel_attributes>
@@ -302,10 +320,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>70</y>
-      <w>147</w>
-      <h>133</h>
+      <x>505</x>
+      <y>170</y>
+      <w>105</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>GUI
 --
@@ -319,10 +337,21 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>406</x>
-      <y>371</y>
-      <w>21</w>
-      <h>63</h>
+      <x>395</x>
+      <y>395</y>
+      <w>15</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>545</x>
+      <y>385</y>
+      <w>15</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
@@ -330,21 +359,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>616</x>
-      <y>371</y>
-      <w>21</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>476</x>
-      <y>455</y>
-      <w>98</w>
-      <h>21</h>
+      <x>445</x>
+      <y>445</y>
+      <w>70</w>
+      <h>15</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
@@ -352,10 +370,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>616</x>
-      <y>196</y>
-      <w>21</w>
-      <h>63</h>
+      <x>545</x>
+      <y>260</y>
+      <w>15</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
@@ -363,54 +381,54 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>665</x>
-      <y>371</y>
-      <w>336</w>
-      <h>63</h>
+      <x>580</x>
+      <y>395</y>
+      <w>240</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>460.0;10.0;460.0;50.0;10.0;50.0;10.0;70.0</additional_attributes>
+    <additional_attributes>460.0;10.0;460.0;30.0;10.0;30.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>679</x>
-      <y>546</y>
-      <w>455</w>
-      <h>84</h>
+      <x>590</x>
+      <y>535</y>
+      <w>410</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>630.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
+    <additional_attributes>800.0;220.0;800.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>658</x>
-      <y>546</y>
-      <w>441</w>
-      <h>182</h>
+      <x>570</x>
+      <y>535</y>
+      <w>320</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>610.0;240.0;610.0;150.0;10.0;150.0;10.0;10.0</additional_attributes>
+    <additional_attributes>620.0;190.0;620.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>651</x>
-      <y>371</y>
-      <w>196</w>
-      <h>63</h>
+      <x>570</x>
+      <y>385</y>
+      <w>130</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;30.0;260.0;30.0;260.0;10.0</additional_attributes>
+    <additional_attributes>10.0;70.0;10.0;30.0;240.0;30.0;240.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>336</x>
-      <y>70</y>
-      <w>147</w>
-      <h>133</h>
+      <x>345</x>
+      <y>170</y>
+      <w>105</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>GUI
 --
@@ -425,10 +443,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>399</x>
-      <y>196</y>
-      <w>21</w>
-      <h>63</h>
+      <x>390</x>
+      <y>260</y>
+      <w>15</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
@@ -436,16 +454,21 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>938</x>
-      <y>245</y>
-      <w>147</w>
-      <h>133</h>
+      <x>755</x>
+      <y>295</y>
+      <w>155</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>Transaction
 --
 -id: Long
--date:
+-dateTime: LocalDateTime
 -customer: String
+-orderNumber:int
+-type:Purchase/Sale
+-exchangeRate
+-contentsOfOrder: List&lt;Notes&gt;
+-PaymentRecieved:Bool
 --
 +Transaction(Order order, CustomerInfo c): ctor
 --
@@ -455,37 +478,41 @@ Responsibilities</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>448</x>
-      <y>546</y>
-      <w>161</w>
-      <h>182</h>
+      <x>265</x>
+      <y>535</y>
+      <w>285</w>
+      <h>85</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;240.0;10.0;160.0;210.0;160.0;210.0;10.0</additional_attributes>
+    <additional_attributes>10.0;150.0;10.0;100.0;550.0;100.0;550.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>728</x>
-      <y>469</y>
-      <w>77</w>
-      <h>28</h>
+      <x>625</x>
+      <y>330</y>
+      <w>325</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>1
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>630.0;10.0;590.0;10.0;590.0;200.0;10.0;200.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1120</x>
-      <y>385</y>
-      <w>147</w>
-      <h>133</h>
+      <x>1150</x>
+      <y>275</y>
+      <w>105</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>Customer
 --
 -id: Long
+-Name:String
+-IdentityVerified:Boolean
+-systemStatus: user
+
 _-ClassAttribute: Long_
 --
 +Customer(): ctor
@@ -497,24 +524,56 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>399</x>
-      <y>28</y>
-      <w>770</w>
-      <h>371</h>
+      <x>390</x>
+      <y>140</y>
+      <w>795</w>
+      <h>145</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0;1080.0;10.0;1080.0;510.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0;1570.0;10.0;1570.0;270.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1029</x>
-      <y>469</y>
-      <w>105</w>
-      <h>28</h>
+      <x>1110</x>
+      <y>310</y>
+      <w>50</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>0...n
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>665</x>
+      <y>755</y>
+      <w>105</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>Notes::Enum
+--
+-id: Long
+_-ClassAttribute: Long_
+--
+#Operation(i: int): int
+/+AbstractOperation()/
+--
+Responsibilities
+-- Resp1
+*-- Resp2*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>710</x>
+      <y>720</y>
+      <w>15</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
