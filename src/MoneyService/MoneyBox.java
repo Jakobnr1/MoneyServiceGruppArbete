@@ -67,8 +67,11 @@ public class MoneyBox {
 				
 				for(int i=0; i<currencyList.get(key).size(); i++) {
 					if(currencyList.get(key).get(i).getDenomination() == denomination) { //Searching for correct denomination to change.
-						currencyList.get(key).get(i).setNumberOfNotes(newNumberOfNotes); //Updates the numberOfNotes 
-						return okChange = true;
+						if(currencyList.get(key).get(i).setNumberOfNotes(newNumberOfNotes)) {//Updates the numberOfNotes 
+							return okChange = true;
+							
+						}
+						
 					}	
 				}
 			}

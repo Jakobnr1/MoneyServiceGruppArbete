@@ -44,14 +44,16 @@ public class TestApp {
 
 		System.out.println("\n\n----------- Now trying to add number of 100 SEK notes with 5000 -------------");
 
-		MoneyBox.changeNumberOfNotes(currencyList, "SEK", 100, 5000);
+		MoneyBox.changeNumberOfNotes(currencyList, "SEK", 100, 50);
 
 		test = MoneyBox.getNumberOfNotes(currencyList, "SEK" , 100);
 		System.out.format("\nAfter adding: %d", test);
 
 		System.out.println("\n\n----------- Now trying to remove number of 100 SEK notes with 438 -------------");
 		
-		MoneyBox.changeNumberOfNotes(currencyList, "SEK", 100, -438);
+		if(!MoneyBox.changeNumberOfNotes(currencyList, "SEK", 100, -438)) {
+			System.out.println("DEBUG, under 0 when trying to change.");
+		}
 		
 		test = MoneyBox.getNumberOfNotes(currencyList, "SEK" , 100);
 		System.out.format("\nAfter removing: %d", test);

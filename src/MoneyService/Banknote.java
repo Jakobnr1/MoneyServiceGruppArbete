@@ -10,9 +10,14 @@ public class Banknote {
 		this.numberOfNotes = numberOfNotes;
 	}
 
-	public void setNumberOfNotes(int numberOfNotes) {
+	public boolean setNumberOfNotes(int numberOfNotes) {
 		int oldValue = this.numberOfNotes;
+		int tempValue = oldValue + numberOfNotes;
+		if(tempValue < 0) {
+			return false;
+		}
 		this.numberOfNotes = oldValue + numberOfNotes;
+		return true;
 	}
 
 	public int getDenomination() {
