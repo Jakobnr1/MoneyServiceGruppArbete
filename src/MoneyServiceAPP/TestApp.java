@@ -13,7 +13,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import MoneyService.Banknote;
+import MoneyService.Currency;
 import MoneyService.Currency.CurrencyName;
+import MoneyService.MoneyBox;
 
 public class TestApp implements java.io.Serializable {
 
@@ -53,7 +56,7 @@ public class TestApp implements java.io.Serializable {
 				tempListOfNotes.add(b);
 			}
 
-			MoneyBox.addCurrencyToBoxAtStartOfDay(tempListOfNotes, currenieList, currancyType );
+			addCurrencyToBoxAtStartOfDay(tempListOfNotes, currenieList, currancyType );
 		}
 
 		//Trying to change the rates
@@ -61,23 +64,23 @@ public class TestApp implements java.io.Serializable {
 		setRates("USD", 10.0193, 8.5371, currenieList);
 		setRates("GBP", 15.0193, 22.5371, currenieList);
 
-		int test = MoneyBox.getNumberOfNotes(currenieList, "SEK" , 100);
+		int test = getNumberOfNotes(currenieList, "SEK" , 100);
 		System.out.format("Number of 100 SEK notes in box at start of day: %d", test);
 
 		System.out.println("\n\n----------- Now trying to add number of 100 SEK notes with 5000 -------------");
 
-		MoneyBox.changeNumberOfNotes(currenieList, "SEK", 100, 50);
+		changeNumberOfNotes(currenieList, "SEK", 100, 50);
 
-		test = MoneyBox.getNumberOfNotes(currenieList, "SEK" , 100);
+		test = getNumberOfNotes(currenieList, "SEK" , 100);
 		System.out.format("\nAfter adding: %d", test);
 
 		System.out.println("\n\n----------- Now trying to remove number of 100 SEK notes with 438 -------------");
 
-		if(!MoneyBox.changeNumberOfNotes(currenieList, "SEK", 100, -438)) {
+		if(!changeNumberOfNotes(currenieList, "SEK", 100, -438)) {
 			System.out.println("DEBUG, under 0 when trying to change.");
 		}
 
-		test = MoneyBox.getNumberOfNotes(currenieList, "SEK" , 100);
+		test = getNumberOfNotes(currenieList, "SEK" , 100);
 		System.out.format("\nAfter removing: %d", test);
 
 		storeItems("Test.ser", theBox);
@@ -142,6 +145,76 @@ public class TestApp implements java.io.Serializable {
 		}
 
 	}
+	
+	
+	//TESTAR med lite metoder:
+	
+		public static int getNumberOfNotes(EnumMap<CurrencyName, List<Banknote>> currencyList, String currencyToChange, int denomination) {
+			int numberOfNotes=0;
+
+			Set<CurrencyName> currencysKeys = currencyList.keySet();
+
+			Iterator<CurrencyName> keyIter = currencysKeys.iterator();
+
+			while(keyIter.hasNext()) {
+				CurrencyName key= keyIter.next();
+				String temp=key.toString();
+
+				if(temp.equalsIgnoreCase(currencyToChange)) {
+
+					for(int i=0; i<currencyList.get(key).size(); i++) {
+						if(currencyList.get(key).get(i).getDenomination() == denomination) { //Searching for correct denomination to change.
+							return numberOfNotes = currencyList.get(key).get(i).getNumberOfNotes(); //get the numberOfNotes 
+						}	
+					}
+				}
+			}
+			return numberOfNotes;
+		}
+
+		/**
+		 * Input: EnumMap<CurrencyName, List<Banknote>> currencyList, String currencysKeys, int denomination, int newNumberOfNotes.
+		 * Changes the numberOfNotes with newNumberOfNotes.<p>
+		 * Iterating true currencyList and search for the currencyToChange, than searching for correct denomination to change.
+		 * returns okChange to true if denomination changed.
+		 * @return boolean okChange.
+		 * @Param Set<Currencys> currencysKeys, store all the keys in the EnumMap.
+		 * @Param Iterator<Currencys> keyIter, iterates thru the keys in currencysKeys.
+		 * @Param String temp, used to comparing with String currencysKeys.
+		 */
+		public static boolean changeNumberOfNotes(EnumMap<CurrencyName, List<Banknote>> currencyList, String currencyToChange, int denomination, int newNumberOfNotes) {
+
+			boolean okChange = false;
+			Set<CurrencyName> currencysKeys = currencyList.keySet();
+
+			Iterator<CurrencyName> keyIter = currencysKeys.iterator();
+
+			while(keyIter.hasNext()) {
+				CurrencyName key= keyIter.next();
+				String temp=key.toString();
+
+				if(temp.equalsIgnoreCase(currencyToChange)) {
+					
+					for(int i=0; i<currencyList.get(key).size(); i++) {
+						if(currencyList.get(key).get(i).getDenomination() == denomination) { //Searching for correct denomination to change.
+							if(currencyList.get(key).get(i).setNumberOfNotes(newNumberOfNotes)) {//Updates the numberOfNotes 
+								return okChange = true;
+								
+							}
+							
+						}	
+					}
+				}
+			}
+			return okChange;
+		}
+
+
+		   static void addCurrencyToBoxAtStartOfDay(List<Banknote> notes, EnumMap<CurrencyName, List<Banknote>> currencyTest, CurrencyName currancyType) {
+			Currency testingCurrency = new Currency(currencyTest);
+			testingCurrency.getCurrencyMap().putIfAbsent(currancyType,notes);
+		}
+
 
 
 }

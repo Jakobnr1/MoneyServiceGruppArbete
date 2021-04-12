@@ -16,7 +16,7 @@ public class Banknote implements java.io.Serializable {
 		this.numberOfNotes = numberOfNotes;
 	}
 
-	boolean setNumberOfNotes(int numberOfNotes) {
+	public boolean setNumberOfNotes(int numberOfNotes) {
 		int oldValue = this.numberOfNotes;
 		int tempValue = oldValue + numberOfNotes;
 		if(tempValue < 0) {
