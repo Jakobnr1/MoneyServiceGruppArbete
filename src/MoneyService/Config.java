@@ -3,7 +3,7 @@ package MoneyService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Conifg {
+public class Config {
 	//Attributes
 	private static int MIN_AMMOUNT = 1;
 	private static int MAX_AMMOUNT = 2000;

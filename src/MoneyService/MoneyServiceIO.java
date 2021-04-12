@@ -26,7 +26,7 @@ public class MoneyServiceIO {
 			while(bf.ready()) {
 				String temporaryString = bf.readLine();
 				ExchangeRate parsedRate = parseConfigRates(temporaryString);
-				Conifg.exchangeRateList.add(parsedRate);
+				Config.exchangeRateList.add(parsedRate);
 			}
 		}catch(IOException ioe) {System.out.println("Exception when reading file");}
 		read = true;
