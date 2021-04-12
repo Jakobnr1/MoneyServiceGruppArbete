@@ -19,23 +19,6 @@ public class ExchangeSite {
 		this.exchangeRates = exchangeRates;
 	}
 
-	public static void setRates(String currencieToChange, double byRate, double sellRate, EnumMap<CurrencyName, List<Banknote>> currenieList) {
-
-		Set<CurrencyName> currencysKeys = currenieList.keySet();
-
-		Iterator<CurrencyName> keyIter = currencysKeys.iterator();
-
-		while(keyIter.hasNext()) {
-			CurrencyName key= keyIter.next();
-			String temp=key.toString();
-
-			if(temp.equalsIgnoreCase(currencieToChange)) {
-				System.out.println("test");
-				key.setByRate(byRate);
-				key.setSellRate(sellRate);
-			}
-		}		
-	}
 	
 	public static boolean parseOrder() {
 		

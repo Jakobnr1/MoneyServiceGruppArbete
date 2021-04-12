@@ -37,27 +37,27 @@ public class TestApp implements java.io.Serializable {
 
 		CurrencyName[] currencies = CurrencyName.values();
 
-		//theBox=readItems("Test.ser");
+		theBox=readItems("Test.ser");
 
 		//Setting up the box with currencies from start. 
-		for(CurrencyName c : currencies) {
-			CurrencyName currancyType = c;
-			List<Banknote> tempListOfNotes = new ArrayList<>();
-
-			Banknote[] myNotes = new Banknote[5];
-
-			myNotes[0] = new Banknote(20,10);
-			myNotes[1] = new Banknote(50,23);
-			myNotes[2] = new Banknote(100,500);
-			myNotes[3] = new Banknote(500,100);
-			myNotes[4] = new Banknote(1000,50);
-
-			for(Banknote b: myNotes) {
-				tempListOfNotes.add(b);
-			}
-
-			addCurrencyToBoxAtStartOfDay(tempListOfNotes, currenieList, currancyType );
-		}
+//		for(CurrencyName c : currencies) {
+//			CurrencyName currancyType = c;
+//			List<Banknote> tempListOfNotes = new ArrayList<>();
+//
+//			Banknote[] myNotes = new Banknote[5];
+//
+//			myNotes[0] = new Banknote(20,10);
+//			myNotes[1] = new Banknote(50,23);
+//			myNotes[2] = new Banknote(100,500);
+//			myNotes[3] = new Banknote(500,100);
+//			myNotes[4] = new Banknote(1000,50);
+//
+//			for(Banknote b: myNotes) {
+//				tempListOfNotes.add(b);
+//			}
+//
+//			addCurrencyToBoxAtStartOfDay(tempListOfNotes, currenieList, currancyType );
+//		}
 
 		//Trying to change the rates
 		setRates("EUR", 11.0193, 9.5371, currenieList);
