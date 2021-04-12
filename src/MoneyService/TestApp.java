@@ -121,8 +121,8 @@ public class TestApp implements java.io.Serializable {
 
 	public static MoneyBox readItems(String filename) {
 		long boxId=0;
-		EnumMap<CurrencyName, List<Banknote>> currencyList = new EnumMap<CurrencyName, List<Banknote>>(CurrencyName.class);
-		MoneyBox theBox = new MoneyBox(boxId, currencyList);
+		EnumMap<CurrencyName, List<Banknote>> currencieList = new EnumMap<CurrencyName, List<Banknote>>(CurrencyName.class);
+		MoneyBox theBox = new MoneyBox(boxId, currencieList);
 
 		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
 			theBox=(MoneyBox)ois.readObject();
