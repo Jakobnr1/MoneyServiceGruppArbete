@@ -1,6 +1,12 @@
 package MoneyService;
 
-public class Banknote {
+public class Banknote implements java.io.Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 
 	private final int denomination; 
 	private int numberOfNotes; 
@@ -10,7 +16,7 @@ public class Banknote {
 		this.numberOfNotes = numberOfNotes;
 	}
 
-	public boolean setNumberOfNotes(int numberOfNotes) {
+	boolean setNumberOfNotes(int numberOfNotes) {
 		int oldValue = this.numberOfNotes;
 		int tempValue = oldValue + numberOfNotes;
 		if(tempValue < 0) {
@@ -28,4 +34,8 @@ public class Banknote {
 		return numberOfNotes;
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("Banknote [denomination=%s, numberOfNotes=%s]", denomination, numberOfNotes);
+	}
 }

@@ -9,16 +9,29 @@ import MoneyService.Currency.CurrencyName;
 
 
 
-public class MoneyBox {
+public class MoneyBox implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private final long id;
-	EnumMap<CurrencyName, List<Banknote>> currencyList;
+	EnumMap<CurrencyName, List<Banknote>> currenieList;
 
-	public MoneyBox(long id, EnumMap<CurrencyName, List<Banknote>> currencyList) {
+	public MoneyBox(long id, EnumMap<CurrencyName, List<Banknote>> currenieList) {
 		this.id = id;
-		this.currencyList = currencyList;
+		this.currenieList = currenieList;
 	}
 
+	
+	void orderPickup(){
+		
+		
+	}
+	
+	//TESTAR med lite metoder:
+	
 	public static int getNumberOfNotes(EnumMap<CurrencyName, List<Banknote>> currencyList, String currencyToChange, int denomination) {
 		int numberOfNotes=0;
 
@@ -87,15 +100,20 @@ public class MoneyBox {
 
 
 	public EnumMap<CurrencyName, List<Banknote>> getCurrencyList() {
-		return currencyList;
+		return currenieList;
 	}
 
 	public void setCurrencyList(EnumMap<CurrencyName, List<Banknote>> currencyList) {
-		this.currencyList = currencyList;
+		this.currenieList = currencyList;
 	}
 
 	public long getId() {
 		return id;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("MoneyBox [id=%s, currencyList=%s]", id, currenieList);
 	}
 
 
