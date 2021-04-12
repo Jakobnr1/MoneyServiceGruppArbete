@@ -21,6 +21,10 @@ public class Currency implements java.io.Serializable {
 	public int getNumberOfNotes() {
 		return numberOfNotes;
 	}
+	
+	public int totalValue() {
+		return (this.denomination*this.numberOfNotes);
+	}
 
 	public boolean setNumberOfNotes(int numberOfNotes) {
 		int oldValue = this.numberOfNotes;

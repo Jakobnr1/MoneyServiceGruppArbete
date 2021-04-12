@@ -26,17 +26,17 @@ public class TestApp implements java.io.Serializable {
 
 	public static void main(String[] args){
 
-		Map<String, List<Currency>> currencyList = new TreeMap<String, List<Currency>>();
+		Map<String, List<Currency>> currencyMap = new TreeMap<String, List<Currency>>();
 
 		//Creating the box
 		long boxId=22384;
-		MoneyBox theBox = new MoneyBox(boxId, currencyList);
+		MoneyBox theBox = new MoneyBox(boxId, currencyMap);
 
 		String[] currencyToUse = {"SEK","EUR","GPB","USD"};
 
 		for(String c : currencyToUse) {
 			List<Currency> testList = new ArrayList<Currency>();
-			Currency[] myCurrencyList =new Currency[5];
+			Currency[] myCurrencyList =new Currency[4];
 			myCurrencyList[0] = new Currency(50,100);
 			myCurrencyList[1] = new Currency(100,200);
 			myCurrencyList[2] = new Currency(500,50);
@@ -45,26 +45,32 @@ public class TestApp implements java.io.Serializable {
 			for(Currency curt: myCurrencyList) {
 				testList.add(curt);
 			}
-			currencyList.putIfAbsent(c, testList);
+			currencyMap.putIfAbsent(c, testList);
 		}
-
-		int test = getNumberOfNotes(currencyList, "SEK" , 100);
+		
+		for(List<Currency> l : currencyMap.values() ) {
+			for(Currency c : l) {
+				System.out.format("DEBUG : %d",c.totalValue());				
+			}
+		}
+		
+		int test = getNumberOfNotes(currencyMap, "SEK" , 100);
 		System.out.format("Number of 100 SEK notes in box at start of day: %d", test);
 
 		System.out.println("\n\n----------- Now trying to add number of 100 SEK notes with 5000 -------------");
 
-		changeNumberOfNotes(currencyList, "SEK", 100, 5000);
+		changeNumberOfNotes(currencyMap, "SEK", 100, 5000);
 
-		test = getNumberOfNotes(currencyList, "SEK" , 100);
+		test = getNumberOfNotes(currencyMap, "SEK" , 100);
 		System.out.format("\nAfter adding: %d", test);
 
 		System.out.println("\n\n----------- Now trying to remove number of 100 SEK notes with 438 -------------");
 
-		if(!changeNumberOfNotes(currencyList, "SEK", 100, -438)) {
+		if(!changeNumberOfNotes(currencyMap, "SEK", 100, -438)) {
 			System.out.println("DEBUG, under 0 when trying to change.");
 		}
 
-		test = getNumberOfNotes(currencyList, "SEK" , 100);
+		test = getNumberOfNotes(currencyMap, "SEK" , 100);
 		System.out.format("\nAfter removing: %d", test);
 
 		storeItems("Test.ser", theBox);

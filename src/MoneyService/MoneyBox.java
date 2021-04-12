@@ -8,13 +8,13 @@ public class MoneyBox implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private final long id;
-	Map<String, List<Currency>> currencyList;
+	Map<String, List<Currency>> currencyMap;
 
 
-	public MoneyBox(long id, Map<String, List<Currency>> currencyList) {
+	public MoneyBox(long id, Map<String, List<Currency>> currencyMap) {
 		super();
 		this.id = id;
-		this.currencyList = currencyList;
+		this.currencyMap = currencyMap;
 	}
 
 	void orderPickup(){
@@ -23,11 +23,11 @@ public class MoneyBox implements java.io.Serializable {
 	}
 	
 	public Map<String, List<Currency>> getCurrencyList() {
-		return currencyList;
+		return currencyMap;
 	}
 
 	public void setCurrencyList(Map<String, List<Currency>> currencyList) {
-		this.currencyList = currencyList;
+		this.currencyMap = currencyList;
 	}
 
 	public long getId() {
@@ -36,7 +36,7 @@ public class MoneyBox implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("MoneyBox [id=%s, currencyList=%s]", id, currencyList);
+		return String.format("MoneyBox [id=%s, currencyMap=%s]", id, currencyMap);
 	}
 
 
