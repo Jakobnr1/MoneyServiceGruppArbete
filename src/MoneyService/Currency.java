@@ -1,62 +1,50 @@
 package MoneyService;
 
-import java.util.EnumMap;
-import java.util.List;
+public class Currency implements java.io.Serializable {
 
-public class Currency {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 
-	private EnumMap<CurrencyName, List<Banknote>> currencieMap;
+	private final int denomination;
+	private int numberOfNotes;
 
-	public enum CurrencyName {
-		USD(0,0),
-		EUR(0,0),
-		SEK(1,1),
-		GBP(0,0);
-
-		private double sellRate;
-		private double byRate;
-
-		public void setSellRate(double sellRate) {
-			this.sellRate = sellRate;
-		}
-
-		public void setByRate(double byRate) {
-			this.byRate = byRate;
-		}
-
-		public double getSellRate() {
-			return sellRate;
-		}
-
-		public double getByRate() {
-			return byRate;
-		}
-
-		private CurrencyName(double sellRate, double byRate) {
-			this.sellRate = sellRate;
-			this.byRate = byRate;
-		}
-
+	public Currency(int denomination, int numberOfNotes) {
+		super();
+		this.denomination = denomination;
+		this.numberOfNotes = numberOfNotes;
 	}
 
-	public Currency(EnumMap<CurrencyName, List<Banknote>> currencieMap) {
-		this.currencieMap = currencieMap;
+	public int getNumberOfNotes() {
+		return numberOfNotes;
+	}
+	
+	public int totalValue() {
+		return (this.denomination*this.numberOfNotes);
 	}
 
-	public EnumMap<CurrencyName, List<Banknote>> getCurrencyMap() {
-		return currencieMap;
+	public boolean setNumberOfNotes(int numberOfNotes) {
+		int oldValue = this.numberOfNotes;
+		int tempValue = oldValue + numberOfNotes;
+		if(tempValue < 0) {
+			return false;
+		}
+		this.numberOfNotes = oldValue + numberOfNotes;
+		return true;
 	}
 
-	public void setCurrencyMap(EnumMap<CurrencyName, List<Banknote>> currencyMap) {
-		this.currencieMap = currencyMap;
-	}
-
+	public int getDenomination() {
+		return denomination;
+	} 
+	
 	@Override
 	public String toString() {
-		return String.format("Currency [currencyMap=%s]", currencieMap.values());
+		return String.format("Currency [denomination=%s, numberOfNotes=%s]", denomination, numberOfNotes);
 	}
-
-
-
+	
+	
 
 }

@@ -23,5 +23,4 @@ public class Config {
 		this.MAX_AMMOUNT = MAX_AMMOUNT;
 		return true;
 	}
-	
 }

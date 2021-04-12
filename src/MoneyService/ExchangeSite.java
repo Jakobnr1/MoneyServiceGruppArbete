@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import MoneyService.Currency.CurrencyName;
-
 public class ExchangeSite {
 
 	private final long id;
@@ -27,60 +25,7 @@ public class ExchangeSite {
 		
 	}
 	
-	public static boolean sellCurrency(EnumMap<CurrencyName, List<Banknote>> currencyList, String currencyToChange, int denomination, int newNumberOfNotes) {
-
-		boolean okChange = false;
-		Set<CurrencyName> currencysKeys = currencyList.keySet();
-
-		Iterator<CurrencyName> keyIter = currencysKeys.iterator();
-
-		while(keyIter.hasNext()) {
-			CurrencyName key= keyIter.next();
-			String temp=key.toString();
-
-			if(temp.equalsIgnoreCase(currencyToChange)) {
-				
-				for(int i=0; i<currencyList.get(key).size(); i++) {
-					if(currencyList.get(key).get(i).getDenomination() == denomination) { //Searching for correct denomination to change.
-						if(currencyList.get(key).get(i).setNumberOfNotes(newNumberOfNotes)) {//Updates the numberOfNotes 
-							return okChange = true;
-							
-						}
-						
-					}	
-				}
-			}
-		}
-		return okChange;
-	}
-	
-	public static boolean byCurrency(EnumMap<CurrencyName, List<Banknote>> currencyList, String currencyToChange, int denomination, int newNumberOfNotes) {
-
-		boolean okChange = false;
-		Set<CurrencyName> currencysKeys = currencyList.keySet();
-
-		Iterator<CurrencyName> keyIter = currencysKeys.iterator();
-
-		while(keyIter.hasNext()) {
-			CurrencyName key= keyIter.next();
-			String temp=key.toString();
-
-			if(temp.equalsIgnoreCase(currencyToChange)) {
-				
-				for(int i=0; i<currencyList.get(key).size(); i++) {
-					if(currencyList.get(key).get(i).getDenomination() == denomination) { //Searching for correct denomination to change.
-						if(currencyList.get(key).get(i).setNumberOfNotes(newNumberOfNotes)) {//Updates the numberOfNotes 
-							return okChange = true;
-							
-						}
-						
-					}	
-				}
-			}
-		}
-		return okChange;
-	}
-	
+		
 	public Map<String, Float> getExchangeRates() {
 		return exchangeRates;
 	}
