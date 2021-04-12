@@ -86,8 +86,12 @@ public class TestApp implements java.io.Serializable {
 		storeItems("Test.ser", theBox);
 
 		storeItemsTxt("Test.txt", theBox);
+		
+		storeRatesTxt("Rates.txt", theBox);
 
-		System.out.println("\n"+theBox.toString());
+			for(CurrencyName c : currencies) {
+			System.out.format("\nDEBUG: Currency: %s By rate: %f Sell rate: %f",c.name(), c.getByRate(), c.getSellRate());
+		}
 
 
 	}
@@ -146,6 +150,18 @@ public class TestApp implements java.io.Serializable {
 
 	}
 	
+	
+	public static void storeRatesTxt(String filename, MoneyBox theBox) {
+		
+		try(PrintWriter pw = new PrintWriter(new FileWriter(filename))){ 
+			pw.println("Rates: "+theBox.getCurrencyList().toString());
+			pw.println("TheBox: "+theBox.toString());
+		}
+		catch (IOException ioe) {
+			System.out.println("Exception occurred: " + ioe);
+		}
+
+	}
 	
 	//TESTAR med lite metoder:
 	

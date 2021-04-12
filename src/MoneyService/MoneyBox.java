@@ -5,8 +5,6 @@ import java.util.List;
            
 import MoneyService.Currency.CurrencyName;
 
-
-
 public class MoneyBox implements java.io.Serializable {
 
 	/**
@@ -28,8 +26,6 @@ public class MoneyBox implements java.io.Serializable {
 		
 	}
 	
-	
-
 	public EnumMap<CurrencyName, List<Banknote>> getCurrencyList() {
 		return currenieList;
 	}

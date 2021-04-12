@@ -53,7 +53,7 @@ public class Currency {
 
 	@Override
 	public String toString() {
-		return String.format("Currency [currencyMap=%s]", currencieMap);
+		return String.format("Currency [currencyMap=%s]", currencieMap.values());
 	}
 
 
