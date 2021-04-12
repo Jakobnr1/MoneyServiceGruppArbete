@@ -93,7 +93,7 @@ public class MoneyBox implements java.io.Serializable {
 	}
 
 
-	static void addCurrencyToBoxAtStartOfDay(List<Banknote> notes, EnumMap<CurrencyName, List<Banknote>> currencyTest, CurrencyName currancyType) {
+	public static void addCurrencyToBoxAtStartOfDay(List<Banknote> notes, EnumMap<CurrencyName, List<Banknote>> currencyTest, CurrencyName currancyType) {
 		Currency testingCurrency = new Currency(currencyTest);
 		testingCurrency.getCurrencyMap().putIfAbsent(currancyType,notes);
 	}
