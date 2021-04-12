@@ -90,7 +90,7 @@ public class TestApp implements java.io.Serializable {
 		storeRatesTxt("Rates.txt", theBox);
 
 			for(CurrencyName c : currencies) {
-			System.out.format("\nDEBUG: Currency: %s By rate: %f Sell rate: %f",c.name(), c.getByRate(), c.getSellRate());
+			System.out.format("\nDEBUG: Currency: %s Bying rate: %f Sell rate: %f",c.name(), c.getByRate(), c.getSellRate());
 		}
 
 
