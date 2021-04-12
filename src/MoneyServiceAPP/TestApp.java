@@ -1,4 +1,4 @@
-package MoneyService;
+package MoneyServiceAPP;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import MoneyService.Currency.CurrencyName;
 

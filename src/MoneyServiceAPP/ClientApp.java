@@ -1,4 +1,7 @@
-package MoneyService;
+package MoneyServiceAPP;
+
+import MoneyService.Order;
+import MoneyService.PayService;
 
 public class ClientApp {
 

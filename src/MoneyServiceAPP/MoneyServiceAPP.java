@@ -1,4 +1,4 @@
-package MoneyService;
+package MoneyServiceAPP;
 
 public class MoneyServiceAPP {
 
