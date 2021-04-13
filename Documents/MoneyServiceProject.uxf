@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>6</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>456</x>
-      <y>282</y>
-      <w>126</w>
-      <h>114</h>
+      <x>525</x>
+      <y>273</y>
+      <w>147</w>
+      <h>133</h>
     </coordinates>
     <panel_attributes>MoneyServiceApp
 --
@@ -22,91 +22,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>102</x>
-      <y>660</y>
-      <w>126</w>
-      <h>114</h>
-    </coordinates>
-    <panel_attributes>Config
---
-__MIN_AMMOUNT: Float__ 
-__MAX_AMMOUNT: int__ 
---
-
---
-Responsibilities
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1020</x>
-      <y>702</y>
-      <w>198</w>
-      <h>114</h>
-    </coordinates>
-    <panel_attributes>Rapport
---
--id: Long
--day:LocalDate
--dailyTransactions: List&lt;Transaction&gt;
---
-+Rapport(): ctor
-+addTransaction()
---
-Contains all transactions made during a session.
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>648</x>
-      <y>684</y>
-      <w>126</w>
-      <h>114</h>
-    </coordinates>
-    <panel_attributes>Notes
---
--Fiat: String
--denominations:List&lt;Integer&gt;
-Map&lt;String&gt;,List&lt;Notes&gt;&gt;
---
-+Currency(): ctor
---
-Responsibilities
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>264</x>
-      <y>432</y>
-      <w>126</w>
-      <h>114</h>
-    </coordinates>
-    <panel_attributes>Order
---
--id: Long
--date: LocalDate
-typeOfTransaction: enum(Sell, Buy, Split)
-orderFilled
---
-#Operation(i: int): int
-Order(): ctor
---
-Responsibilities</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>264</x>
-      <y>282</y>
-      <w>126</w>
-      <h>126</h>
+      <x>301</x>
+      <y>273</y>
+      <w>147</w>
+      <h>147</h>
     </coordinates>
     <panel_attributes>ClientAPP
 --
@@ -126,84 +45,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>456</x>
-      <y>432</y>
-      <w>150</w>
-      <h>144</h>
-    </coordinates>
-    <panel_attributes>Exchange-site
---
--id: Long
--exchangeRates: Map&lt;String, Float&gt;
---
-+Exchange_Site(): ctor
-+sellCurrency
-+buyCurrency
-+parseOrder()
-+updateBox()
-+queryBox()
-+sendReceipt()
---
-Responsibilities
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>834</x>
-      <y>684</y>
-      <w>126</w>
-      <h>144</h>
-    </coordinates>
-    <panel_attributes>MoneyServiceIO
---
--id: Long
--filename: String
--file: File
--folder: File
---
-+saveToTextFile()
-+saveToSerialized()
-+readFromTextFile()
-+readFromSerializedFile()
-+parseInfo()
-+parseConfig()
---
-Responsibilities
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>372</x>
-      <y>684</y>
-      <w>234</w>
-      <h>114</h>
-    </coordinates>
-    <panel_attributes>MoneyBox
---
--id: Long
--FreeContents: Map&lt;String,List&lt;Currency&gt;&gt;
--ReservedContents:Map&lt;String,List&lt;Currency&gt;&gt;
---
-+update()
-+orderPickup()
-+getNotes()
-+SaveBox() //Uses Timestamps(localdateTime)+Transaction.
---
-Responsibilities
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>612</x>
-      <y>282</y>
-      <w>126</w>
-      <h>114</h>
+      <x>1841</x>
+      <y>154</y>
+      <w>147</w>
+      <h>133</h>
     </coordinates>
     <panel_attributes>User
 --
@@ -222,24 +67,24 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>600</x>
-      <y>702</y>
-      <w>60</w>
-      <h>24</h>
+      <x>567</x>
+      <y>868</y>
+      <w>42</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>1...n
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>726</x>
-      <y>138</y>
-      <w>60</w>
-      <h>42</h>
+      <x>308</x>
+      <y>196</y>
+      <w>70</w>
+      <h>49</h>
     </coordinates>
-    <panel_attributes>First version: Date: 2021-04-07
+    <panel_attributes>First version: Date: 2021-04-13
 
 Project Manager = Jakob, 
 Sys Architect = Johannes, 
@@ -256,22 +101,22 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
-      <y>570</y>
-      <w>24</w>
-      <h>126</h>
+      <x>588</x>
+      <y>595</y>
+      <w>28</w>
+      <h>161</h>
     </coordinates>
     <panel_attributes>1
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;190.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>60</x>
-      <y>282</y>
-      <w>126</w>
-      <h>114</h>
+      <x>1855</x>
+      <y>0</y>
+      <w>147</w>
+      <h>133</h>
     </coordinates>
     <panel_attributes>PayService
 --
@@ -284,48 +129,12 @@ Responsibilities
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>180</x>
-      <y>294</y>
-      <w>96</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>1
-lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>978</x>
-      <y>276</y>
-      <w>210</w>
-      <h>114</h>
-    </coordinates>
-    <panel_attributes>CustomerDatabase
---
--id: Long
-dailyTransactions: List&lt;Transaction&gt;
-customerInfoHistory: Map&lt;String,List&lt;Transaction&gt;&gt;
-customerOrderHistory: Map&lt;String, List&lt;Order&gt;&gt;
---
-+CustomerDatabase(): ctor
-+Export()
-+Import()
-+SearchDataBase():Boolean // tips: Switch + Namn, orderID,TransactionsID,Belopp, Currency.
---
-Responsibilities
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>456</x>
-      <y>132</y>
-      <w>126</w>
-      <h>114</h>
+      <x>1848</x>
+      <y>315</y>
+      <w>147</w>
+      <h>133</h>
     </coordinates>
     <panel_attributes>GUI
 --
@@ -339,10 +148,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>324</x>
-      <y>402</y>
-      <w>18</w>
-      <h>42</h>
+      <x>371</x>
+      <y>413</y>
+      <w>21</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
@@ -350,280 +159,351 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>390</y>
-      <w>18</w>
-      <h>54</h>
+      <x>581</x>
+      <y>399</y>
+      <w>21</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>384</x>
-      <y>462</y>
-      <w>84</w>
-      <h>18</h>
+      <x>441</x>
+      <y>525</y>
+      <w>105</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>240</y>
-      <w>18</w>
-      <h>54</h>
+      <x>791</x>
+      <y>399</y>
+      <w>21</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>546</x>
-      <y>402</y>
-      <w>288</w>
-      <h>42</h>
+      <x>644</x>
+      <y>595</y>
+      <w>511</w>
+      <h>161</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>460.0;10.0;460.0;30.0;10.0;30.0;10.0;50.0</additional_attributes>
+    <additional_attributes>710.0;210.0;710.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>558</x>
-      <y>570</y>
-      <w>492</w>
-      <h>144</h>
+      <x>616</x>
+      <y>595</y>
+      <w>224</w>
+      <h>161</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>800.0;220.0;800.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>300.0;210.0;300.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>534</x>
-      <y>570</y>
-      <w>384</w>
-      <h>126</h>
+      <x>189</x>
+      <y>595</y>
+      <w>399</w>
+      <h>161</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>620.0;190.0;620.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>534</x>
-      <y>390</y>
-      <w>156</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;30.0;240.0;30.0;240.0;10.0</additional_attributes>
+    <additional_attributes>10.0;210.0;10.0;120.0;550.0;120.0;550.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>264</x>
-      <y>132</y>
-      <w>126</w>
-      <h>114</h>
+      <x>2016</x>
+      <y>210</y>
+      <w>385</w>
+      <h>217</h>
     </coordinates>
-    <panel_attributes>GUI
+    <panel_attributes>MoneyService::CustomerDataBase
 --
-
+-id: long
+~dailyTransactions: List&lt;Transaction&gt;
+~customerInfoHistory: Map&lt;String, List&lt;Transaction&gt;&gt;
+~customerOrderHistory: Map&lt;String, List&lt;Order&gt;&gt;
 --
-
++CustomerDataBase(long id, List&lt;Transaction&gt; dailyTransactions, Map&lt;String, List&lt;Transaction&gt;&gt; customerInfoHistory, Map&lt;String, List&lt;Order&gt;&gt; customerOrderHistory): ctor
++Export(): void
++Import(): void
++getDailyTransactions(): List&lt;Transaction&gt;
++setDailyTransactions(List&lt;Transaction&gt; dailyTransactions): void
++getCustomerInfoHistory(): Map&lt;String, List&lt;Transaction&gt;&gt;
++setCustomerInfoHistory(Map&lt;String, List&lt;Transaction&gt;&gt; customerInfoHistory): void
++getCustomerOrderHistory(): Map&lt;String, List&lt;Order&gt;&gt;
++setCustomerOrderHistory(Map&lt;String, List&lt;Order&gt;&gt; customerOrderHistory): void
++getId(): long
++toString(): String
 --
-
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2030</x>
+      <y>0</y>
+      <w>294</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>MoneyService::Customer
+--
+-id: long
+-Name: String
+-email: String
+-mobileNo: int
+--
++Customer(long id, String name, String email, int mobileNo): ctor
++setEmail(String email): void
++setMobileNo(int mobileNo): void
++getId(): long
++getName(): String
++getEmail(): String
++getMobileNo(): int
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>161</x>
+      <y>448</y>
+      <w>287</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>MoneyService::Order
+--
+-TransactionType: typeOfTransaction
+-id = 1: long
+-orderId: long
+~date: LocalDate
+-value: int
+-currencyCode: String
+--
++Order(int value, String currencyCode, String Transaction): ctor
++getOrderId(): long
++getValue(): int
++getTransactionType(): typeOfTransaction
++getCurrencyCode(): String
++getOrderDate(): LocalDate
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>742</y>
+      <w>259</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>MoneyService::MoneyServiceIO
+--
+~configFilename = "Config.txt": String
+~serializedDailyTransactionFilename = "DailyTransactions.ser": String
+~serializedCustomerDataBaseFilename = "CustomerDatabase.ser": String
+~textFormattedDailyTransactions = "DailyTransactions.txt": String
+--
++parseConfig(String StringToBeParsed): ExchangeRate
++readConfigTextFile(): boolean
++saveSerializedDailyTransactions(List&lt;Transaction&gt; listToBeSaved): boolean
++readSerializedDailyTransactionList(): List&lt;Transaction&gt;
++saveDailyTransactionListAsText(List&lt;Transaction&gt; dailyList): boolean
++saveSerializedCustomerDatabase(Map&lt;String, List&lt;Customer&gt;&gt; mapToBeSaved): boolean
++readSerializedCustomerDatabase(): Map&lt;String, List&lt;Customer&gt;&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>434</x>
+      <y>924</y>
+      <w>245</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>MoneyService::Currency
+--
+-serialVersionUID = 1L: long
+-denomination: int
+-numberOfNotes: int
+--
++Currency(int denomination, int numberOfNotes): ctor
++getNumberOfNotes(): int
++totalValue(): int
++setNumberOfNotes(int numberOfNotes): boolean
++getDenomination(): int
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1113</x>
+      <y>742</y>
+      <w>336</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>MoneyService::Rapport
+--
+-id: long
+~day: LocalDate
+~dailyTransaction: List&lt;Transaction&gt;
+--
++Rapport(long id, LocalDate day, List&lt;Transaction&gt; dailyTransaction): ctor
++getDay(): LocalDate
++setDay(LocalDate day): void
++getDailyTransaction(): List&lt;Transaction&gt;
++setDailyTransaction(List&lt;Transaction&gt; dailyTransaction): void
++getId(): long
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>742</y>
+      <w>343</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>MoneyService::Config
+--
+-MIN_AMMOUNT = 1: int
+-MAX_AMMOUNT = 2000: int
++exchangeRateList = new ArrayList&lt;ExchangeRate&gt;(): List&lt;ExchangeRate&gt;
+--
++getExchangeRateList(): List&lt;ExchangeRate&gt;
++setMIN_AMMOUNT(int MIN_AMMOUNT): boolean
++setMAX_AMMOUNT(int MAX_AMMOUNT): boolean
++getMIN_AMMOUNT(): int
++getMAX_AMMOUNT(): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>532</x>
+      <y>469</y>
+      <w>294</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>MoneyService::ExchangeSite
+--
+-id: long
+~exchangeRates: Map&lt;String, Float&gt;
+--
++ExchangeSite(long id, Map&lt;String, Float&gt; exchangeRates): ctor
++parseOrder(): boolean
++getExchangeRates(): Map&lt;String, Float&gt;
++setExchangeRates(Map&lt;String, Float&gt; exchangeRates): void
++getId(): long
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>385</x>
+      <y>742</y>
+      <w>315</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>MoneyService::MoneyBox
+--
+-serialVersionUID = 1L: long
+-id: long
+~currencyMap: Map&lt;String, List&lt;Currency&gt;&gt;
+--
++MoneyBox(long id, Map&lt;String, List&lt;Currency&gt;&gt; currencyMap): ctor
+~orderPickup(): void
++getCurrencyList(): Map&lt;String, List&lt;Currency&gt;&gt;
++getId(): long
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>735</x>
+      <y>273</y>
+      <w>273</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>MoneyService::Transaction
+--
+-id: long
+~date: LocalDate
+~customer: String
+--
++Transaction(long id, LocalDate date, String customer): ctor
++getCustomer(): String
++setCustomer(String customer): void
++getId(): long
++getDate(): LocalDate
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>924</x>
+      <y>469</y>
+      <w>266</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>MoneyService::ExchangeRate
+--
+~currencyName: String
+~exchangeRate: float
+--
++ExchangeRate(String currency, float exchangeRate): ctor
++getName(): String
++setName(String currencyName): boolean
++getExchangeRate(): float
++setExchangeRate(float rate): boolean
+--
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>240</y>
-      <w>18</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>756</x>
-      <y>282</y>
-      <w>186</w>
-      <h>126</h>
-    </coordinates>
-    <panel_attributes>Transaction
---
--id: Long
--dateTime: LocalDateTime
--customer: String
--orderNumber:int
--type:Purchase/Sale
--exchangeRate
--contentsOfOrder: List&lt;Notes&gt;
--PaymentRecieved:Bool
---
-+Transaction(Order order, CustomerInfo c): ctor
---
-Responsibilities</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>168</x>
-      <y>570</y>
-      <w>342</w>
-      <h>102</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;150.0;10.0;100.0;550.0;100.0;550.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>600</x>
-      <y>324</y>
-      <w>390</w>
-      <h>132</h>
+      <x>819</x>
+      <y>518</y>
+      <w>119</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>1
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>630.0;10.0;590.0;10.0;590.0;200.0;10.0;200.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1230</x>
-      <y>258</y>
-      <w>126</w>
-      <h>114</h>
-    </coordinates>
-    <panel_attributes>Customer
---
--id: Long
--Name:String
--IdentityVerified:Boolean
--systemStatus: user
-
-_-ClassAttribute: Long_
---
-+Customer(): ctor
---
-Responsibilities
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>318</x>
-      <y>96</y>
-      <w>954</w>
-      <h>174</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0;1570.0;10.0;1570.0;270.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1182</x>
-      <y>300</y>
-      <w>60</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>0...n
-lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>648</x>
-      <y>834</y>
-      <w>126</w>
-      <h>114</h>
-    </coordinates>
-    <panel_attributes>Notes::Enum
---
--id: Long
-_-ClassAttribute: Long_
---
-#Operation(i: int): int
-/+AbstractOperation()/
---
-Responsibilities
--- Resp1
-*-- Resp2*</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>702</x>
-      <y>792</y>
-      <w>18</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>774</x>
-      <y>870</y>
-      <w>84</w>
-      <h>42</h>
-    </coordinates>
-    <panel_attributes>Note..
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>420</x>
-      <y>804</y>
-      <w>84</w>
-      <h>42</h>
-    </coordinates>
-    <panel_attributes>Note..
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>672</x>
-      <y>642</y>
-      <w>84</w>
-      <h>42</h>
-    </coordinates>
-    <panel_attributes>Justeras
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>618</x>
-      <y>462</y>
-      <w>84</w>
-      <h>42</h>
-    </coordinates>
-    <panel_attributes>ExchangeRates finns
-bg=blue</panel_attributes>
-    <additional_attributes/>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>
