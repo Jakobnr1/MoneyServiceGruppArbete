@@ -4,10 +4,10 @@ public class ExchangeRate {
 
 	//Attributes
 	String currencyName;
-	float exchangeRate;
+	Float exchangeRate;
 	//Constructor
 	
-	public ExchangeRate(String currency, float exchangeRate) {
+	public ExchangeRate(String currency, Float exchangeRate) {
 		this.currencyName= currency;
 		this.exchangeRate = exchangeRate;
 	}
@@ -20,10 +20,10 @@ public class ExchangeRate {
 		this.currencyName = currencyName.trim();
 		return true;
 	}
-	public float getExchangeRate() {
+	public Float getExchangeRate() {
 		return this.exchangeRate;
 	}
-	public boolean setExchangeRate(float rate) {
+	public boolean setExchangeRate(Float rate) {
 		this.exchangeRate = rate;
 		return true;
 	}
