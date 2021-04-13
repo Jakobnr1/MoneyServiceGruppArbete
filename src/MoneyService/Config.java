@@ -10,17 +10,27 @@ public class Config {
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
 	
 	//Methods
-	public List<ExchangeRate> getExchangeRateList(){
-		return this.exchangeRateList;
+	public static List<ExchangeRate> getExchangeRateList(){
+		return exchangeRateList;
 	}
 	
-	public boolean setMIN_AMMOUNT(int MIN_AMMOUNT) {
-		this.MIN_AMMOUNT = MIN_AMMOUNT;
+	public static boolean setMIN_AMMOUNT(int MIN_AMMOUNT) {
+		MIN_AMMOUNT = MIN_AMMOUNT;
 		return true;
 	}
 	
-	public boolean setMAX_AMMOUNT(int MAX_AMMOUNT) {
-		this.MAX_AMMOUNT = MAX_AMMOUNT;
+	public static boolean setMAX_AMMOUNT(int MAX_AMMOUNT) {
+		MAX_AMMOUNT = MAX_AMMOUNT;
 		return true;
 	}
+
+	
+	public static int getMIN_AMMOUNT() {
+		return MIN_AMMOUNT;
+	}
+
+	public static int getMAX_AMMOUNT() {
+		return MAX_AMMOUNT;
+	}
+
 }
