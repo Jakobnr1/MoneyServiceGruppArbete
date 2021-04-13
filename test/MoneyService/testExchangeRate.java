@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class testExchangeRate {
 
-	Float rate = (float) 4.50;
+	float rate = (float) 4.50;
 	ExchangeRate x = new ExchangeRate("GBP/JPY", rate);
 	
 	@Test
