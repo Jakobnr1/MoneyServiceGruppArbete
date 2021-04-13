@@ -84,7 +84,7 @@ public class TestCurrency {
 	}
 	
 	@Test
-	public void toStrinTest() {
+	public void toStringTest() {
 		Currency c = new Currency(100, 50);
 		
 		String test= c.toString();

@@ -48,4 +48,25 @@ public class TestMoneyBox {
 		assertEquals(testBox.getId(),999);
 	}
 	
+	@Test
+	public void toStringTest() {
+		Map<String, List<Currency>> currencyMap = new TreeMap<String, List<Currency>>();
+		MoneyBox testBox = new MoneyBox(999, currencyMap);
+		
+String currencyName = "SEK";
+		
+		List<Currency> testList = new ArrayList<Currency>();
+		Currency[] myCurrencyList =new Currency[1];
+		myCurrencyList[0] = new Currency(50,100);
+					
+		for(Currency c: myCurrencyList) {
+			testList.add(c);
+		}
+		currencyMap.putIfAbsent(currencyName, testList);	
+
+		String test = testBox.toString();
+				
+		assertEquals(test, "MoneyBox [id=999, currencyMap={SEK=[Currency [denomination=50, numberOfNotes=100]]}]");
+	}
+	
 }
