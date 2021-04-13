@@ -29,7 +29,7 @@ public class MoneyServiceIO {
 		String[] parts = StringToBeParsed.split("=");
 		Float rate = Float.parseFloat(parts[1].trim());
 		ExchangeRate parsed = new ExchangeRate(parts[0].trim(),rate);
-		if(parsed.currencyName != null && parsed.exchangeRate != 0) {
+		if(parsed.currencyName != null && parsed.exchangeRate != null) {
 			return parsed;
 		}
 		else {
