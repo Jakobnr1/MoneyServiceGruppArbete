@@ -26,10 +26,7 @@ public class MoneyBox implements java.io.Serializable {
 		return currencyMap;
 	}
 
-	public void setCurrencyList(Map<String, List<Currency>> currencyList) {
-		this.currencyMap = currencyList;
-	}
-
+	
 	public long getId() {
 		return id;
 	}
