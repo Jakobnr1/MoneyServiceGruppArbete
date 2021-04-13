@@ -14,6 +14,8 @@ public class Currency implements java.io.Serializable {
 
 	public Currency(int denomination, int numberOfNotes) {
 		super();
+		if(denomination < 0) denomination = 0;
+		if(numberOfNotes < 0) numberOfNotes =0;
 		this.denomination = denomination;
 		this.numberOfNotes = numberOfNotes;
 	}

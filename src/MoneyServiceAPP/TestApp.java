@@ -29,7 +29,7 @@ public class TestApp implements java.io.Serializable {
 		Map<String, List<Currency>> currencyMap = new TreeMap<String, List<Currency>>();
 
 		//Creating the box
-		long boxId=22384;
+		long boxId=99999;
 		MoneyBox theBox = new MoneyBox(boxId, currencyMap);
 
 		String[] currencyToUse = {"SEK","EUR","GPB","USD"};
@@ -105,7 +105,7 @@ public class TestApp implements java.io.Serializable {
 	public static void storeItemsTxt(String filename, MoneyBox theBox) {
 
 		try(PrintWriter pw = new PrintWriter(new FileWriter(filename))){ 
-			pw.println("TheBox: "+theBox.getCurrencyList().entrySet().toString());
+			pw.println("TheBox: "+theBox.toString());
 		}
 		catch (IOException ioe) {
 			System.out.println("Exception occurred: " + ioe);
