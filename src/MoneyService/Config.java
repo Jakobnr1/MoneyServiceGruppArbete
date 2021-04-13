@@ -23,6 +23,7 @@ public class Config {
 		MAX_AMMOUNT = MAX_AMMOUNT;
 		return true;
 	}
+
 	
 	public static int getMIN_AMMOUNT() {
 		return MIN_AMMOUNT;
@@ -31,5 +32,5 @@ public class Config {
 	public static int getMAX_AMMOUNT() {
 		return MAX_AMMOUNT;
 	}
-	
+
 }
