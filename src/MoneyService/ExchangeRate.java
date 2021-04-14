@@ -28,4 +28,8 @@ public class ExchangeRate {
 		return true;
 	}
 	
+	@Override
+	public String toString() {
+		return "ExchangeRate [currencyName=" + currencyName + ", exchangeRate=" + exchangeRate + "]";
+	}
 }
