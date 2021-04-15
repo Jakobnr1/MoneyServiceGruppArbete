@@ -19,25 +19,15 @@ public class Currency implements java.io.Serializable {
 	public int getTotalValue() {
 		return totalValue;
 	}
-	//TODO;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//			  |	  |	
-	//			  |	  |
-	//			  |   |
-	//-----------------------------
-	//	\						/
-	//		\				/
-	//			\		/
-	//				\/
+	
+	
 	public boolean setTotalValue(int numberOfNotes) {
-//		int oldValue = this.totalValue;
-//		int tempValue = oldValue + numberOfNotes;
-//		if(tempValue < 0) {							TODO:!!!!!
-//			return false;							Check this???
-//TODO check if we can afford to buy/ sell and if false do not do the transaction
-//		}
-//		this.totalValue = oldValue + numberOfNotes;
-		this.totalValue = numberOfNotes;
-		if(totalValue < 0) return false;
+		int oldValue = this.totalValue;
+		int tempValue = oldValue + numberOfNotes;
+		if(tempValue < 0) {
+			return false;
+		}
+		this.totalValue = oldValue + numberOfNotes;
 		return true;
 	}
 
