@@ -21,19 +21,15 @@ public class Order {
 	private int value;
 	private String currencyCode;
 	
-	public static void main(String[] args){
-	
-		LocalDate oldDate = LocalDate.parse("2021-04-01");
-		
-		Order testOrder = new Order(5000, "SEK", typeOfTransaction.BUY,oldDate);
-	}
 
-	public Order(int value, String currencyCode,typeOfTransaction Transaction, LocalDate oldDate) {
+
+	public Order(int value, String currencyCode,typeOfTransaction Transaction) {
 		this.orderId = id++;
 		this.value = value;
 		this.currencyCode = currencyCode;
-		this.TransactionType = Transaction; //Needs 
-		this.date = oldDate;
+		this.TransactionType = Transaction;
+		this.date = LocalDate.parse(MoneyServiceIO.refDate);
+
 	}
 
 	/**
@@ -71,18 +67,29 @@ public class Order {
 		return date;
 	}
 
-
+	/**
+	 * 
+	 */
 	@Override
 	public String toString() {
 		return String.format("OrderData [id= %s, timeStamp=%s, currencyCode=%s, amount= %d, mode= %s ]",
 				this.orderId, this.date, this.currencyCode, this.value, this.TransactionType);
 	}
+	
+	/**
+	 * TODO add function to return the cost of the amount bought
+	 */
+	public int calculatePrice(String currencyCode, int amount, List<ExchangeRate> currencyList) {
+		
+		int cost = 2;
+		return cost;
+	}
 
 	/**
-	 * 
+	 * TODO fix randomize currency and buy/sell
 	 */
-	public List<Order> generateDailyOrder() {
-		LocalDate oldDate = LocalDate.parse("2021-04-01");
+
+	public List<Order> generateDailyOrder(List<ExchangeRate> tempCurrencies ) {
 		Random rd = new Random();
 		List<Order> tempList = new ArrayList<Order>(25);
         List<Integer> tempValues = new ArrayList<Integer>(25);
@@ -100,7 +107,9 @@ public class Order {
 				i--;
 
 		}
-		tempValues.forEach((d) -> tempList.add(new Order(d, "EUR", typeOfTransaction.BUY, oldDate)));
+		
+		tempValues.forEach((d) -> tempList.add(new Order(d, "EUR", typeOfTransaction.BUY)));	//Need Random 
+	
 
 		return tempList;
 	}
