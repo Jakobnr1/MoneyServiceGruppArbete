@@ -33,6 +33,13 @@ public class Order {
 
 
 	}
+	
+	/**
+	 * @author Johannes.
+	 */
+	
+	
+	
 
 	/**
 	 * @return the Order Id
