@@ -14,13 +14,13 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class ExchangeSite implements MoneyService {
-public ExchangeSite(long id, Map<String, List<Currency>> currencyMap) {
+	String name;
+	
+public ExchangeSite(String name, long id, Map<String, List<Currency>> currencyMap) {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-
-
 	/*
 //	private final long id;
 
@@ -55,6 +55,7 @@ public ExchangeSite(long id, Map<String, List<Currency>> currencyMap) {
 */
 
 	public Map<String,Double> tempMap;
+	
 
 // Doublecheck this/test
 	@Override
