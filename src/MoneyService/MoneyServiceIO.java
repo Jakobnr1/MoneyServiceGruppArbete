@@ -27,6 +27,8 @@ public class MoneyServiceIO {
 	static String serializedCustomerDataBaseFilename = "CustomerDatabase.ser";
 	static String textFormattedDailyTransactions = "DailyTransactions.txt";
 	static String referenceCurrency;
+	public static LocalDate refDate;
+	
 
 	
 	/**
@@ -43,7 +45,10 @@ public class MoneyServiceIO {
 			for(String s:configParts) {
 				s=s.trim();
 			}
-			MoneyServiceIO.currencyConfigFilename = configParts[1];
+			MoneyServiceIO.currencyConfigFilename = configParts[1].trim();
+			String[] dateParts = configParts[1].split("_");
+			String[] dateParts2 = dateParts[1].split("\\.");
+			MoneyServiceIO.refDate = LocalDate.parse(dateParts2[0].trim());
 		}
 		Stream<String> currencyStream = listToBeParsed.stream().skip(2);
 		Iterator<String> currencyIterator = currencyStream.iterator();
