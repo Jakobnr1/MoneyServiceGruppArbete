@@ -47,5 +47,4 @@ public class ExchangeRate {
 	public String toString() {
 		return String.format("Date: %s, Currency: %s, Exchangerate: %3.4f", this.day.toString(),this.currencyName, this.exchangeRate);
 	}
-	
 }
