@@ -51,7 +51,7 @@ public class MoneyServiceIO {
 			String temp = currencyIterator.next();
 			if(!(temp.contains("End") || temp.contains("ReferenceCurrency"))){
 			String[] boxParts = temp.split("=");
-			currencyMap.putIfAbsent(boxParts[0].trim(), Integer.parseInt(boxParts[1].trim()));
+			currencyMap.putIfAbsent(boxParts[0].trim(), Integer.parseInt(boxParts[1].trim())); //TODO ändra type till currency
 		}
 		}
 		Stream<String> refString = listToBeParsed.stream().skip(2);
