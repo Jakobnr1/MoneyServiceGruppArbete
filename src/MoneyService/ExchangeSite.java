@@ -1,28 +1,43 @@
 package MoneyService;
 
+import java.util.ArrayList;
+
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-public class ExchangeSite {
+public class ExchangeSite implements MoneyService {
+public ExchangeSite(long id, Map<String, List<Currency>> currencyMap) {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 
-	private final long id;
-	Map<String,Float> exchangeRates;
+
+	/*
+//	private final long id;
+
+//	Map<String,Float> exchangeRates;
 	
 	public ExchangeSite(long id, Map<String, Float> exchangeRates) {
-		super();
-		this.id = id;
-		this.exchangeRates = exchangeRates;
+//		this.id = id;
+//		this.exchangeRates = exchangeRates;
 	}
 
 	
-	public static boolean parseOrder() {
+	public static boolean parseOrder(int value) {
+		
+		if(value>)
+		
 		
 		return false;
-		
-		
 	}
 	
 		
@@ -37,12 +52,69 @@ public class ExchangeSite {
 	public long getId() {
 		return id;
 	}
+*/
+
+	public Map<String,Double> tempMap;
+
+// Doublecheck this/test
+	@Override
+	public boolean buyMoney(Order orderData) throws IllegalArgumentException {
+		int value = orderData.getValue();
+		String currency = orderData.getCurrencyCode();
+		
+		Double totalCurrency = tempMap.get(currency);
+		
+		return (value>totalCurrency)?true : false;
+	}
+
+// Doublecheck this/test
+	@Override
+	public boolean sellMoney(Order orderData) throws IllegalArgumentException {
+		int value = orderData.getValue();
+		
+		String currency = orderData.getCurrencyCode();
+		
+		Double totalCurrency = tempMap.get(currency);
+		
+		return (value>totalCurrency)?true : false;
+	}
 
 	@Override
-	public String toString() {
-		return String.format("ExchangeSite [id=%s, exchangeRates=%s]", id, exchangeRates);
+	public void printSiteReport(String destination) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shutDownService(String destination) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public Map<String, Currency> getCurrencyMap() {
+		Map<String,Currency> tempMap = new TreeMap<>();
+		
+		return tempMap; 
+		}
+	
+	@Override
+	public Optional<Double> getAvailableAmount(String currencyCode) 
+	{
+		tempMap = MoneyBox.getCurrencyList();
+		if(true){
+			// TODO Add code for optional handling
+			return Optional.empty();
+		}
+		
+	else {
+		return Optional.empty(); 
+		}
 	}
 	
 	
-	
+//	@Override
+//	public String toString() {
+//		return String.format("ExchangeSite [id=%s, exchangeRates=%s]", id, exchangeRates);
+//	}
 }

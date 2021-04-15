@@ -8,44 +8,36 @@ public class Currency implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	
+	private int totalValue;
 
-	private final int denomination;
-	private int numberOfNotes;
-
-	public Currency(int denomination, int numberOfNotes) {
+	public Currency(int totalValue) {
 		super();
-		if(denomination < 0) denomination = 0;
-		if(numberOfNotes < 0) numberOfNotes =0;
-		this.denomination = denomination;
-		this.numberOfNotes = numberOfNotes;
+		if(totalValue < 0) totalValue =0;
+			this.totalValue = totalValue;
 	}
 
-	public int getNumberOfNotes() {
-		return numberOfNotes;
+	public int getTotalValue() {
+		return totalValue;
 	}
 	
-	public int totalValue() {
-		return (this.denomination*this.numberOfNotes);
-	}
-
-	public boolean setNumberOfNotes(int numberOfNotes) {
-		int oldValue = this.numberOfNotes;
+	
+	public boolean setTotalValue(int numberOfNotes) {
+		int oldValue = this.totalValue;
 		int tempValue = oldValue + numberOfNotes;
 		if(tempValue < 0) {
 			return false;
 		}
-		this.numberOfNotes = oldValue + numberOfNotes;
+		this.totalValue = oldValue + numberOfNotes;
 		return true;
 	}
 
-	public int getDenomination() {
-		return denomination;
-	} 
-	
+
+
 	@Override
 	public String toString() {
-		return String.format("Currency [denomination=%s, numberOfNotes=%s]", denomination, numberOfNotes);
-	}
+		return String.format("Currency [totalValue=%s]",totalValue);
+	} 
+	
 	
 	
 
