@@ -8,44 +8,46 @@ public class Currency implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	
+	private int totalValue;
 
-	private final int denomination;
-	private int numberOfNotes;
-
-	public Currency(int denomination, int numberOfNotes) {
+	public Currency(int totalValue) {
 		super();
-		if(denomination < 0) denomination = 0;
-		if(numberOfNotes < 0) numberOfNotes =0;
-		this.denomination = denomination;
-		this.numberOfNotes = numberOfNotes;
+		if(totalValue < 0) totalValue =0;
+			this.totalValue = totalValue;
 	}
 
-	public int getNumberOfNotes() {
-		return numberOfNotes;
+	public int getTotalValue() {
+		return totalValue;
 	}
-	
-	public int totalValue() {
-		return (this.denomination*this.numberOfNotes);
-	}
-
-	public boolean setNumberOfNotes(int numberOfNotes) {
-		int oldValue = this.numberOfNotes;
-		int tempValue = oldValue + numberOfNotes;
-		if(tempValue < 0) {
-			return false;
-		}
-		this.numberOfNotes = oldValue + numberOfNotes;
+	//TODO;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//			  |	  |	
+	//			  |	  |
+	//			  |   |
+	//-----------------------------
+	//	\						/
+	//		\				/
+	//			\		/
+	//				\/
+	public boolean setTotalValue(int numberOfNotes) {
+//		int oldValue = this.totalValue;
+//		int tempValue = oldValue + numberOfNotes;
+//		if(tempValue < 0) {							TODO:!!!!!
+//			return false;							Check this???
+//TODO check if we can afford to buy/ sell and if false do not do the transaction
+//		}
+//		this.totalValue = oldValue + numberOfNotes;
+		this.totalValue = numberOfNotes;
+		if(totalValue < 0) return false;
 		return true;
 	}
 
-	public int getDenomination() {
-		return denomination;
-	} 
-	
+
+
 	@Override
 	public String toString() {
-		return String.format("Currency [denomination=%s, numberOfNotes=%s]", denomination, numberOfNotes);
-	}
+		return String.format("Currency [totalValue=%s]",totalValue);
+	} 
+	
 	
 	
 
