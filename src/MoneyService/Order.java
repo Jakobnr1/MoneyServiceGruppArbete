@@ -7,16 +7,21 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Stream;
 
+
+
 public class Order {
 
 	public enum typeOfTransaction {SELL, BUY}
 
+	//id= date&id++
 	private typeOfTransaction TransactionType;
 	private static long id = 1;
 	private long orderId;
 	LocalDate date;
 	private int value;
 	private String currencyCode;
+	
+
 
 	public Order(int value, String currencyCode,typeOfTransaction Transaction) {
 		this.orderId = id++;
@@ -24,6 +29,7 @@ public class Order {
 		this.currencyCode = currencyCode;
 		this.TransactionType = Transaction;
 		this.date = LocalDate.parse(MoneyServiceIO.refDate);
+
 	}
 
 	/**
@@ -82,6 +88,7 @@ public class Order {
 	/**
 	 * TODO fix randomize currency and buy/sell
 	 */
+
 	public List<Order> generateDailyOrder(List<ExchangeRate> tempCurrencies ) {
 		Random rd = new Random();
 		List<Order> tempList = new ArrayList<Order>(25);
@@ -101,8 +108,8 @@ public class Order {
 
 		}
 		
-		
 		tempValues.forEach((d) -> tempList.add(new Order(d, "EUR", typeOfTransaction.BUY)));	//Need Random 
+	
 
 		return tempList;
 	}

@@ -16,7 +16,7 @@ public class TestApp implements java.io.Serializable {
 		Map<String, Currency> currencyMap = new TreeMap<String, Currency>();
 
 		long boxId=99999;
-		MoneyBox theBox = new MoneyBox(boxId, currencyMap);
+		MoneyBox theBox = new MoneyBox(currencyMap);
 		
 		Currency c1 = new Currency(10500);
 		Currency c2 = new Currency(50500);
@@ -43,9 +43,8 @@ public class TestApp implements java.io.Serializable {
 		}
 		
 		System.out.format("\nAfter removing: %d", currencyMap.get("SEK").getTotalValue());
-		
-		System.out.format("\nTheBox: %s", theBox.toString());
-		
+	
+			
 	}
 
 }
