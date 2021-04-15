@@ -15,7 +15,7 @@ public class TestMoneyBox {
 	public void creatingEmptyMoneyBox() {
 		Map<String, Currency> currencyMap = new TreeMap<String, Currency>();
 
-		MoneyBox testBox = new MoneyBox(0, currencyMap);		
+		MoneyBox testBox = new MoneyBox(currencyMap);		
 
 		assertNotNull(testBox);
 	}
@@ -23,7 +23,7 @@ public class TestMoneyBox {
 	@Test
 	public void creatingMoneyBox() {
 		Map<String, Currency> currencyMap = new TreeMap<String, Currency>();
-		MoneyBox testBox = new MoneyBox(0, currencyMap);
+		MoneyBox testBox = new MoneyBox(currencyMap);
 
 		String currencyName = "SEK";
 		Currency c= new Currency(5000);
@@ -33,28 +33,5 @@ public class TestMoneyBox {
 		assertNotNull(testBox);
 	}
 
-	@Test
-	public void getIdTest() {
-		Map<String, Currency> currencyMap = new TreeMap<String, Currency>();
-		MoneyBox testBox = new MoneyBox(999, currencyMap);
-
-		assertEquals(testBox.getId(),999);
-	}
-
-	@Test
-	public void toStringTest() {
-		Map<String, Currency> currencyMap = new TreeMap<String, Currency>();
-		MoneyBox testBox = new MoneyBox(999, currencyMap);
-
-
-		String currencyName = "SEK";
-		Currency c= new Currency(5000);
-
-		currencyMap.putIfAbsent(currencyName, c);	
-
-		String test = testBox.toString();
-
-		assertEquals(test, "MoneyBox [id=999, currencyMap={SEK=Currency [totalValue=5000]}]");
-	}
-
+	
 }
