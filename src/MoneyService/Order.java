@@ -28,7 +28,9 @@ public class Order {
 		this.value = value;
 		this.currencyCode = currencyCode;
 		this.TransactionType = Transaction;
-		this.date = LocalDate.parse(MoneyServiceIO.refDate);
+
+		this.date = MoneyServiceIO.refDate;
+
 
 	}
 
