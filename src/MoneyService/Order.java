@@ -7,23 +7,33 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Stream;
 
+
+
 public class Order {
 
 	public enum typeOfTransaction {SELL, BUY}
 
+	//id= date&id++
 	private typeOfTransaction TransactionType;
 	private static long id = 1;
 	private long orderId;
 	LocalDate date;
 	private int value;
 	private String currencyCode;
+	
+	public static void main(String[] args){
+	
+		LocalDate oldDate = LocalDate.parse("2021-04-01");
+		
+		Order testOrder = new Order(5000, "SEK", typeOfTransaction.BUY,oldDate);
+	}
 
-	public Order(int value, String currencyCode,typeOfTransaction Transaction) {
+	public Order(int value, String currencyCode,typeOfTransaction Transaction, LocalDate oldDate) {
 		this.orderId = id++;
 		this.value = value;
 		this.currencyCode = currencyCode;
 		this.TransactionType = Transaction; //Needs 
-		this.date = LocalDate.now();
+		this.date = oldDate;
 	}
 
 	/**
@@ -72,6 +82,7 @@ public class Order {
 	 * 
 	 */
 	public List<Order> generateDailyOrder() {
+		LocalDate oldDate = LocalDate.parse("2021-04-01");
 		Random rd = new Random();
 		List<Order> tempList = new ArrayList<Order>(25);
         List<Integer> tempValues = new ArrayList<Integer>(25);
@@ -89,7 +100,7 @@ public class Order {
 				i--;
 
 		}
-		tempValues.forEach((d) -> tempList.add(new Order(d, "EUR", typeOfTransaction.BUY)));
+		tempValues.forEach((d) -> tempList.add(new Order(d, "EUR", typeOfTransaction.BUY, oldDate)));
 
 		return tempList;
 	}

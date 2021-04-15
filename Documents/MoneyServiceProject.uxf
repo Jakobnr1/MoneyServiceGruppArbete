@@ -28,16 +28,15 @@ fontsize=10
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>750</x>
-      <y>390</y>
+      <x>680</x>
+      <y>330</y>
       <w>210</w>
       <h>190</h>
     </coordinates>
-    <panel_attributes>MoneyServiceApp
+    <panel_attributes>MoneyService
 --
 
 --
-+Main()
 --
 Responsibilities
 </panel_attributes>
@@ -103,21 +102,24 @@ lt=&lt;&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>440</x>
-      <y>280</y>
-      <w>100</w>
-      <h>70</h>
+      <x>300</x>
+      <y>60</y>
+      <w>220</w>
+      <h>210</h>
     </coordinates>
-    <panel_attributes>First version: Date: 2021-04-13
+    <panel_attributes>2021-04-15
 
-Project Manager = Jakob, 
-Sys Architect = Johannes, 
+Project Manager = Johannes, 
+Sys Architect = Karl, 
 Programmer = ALL.
-
-Second version: 2021-04-08
 
 Third version: 2021-04-12
 Checked functionality, added some notes for progress.
+
+Second version: 2021-04-08
+
+First version: Date: 2021-04-07
+
 
 style=wordwrap</panel_attributes>
     <additional_attributes/>
@@ -183,17 +185,6 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
-      <y>570</y>
-      <w>30</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>630</x>
       <y>750</y>
       <w>150</w>
@@ -206,12 +197,12 @@ Responsibilities
     <id>Relation</id>
     <coordinates>
       <x>1130</x>
-      <y>570</y>
-      <w>30</w>
-      <h>120</h>
+      <y>540</y>
+      <w>210</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+    <additional_attributes>190.0;10.0;10.0;130.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -477,8 +468,8 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1050</x>
-      <y>390</y>
+      <x>1230</x>
+      <y>360</y>
       <w>390</w>
       <h>190</h>
     </coordinates>
@@ -530,5 +521,94 @@ Responsibilities
     <panel_attributes>1
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>960</x>
+      <y>320</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>MoneyServiceApp
+--
+
+--
++Main()
+--
+Responsibilities
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1040</x>
+      <y>500</y>
+      <w>30</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1230</x>
+      <y>280</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Note..
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>280</x>
+      <y>350</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Note..
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1740</x>
+      <y>980</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Note..
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>970</x>
+      <y>250</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Note..
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>810</x>
+      <y>630</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Note..
+bg=blue</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
