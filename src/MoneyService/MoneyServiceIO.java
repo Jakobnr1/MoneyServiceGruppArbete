@@ -132,6 +132,26 @@ public class MoneyServiceIO {
 		saved = true;
 		return saved;
 	}
+	
+
+	/**
+	 * Saves a daily report in serialized form.
+	 * 
+	 * @param Rapport R which includes the unique daily FileName
+	 * @return Boolean true if successful.
+	 */
+	
+	public static boolean saveSerializedReport(Rapport r) {
+		boolean saved = false;
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(r.getUniqueFileName().trim()))){
+			oos.writeObject(r.getDailyTransaction());
+		}
+		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized daily transaction"+ioe.toString()));}
+		saved = true;
+		return saved;
+	}
+	
+	
 
 	/**
 	 * Reads Serialized daily transactions
