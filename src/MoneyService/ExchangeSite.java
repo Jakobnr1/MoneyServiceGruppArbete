@@ -14,7 +14,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class ExchangeSite implements MoneyService {
-	String name;
+	public static String name;
 	
 //public ExchangeSite(String name, long id, Map<String, List<Currency>> currencyMap) {
 //		super();
