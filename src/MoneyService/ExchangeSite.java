@@ -65,7 +65,7 @@ public class ExchangeSite implements MoneyService {
 		
 		int totalCurrency = MoneyBox.getCurrencyMap().get(currency).getTotalValue();
 		MoneyBox.getCurrencyMap().get(currency).setTotalValue(totalCurrency-value);
-		return (value>totalCurrency)?true : false;
+		return (value<totalCurrency)?true : false;
 	}
 
 // Doublecheck this/test
