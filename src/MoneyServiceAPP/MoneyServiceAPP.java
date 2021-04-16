@@ -6,33 +6,46 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
+import MoneyService.Currency;
 import MoneyService.ExchangeRate;
+import MoneyService.ExchangeSite;
+import MoneyService.MoneyBox;
 import MoneyService.MoneyServiceIO;
+import MoneyService.Order;
 import MoneyService.Transaction;
 import MoneyService.Order.typeOfTransaction;
 
 public class MoneyServiceAPP {
 	
 	public static void main(String[] args) {
+	
+		//Start the day, fill the box and set the rates.
 		
-		//MoneyServiceIO.readCurrencyConfigTextFiles("sdfkj");
+		ExchangeSite theSite = new ExchangeSite();
+		Map<String, Currency> currencyMap = new TreeMap<String, Currency>();
+		MoneyBox theBox = new MoneyBox(currencyMap);
+		List<ExchangeRate> rates = new ArrayList<ExchangeRate>();
+
+		fillTheMoneyBox(theBox, currencyMap);
 		
-		Map<String, Integer> testMap = new HashMap<String,Integer>(MoneyServiceIO.parseProjectConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.projectConfigFilename)));
+		rates=setTheRates();
 		
-		Set<String> keySet = testMap.keySet();
-		for(String k:keySet) {
-			System.out.println(k.toString());
-		}
+		//Creaeate a order
+		Order myOrder = new Order(500,"EUR", typeOfTransaction.BUY);
 		
-		
-		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.currencyConfigFilename)));
-		for(ExchangeRate er:test) {
-			System.out.println(er.toString());
-		}
-		
+		//TODO add function to return the cost of the amount bought
 		
 		List<Transaction> DailyTransactions = new ArrayList<>();
+	
+		//Pass the order to buyMoney, and put it in list of transactions. 
+		if(theSite.buyMoney(myOrder)) {
+			Transaction testTransaction = new Transaction(myOrder.getCurrencyCode(), myOrder.getValue(),myOrder.getTransactionType());
+			DailyTransactions.add(testTransaction);
+		}
+		
+		
 		
 		Transaction t1 = new Transaction("Eur", 3400, typeOfTransaction.BUY);
 		Transaction t2 = new Transaction("Eur", 5000, typeOfTransaction.SELL);
@@ -73,5 +86,24 @@ public class MoneyServiceAPP {
 
 	}
 	
+	public static List<ExchangeRate> setTheRates() {
+		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.currencyConfigFilename)));
+		for(ExchangeRate er:test) {
+			System.out.println(er.toString());
+		}		
+		return test;
+	}
+
+	public static MoneyBox fillTheMoneyBox(MoneyBox theBox, Map<String, Currency> currencyMap ) {
+		Map<String, Integer> testMap = new HashMap<String,Integer>(MoneyServiceIO.parseProjectConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.projectConfigFilename)));
+
+		Set<String> keySet = testMap.keySet();
+		for(String k:keySet) {
+			Currency tempCurrency = new Currency(testMap.get(k).intValue());
+			currencyMap.putIfAbsent(k, tempCurrency);
+			System.out.println(k.toString());
+		}
+		return theBox;
+	}
 
 }
