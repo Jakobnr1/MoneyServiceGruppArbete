@@ -7,7 +7,7 @@ import java.util.List;
 public class Rapport {
 
 	private final long id;
-	LocalDateTime day;
+	LocalDateTime day; //TODO
 	List<Transaction> dailyTransactions;
 	public static int uniqueId = 0;
 	public static String uniqueFilename;

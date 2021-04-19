@@ -10,6 +10,13 @@ public class ExchangeRate {
 	private Float exchangeRate;
 	
 	//Constructor
+	/**
+	 * @throws Illegalarg
+	 * @param day
+	 * @param scale
+	 * @param currency
+	 * @param price
+	 */
 	public ExchangeRate(LocalDate day, int scale, String currency, Float price) {
 		if(scale < 1 || price <0) {
 			throw new IllegalArgumentException(String.format("EchangeRate scale below 1"));

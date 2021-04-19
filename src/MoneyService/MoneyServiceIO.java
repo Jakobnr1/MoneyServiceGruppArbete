@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,10 +27,10 @@ public class MoneyServiceIO {
 	static String serializedDailyTransactionFilename = "DailyTransactions.ser";
 	static String serializedCustomerDataBaseFilename = "CustomerDatabase.ser";
 	static String textFormattedDailyTransactions = "DailyTransactions.txt";
-	static String referenceCurrency;
+	public static String referenceCurrency;
 	public static LocalDate refDate;
+	public static LocalDateTime LDT = LocalDateTime.now(); //TODO
 	
-
 	
 	/**
 	 * Parses the ProjectConfigFile
@@ -96,8 +97,12 @@ public class MoneyServiceIO {
 			String[] valueParts = parts[2].split(" ");
 			int scalar = Integer.parseInt(valueParts[0].trim());
 			Float price = Float.parseFloat(parts[3].trim());
+			try {
 			ExchangeRate er = new ExchangeRate(day,scalar,valueParts[1].trim(),price);
 			exchangeRateList.add(er);
+			}
+			catch(IllegalArgumentException ioe) {System.out.println(String.format("NO"));
+			};
 		}
 		return exchangeRateList;
 	}
@@ -159,10 +164,11 @@ public class MoneyServiceIO {
 	 * @return the list
 	 */
 
+	@SuppressWarnings("unchecked")
 	public static List<Transaction> readSerializedDailyTransactionList(String filename){
 		List<Transaction> transactionList = null;
 		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename.trim()))){
-			transactionList = (List<Transaction>)ois.readObject();
+			transactionList = (List<Transaction>) ois.readObject();
 		}
 		catch(IOException |ClassNotFoundException ioe) {System.out.println(String.format("Error when reading serialized daily transactions"+ioe.toString()));
 		}
