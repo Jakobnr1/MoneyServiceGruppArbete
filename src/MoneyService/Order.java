@@ -16,29 +16,29 @@ public class Order {
 	public enum TransactionMode {SELL, BUY}
 
 	private TransactionMode TransactionType;
-	private static long id = 1;
-	private long orderId;
-	LocalDate date;
+//	private static long id = 1;
+//	private long orderId;
+//	LocalDate date;
 	private int value;
 	private String currencyCode;
 	
 
 
 	public Order(int value, String currencyCode,TransactionMode Transaction) {
-		this.orderId = id++;
+//		this.orderId = id++;
 		this.value = value;
 		this.currencyCode = currencyCode;
 		this.TransactionType = Transaction;
-		this.date = MoneyServiceIO.refDate;
+//		this.date = MoneyServiceIO.refDate;
 
 	}
 
-	/**
-	 * @return the Order Id
-	 */
-	public long getOrderId() {
-		return orderId;
-	}
+//	/**
+//	 * @return the Order Id
+//	 */
+//	public long getOrderId() {
+//		return orderId;
+//	}
 
 	/**
 	 * @return the Order Value
@@ -61,20 +61,20 @@ public class Order {
 		return currencyCode;
 	}
 
-	/**
-	 * @return the Order Date
-	 */
-	public LocalDate getOrderDate() {
-		return date;
-	}
+//	/**
+//	 * @return the Order Date
+//	 */
+//	public LocalDate getOrderDate() {
+//		return date;
+//	}
 
 	/**
 	 * 
 	 */
 	@Override
 	public String toString() {
-		return String.format("OrderData [id= %s, timeStamp=%s, currencyCode=%s, amount= %d, mode= %s ]",
-				this.orderId, this.date, this.currencyCode, this.value, this.TransactionType);
+		return String.format("OrderData [currencyCode=%s, amount= %d, mode= %s ]",
+				this.currencyCode, this.value, this.TransactionType);
 	}
 	
 	/**
