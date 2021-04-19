@@ -83,8 +83,8 @@ public class ExchangeSite implements MoneyService {
 		int totalCurrency = MoneyBox.getCurrencyMap().get(currency).getTotalValue();
 		//TODO maybe change float to double?
 
-		float totalPrice = Order.calculatePrice(orderData.getCurrencyCode(), value, Currency.getExchangeRate(orderData.getCurrencyCode()));// TODO this method needs to be created if currency should hold exchange rates
-
+//		float totalPrice = Currency.calculatePrice(orderData.getCurrencyCode(), value, Currency.getExchangeRate(orderData.getCurrencyCode()));// TODO this method needs to be created if currency should hold exchange rates
+		float totalPrice = Currency.calculatePrice(orderData.getCurrencyCode(), value);
 		//		 float totalPrice = Order.calculatePrice(orderData.getCurrencyCode(), value, Config.getExchangeRateList());
 
 		return (totalPrice<totalCurrency)?true : false;
@@ -146,15 +146,15 @@ public class ExchangeSite implements MoneyService {
 		if(orderData.getTransactionType() == TransactionMode.BUY) {
 
 			MoneyBox.getCurrencyMap().get(currency).setTotalValue(totalCurrency-value);
-			float exRate = tempMap.get(refCurrency).getExchangeRate();
-			float total = value * exRate* 1.005F;
+			float exRate = tempMap.get(refCurrency).getSellRate(); //Changed to getSellRate() Karl
+			float total = value * exRate;//* 1.005F; //Have already calculated *1.005F in currency! Karl
 			//TODO correct round of Float to int..
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(totalRefCurrency + (int)total);
 			// TODO add transaction to list.
 			transactionList.add(new Transaction(orderData));
 		}else if(orderData.getTransactionType() == TransactionMode.SELL) {
 			MoneyBox.getCurrencyMap().get(currency).setTotalValue(totalCurrency+value);
-			float exRate = tempMap.get(currency).getExchangeRate();
+			float exRate = tempMap.get(currency).getBuyRate(); //Changed this to getBuyRate() Karl
 			float total = value * exRate* 0.995F;
 			//TODO correct round of Float to int..
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(totalRefCurrency - (int)total);
