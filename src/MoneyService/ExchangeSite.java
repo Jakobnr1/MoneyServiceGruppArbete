@@ -9,40 +9,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import MoneyService.MoneyServiceIO;
+import MoneyService.Order.TransactionMode;
 
 public class ExchangeSite implements MoneyService {
 	public static String name;
-	
+	public static List <Transaction> transactionList = new ArrayList<>();
+	private Rapport backupReport = new Rapport(LocalDateTime.now(), transactionList);
+
+
 	/*
 //public ExchangeSite(String name, long id, Map<String, List<Currency>> currencyMap) {
 //		super();
 //		// TODO Auto-generated constructor stub
 //	}
-	
+
 //	private final long id;
 
 //	Map<String,Float> exchangeRates;
-	
+
 	public ExchangeSite(long id, Map<String, Float> exchangeRates) {
 //		this.id = id;
 //		this.exchangeRates = exchangeRates;
 	}
 
-	
+
 	public static boolean parseOrder(int value) {
-		
+
 		if(value>)
-		
-		
+
+
 		return false;
 	}
-	
-		
+
+
 	public Map<String, Float> getExchangeRates() {
 		return exchangeRates;
 	}
@@ -55,72 +60,114 @@ public class ExchangeSite implements MoneyService {
 		return id;
 	}
 //	public Map<String,Double> tempMap;
-	
+
 	 */
 
-// Doublecheck this/test
+	// Doublecheck this/test
 	@Override
 	public boolean buyMoney(Order orderData) throws IllegalArgumentException {
 		int value = orderData.getValue();
 		String currency = orderData.getCurrencyCode();
-		
+
 		int totalCurrency = MoneyBox.getCurrencyMap().get(currency).getTotalValue();
-		MoneyBox.getCurrencyMap().get(currency).setTotalValue(totalCurrency-value);
+
 		return (value<totalCurrency)?true : false;
 	}
 
-// Doublecheck this/test
+	// Doublecheck this/test
 	@Override
 	public boolean sellMoney(Order orderData) throws IllegalArgumentException {
 		int value = orderData.getValue();
-		String currency = orderData.getCurrencyCode();
-		
+		String currency = MoneyServiceIO.getReferenceCurrency();
+
 		int totalCurrency = MoneyBox.getCurrencyMap().get(currency).getTotalValue();
-		MoneyBox.getCurrencyMap().get(currency).setTotalValue(totalCurrency+value);
-		return (value<totalCurrency)?true : false;
+		//TODO maybe change float to double?
+
+		float totalPrice = Order.calculatePrice(orderData.getCurrencyCode(), value, Currency.getExchangeRate(orderData.getCurrencyCode()));// TODO this method needs to be created if currency should hold exchange rates
+
+		//		 float totalPrice = Order.calculatePrice(orderData.getCurrencyCode(), value, Config.getExchangeRateList());
+
+		return (totalPrice<totalCurrency)?true : false;
 	}
 
 	@Override
 	public void printSiteReport(String destination) {
-		// TODO If destinion = syso call to printout metod 
-		//if dest cotains txt then call printout to txtfile  JOHANNES FILER 
-		
+
+		if(destination.contains("syso")) {
+			for(int i = 0; i < transactionList.size(); i++) {
+				System.out.println(transactionList.get(i));
+			}
+		}else if(destination.contains(".txt")) {
+			MoneyServiceIO.saveDailyTransactionListAsText(transactionList, backupReport.getUniqueFileName());
+		}
+
+
 	}
 
 	@Override
 	public void shutDownService(String destination) {
-		Rapport test = new Rapport(LocalDateTime.now(), List<Transaction>);
-		
-		MoneyServiceIO.saveDailyTransactionListAsText(List<Transaction>, test.getUniqueFileName());
-		
+
+		if(destination.contains(".txt")) {
+			MoneyServiceIO.saveDailyTransactionListAsText(transactionList, backupReport.getUniqueFileName());
+		}else if(destination.contains(".db")) {
+			MoneyServiceIO.saveSerializedDailyTransactions(transactionList, backupReport.getUniqueFileName());
+		}
 	}
-	
+
 	@Override
 	public Map<String, Currency> getCurrencyMap() {
-		Map<String,Currency> tempMap = new TreeMap<>();
-		
+		Map<String,Currency> tempMap = MoneyBox.getCurrencyMap();
+		// TODO do we need this?????
+
 		return tempMap; 
-		}
-	
+	}
+
 	@Override
 	public Optional<Double> getAvailableAmount(String currencyCode) 
 	{
-		tempMap = MoneyBox.getCurrencyMap();
-		if(true){
-			// TODO Add code for optional handling
-			return Optional.empty();
-		}
-		
-	else {
-		return Optional.empty(); 
+
+		Double temp= (double)MoneyBox.getCurrencyMap().get(currencyCode).getTotalValue();
+
+		if(temp != 0){//Should be null???? if null else = dead code
+
+			return Optional.of(temp);
+		}else {
+			return Optional.empty(); 
 		}
 	}
-	
-// TODO Add metod completeOrder (GO VOID) Return inte transaction | Add to a list?-> SWOSH
-// TODO getList<Transaction>
-	
-//	@Override
-//	public String toString() {
-//		return String.format("ExchangeSite [id=%s, exchangeRates=%s]", id, exchangeRates);
-//	}
+
+	public static void completeOrder(Order orderData) {
+		Map<String,Currency> tempMap = MoneyBox.getCurrencyMap();
+		int value = orderData.getValue();
+		String currency = orderData.getCurrencyCode();
+		String refCurrency = MoneyServiceIO.getReferenceCurrency();
+		int totalCurrency = MoneyBox.getCurrencyMap().get(currency).getTotalValue();
+		int totalRefCurrency = MoneyBox.getCurrencyMap().get(refCurrency).getTotalValue();
+		if(orderData.getTransactionType() == TransactionMode.BUY) {
+
+			MoneyBox.getCurrencyMap().get(currency).setTotalValue(totalCurrency-value);
+			float exRate = tempMap.get(refCurrency).getExchangeRate();
+			float total = value * exRate* 1.005F;
+			//TODO correct round of Float to int..
+			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(totalRefCurrency + (int)total);
+			// TODO add transaction to list.
+			transactionList.add(new Transaction(orderData));
+		}else if(orderData.getTransactionType() == TransactionMode.SELL) {
+			MoneyBox.getCurrencyMap().get(currency).setTotalValue(totalCurrency+value);
+			float exRate = tempMap.get(currency).getExchangeRate();
+			float total = value * exRate* 0.995F;
+			//TODO correct round of Float to int..
+			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(totalRefCurrency - (int)total);
+			// TODO add transaction to list.
+			transactionList.add(new Transaction(orderData));
+		}
+
+	}
+
+	public static List<Transaction> getTransactionList(){
+		return transactionList;
+	}
+
+
+
 }

@@ -32,6 +32,10 @@ public class MoneyServiceIO {
 	public static LocalDateTime LDT = LocalDateTime.now(); //TODO
 	
 	
+	public static String getReferenceCurrency() {
+		return referenceCurrency;
+	}
+
 	/**
 	 * Parses the ProjectConfigFile
 	 * @param listToBeParsed
