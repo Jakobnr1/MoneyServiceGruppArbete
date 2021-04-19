@@ -1,37 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <help_text>// Uncomment the following line to change the fontsize and font:
-fontsize=10
-// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-// Welcome to UMLet!
-//
-// Double-click on elements to add them to the diagram, or to copy them
-// Edit elements by modifying the text in this panel
-// Hold Ctrl to select multiple elements
-// Use Ctrl+mouse to select via lasso
-//
-// Use +/- or Ctrl+mouse wheel to zoom
-// Drag a whole relation at its central square icon
-//
-// Press Ctrl+C to copy the whole diagram to the system clipboard (then just paste it to, eg, Word)
-// Edit the files in the "palettes" directory to create your own element palettes
-//
-// Select "Custom Elements &gt; New..." to create new element types
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-
-// This text will be stored with each diagram;  use it for notes.</help_text>
-  <zoom_level>10</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>525</x>
+      <y>273</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>MoneyServiceApp
+--
+
+--
++Main()
+--
+Responsibilities
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>273</y>
+      <w>147</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>ClientAPP
+--
+-id: Long
+-PayService:Info
++Receipts:List&lt;Receipt&gt;
+--
++ClientAPP(): ctor
++chooseSite()
++showExchangeRates()
++createOrder()
+--
+Responsibilities
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1841</x>
+      <y>154</y>
+      <w>147</w>
+      <h>133</h>
+=======
       <x>2590</x>
       <y>220</y>
       <w>210</w>
       <h>190</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>User
 --
@@ -50,6 +74,16 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>567</x>
+      <y>868</y>
+      <w>42</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>1...n
+lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+=======
       <x>810</x>
       <y>1170</y>
       <w>50</w>
@@ -58,28 +92,35 @@ Responsibilities
     <panel_attributes>1...n
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
   </element>
   <element>
     <id>Text</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>308</x>
+      <y>196</y>
+      <w>70</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>First version: Date: 2021-04-13
+=======
       <x>260</x>
       <y>60</y>
       <w>220</w>
       <h>210</h>
     </coordinates>
     <panel_attributes>2021-04-16
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
 
-Project Manager = Johannes, 
-Sys Architect = Karl, 
+Project Manager = Jakob, 
+Sys Architect = Johannes, 
 Programmer = ALL.
-
-Third version: 2021-04-12
-Checked functionality, added some notes for progress.
 
 Second version: 2021-04-08
 
-First version: Date: 2021-04-07
-
+Third version: 2021-04-12
+Checked functionality, added some notes for progress.
 
 style=wordwrap</panel_attributes>
     <additional_attributes/>
@@ -87,6 +128,16 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>588</x>
+      <y>595</y>
+      <w>28</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>1
+lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
+=======
       <x>800</x>
       <y>810</y>
       <w>30</w>
@@ -95,14 +146,19 @@ style=wordwrap</panel_attributes>
     <panel_attributes>1
 lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;250.0</additional_attributes>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>1855</x>
+=======
       <x>2610</x>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
       <y>0</y>
-      <w>210</w>
-      <h>190</h>
+      <w>147</w>
+      <h>133</h>
     </coordinates>
     <panel_attributes>PayService
 --
@@ -117,10 +173,17 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>1848</x>
+      <y>315</y>
+      <w>147</w>
+      <h>133</h>
+=======
       <x>2600</x>
       <y>450</y>
       <w>210</w>
       <h>190</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>GUI
 --
@@ -134,10 +197,17 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>371</x>
+      <y>413</y>
+      <w>21</w>
+      <h>49</h>
+=======
       <x>490</x>
       <y>560</y>
       <w>30</w>
       <h>110</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
@@ -145,10 +215,28 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>581</x>
+      <y>399</y>
+      <w>21</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>441</x>
+      <y>525</y>
+      <w>105</w>
+      <h>21</h>
+=======
       <x>590</x>
       <y>750</y>
       <w>150</w>
       <h>30</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
@@ -156,6 +244,15 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>791</x>
+      <y>399</y>
+      <w>21</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+=======
       <x>1080</x>
       <y>530</y>
       <w>220</w>
@@ -163,14 +260,22 @@ Responsibilities
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>200.0;10.0;10.0;150.0</additional_attributes>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>644</x>
+      <y>595</y>
+      <w>511</w>
+      <h>161</h>
+=======
       <x>880</x>
       <y>810</y>
       <w>730</w>
       <h>270</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>710.0;250.0;710.0;130.0;10.0;130.0;10.0;10.0</additional_attributes>
@@ -178,10 +283,17 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>616</x>
+      <y>595</y>
+      <w>224</w>
+      <h>161</h>
+=======
       <x>840</x>
       <y>810</y>
       <w>320</w>
       <h>270</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>300.0;250.0;300.0;160.0;10.0;160.0;10.0;10.0</additional_attributes>
@@ -189,10 +301,17 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>189</x>
+      <y>595</y>
+      <w>399</w>
+      <h>161</h>
+=======
       <x>230</x>
       <y>810</y>
       <w>570</w>
       <h>270</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;250.0;10.0;160.0;550.0;160.0;550.0;10.0</additional_attributes>
@@ -200,10 +319,17 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>2016</x>
+      <y>210</y>
+      <w>385</w>
+      <h>217</h>
+=======
       <x>2840</x>
       <y>300</y>
       <w>550</w>
       <h>310</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>MoneyService::CustomerDataBase
 --
@@ -230,10 +356,14 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>2030</x>
+=======
       <x>2860</x>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
       <y>0</y>
-      <w>420</w>
-      <h>260</h>
+      <w>294</w>
+      <h>182</h>
     </coordinates>
     <panel_attributes>MoneyService::Customer
 --
@@ -269,6 +399,12 @@ lt=&lt;&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>161</x>
+      <y>448</y>
+      <w>287</w>
+      <h>182</h>
+=======
       <x>920</x>
       <y>400</y>
       <w>210</w>
@@ -362,6 +498,7 @@ bg=blue</panel_attributes>
       <y>650</y>
       <w>560</w>
       <h>240</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>Order
 --
@@ -388,10 +525,17 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>798</x>
+      <y>742</y>
+      <w>259</w>
+      <h>168</h>
+=======
       <x>1010</x>
       <y>1060</y>
       <w>430</w>
       <h>210</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>MoneyServiceIO
 --
@@ -416,10 +560,17 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>434</x>
+      <y>924</y>
+      <w>245</w>
+      <h>147</h>
+=======
       <x>1280</x>
       <y>630</y>
       <w>340</w>
       <h>180</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>ExchangeRate
 --
@@ -441,10 +592,17 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>1113</x>
+      <y>742</y>
+      <w>336</w>
+      <h>147</h>
+=======
       <x>1480</x>
       <y>1060</y>
       <w>350</w>
       <h>160</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>Rapport
 --
@@ -466,9 +624,15 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
+<<<<<<< HEAD
+      <y>742</y>
+      <w>343</w>
+      <h>133</h>
+=======
       <y>1060</y>
       <w>350</w>
       <h>150</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>Config
 --
@@ -488,16 +652,27 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>532</x>
+      <y>469</y>
+      <w>294</w>
+      <h>133</h>
+=======
       <x>1280</x>
       <y>380</y>
       <w>390</w>
       <h>160</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>Transaction
 --
 -id: long
+<<<<<<< HEAD
+~exchangeRates: Map&lt;String, Float&gt;
+=======
 ~date: LocalDate
 ~customer: String
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
 --
 +Transaction(long id, LocalDate date, String customer): ctor
 +getCustomer(): String
@@ -511,10 +686,17 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>385</x>
+      <y>742</y>
+      <w>315</w>
+      <h>133</h>
+=======
       <x>720</x>
       <y>680</y>
       <w>410</w>
       <h>140</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>ExchangeSite
 --
@@ -533,10 +715,17 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>735</x>
+      <y>273</y>
+      <w>273</w>
+      <h>133</h>
+=======
       <x>620</x>
       <y>360</y>
       <w>290</w>
       <h>140</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 MoneyService
@@ -555,10 +744,17 @@ MoneyService
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< HEAD
+      <x>924</x>
+      <y>469</y>
+      <w>266</w>
+      <h>126</h>
+=======
       <x>680</x>
       <y>1240</y>
       <w>300</w>
       <h>120</h>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
     </coordinates>
     <panel_attributes>Currency
 --
@@ -574,6 +770,18 @@ MoneyService
     <additional_attributes/>
   </element>
   <element>
+<<<<<<< HEAD
+    <id>Relation</id>
+    <coordinates>
+      <x>819</x>
+      <y>518</y>
+      <w>119</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>1
+lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+=======
     <id>UMLClass</id>
     <coordinates>
       <x>600</x>
@@ -614,5 +822,6 @@ MoneyService
 --
 </panel_attributes>
     <additional_attributes/>
+>>>>>>> d39c1abc69a03e30ebccd8b32cee91e8be7b0117
   </element>
 </diagram>

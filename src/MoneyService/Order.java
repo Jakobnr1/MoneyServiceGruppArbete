@@ -9,15 +9,13 @@ import java.util.Random;
 import java.util.function.IntSupplier;
 import java.util.stream.Stream;
 
-import affix.java.effective.streams.StreamPipe.typeOfTransaction;
-
 
 
 public class Order {
 
-	public enum typeOfTransaction {SELL, BUY}
+	public enum TransactionMode {SELL, BUY}
 
-	private typeOfTransaction TransactionType;
+	private TransactionMode TransactionType;
 	private static long id = 1;
 	private long orderId;
 	LocalDate date;
@@ -26,7 +24,7 @@ public class Order {
 	
 
 
-	public Order(int value, String currencyCode,typeOfTransaction Transaction) {
+	public Order(int value, String currencyCode,TransactionMode Transaction) {
 		this.orderId = id++;
 		this.value = value;
 		this.currencyCode = currencyCode;
@@ -52,7 +50,7 @@ public class Order {
 	/**
 	 * @return the Order TransactionType
 	 */
-	public typeOfTransaction getTransactionType(){
+	public TransactionMode getTransactionType(){
 		return TransactionType;
 	}
 
@@ -83,9 +81,9 @@ public class Order {
 	 * TODO add function to return the cost of the amount bought
 	 * Needs polish!
 	 */
-	public int calculatePrice(String currencyCode, int amount, List<ExchangeRate> currencyList) {
+	public float calculatePrice(String currencyCode, int amount, List<ExchangeRate> currencyList) {
 		Iterator<E> listIterator = currencyList.iterator();
-		int cost = 0;
+		float cost = 0;
 		while(listIterator.hasNext()) {
 			if(listIterator.next().getName().equals(currencyCode)) {
 				cost = (float)((float)amount*listIterator.getExchangeRate())*1.005;
@@ -94,14 +92,20 @@ public class Order {
 		return cost;
 	}
 
+	/**
+	 * Generates randomized Orders depending on the parameters sent in
+	 * @param tempCurrencies is the current Currencies available
+	 * @param amount is the amount of Orders the method returns
+	 * @return a List of Orders
+	 */
 
 	public List<Order> generateDailyOrder(List<ExchangeRate> tempCurrencies, int amount) {
 		Random rand = new Random();
 		List<Order> tempList = new ArrayList<Order>(amount);
         List<Integer> tempValues = new ArrayList<Integer>(amount); 
-		List<typeOfTransaction> tempTransactionTypes = new ArrayList<typeOfTransaction>(2);
-		tempTransactionTypes.add(typeOfTransaction.BUY);
-		tempTransactionTypes.add(typeOfTransaction.SELL);
+		List<TransactionMode> tempTransactionTypes = new ArrayList<TransactionMode>(2);
+		tempTransactionTypes.add(TransactionMode.BUY);
+		tempTransactionTypes.add(TransactionMode.SELL);
         
 		for(int i=0; i<amount; i++){
 			Stream<Integer> randomFilteredValues = 
