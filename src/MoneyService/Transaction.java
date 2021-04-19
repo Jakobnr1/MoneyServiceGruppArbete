@@ -3,7 +3,7 @@ package MoneyService;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import MoneyService.Order.typeOfTransaction;
+import MoneyService.Order.TransactionMode;
 
 public class Transaction implements Serializable {
 	
@@ -14,12 +14,12 @@ public class Transaction implements Serializable {
 	private final LocalDateTime timeStamp;
 	private final String currencyCode;
 	private final int amount;
-	private final typeOfTransaction mode; //TODO Has to be renamed in accordance with Transaction HQReq-spec
+	private final TransactionMode mode; //TODO Has to be renamed in accordance with Transaction HQReq-spec
 	private static int uniqueId = 0;
 	
 	//Constructor
 	
-	public Transaction(String currencyCode, int amount, typeOfTransaction mode) {
+	public Transaction(String currencyCode, int amount, TransactionMode mode) {
 		++uniqueId;
 		this.id = uniqueId;
 		this.timeStamp = LocalDateTime.now();
@@ -53,7 +53,7 @@ public class Transaction implements Serializable {
 		return this.amount;
 	}
 
-	public typeOfTransaction getMode() {
+	public TransactionMode getMode() {
 		return this.mode;
 	}
 
