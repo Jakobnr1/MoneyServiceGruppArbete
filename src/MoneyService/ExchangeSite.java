@@ -1,5 +1,6 @@
 package MoneyService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import java.util.Collections;
@@ -12,16 +13,17 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import MoneyService.MoneyServiceIO;
 
 public class ExchangeSite implements MoneyService {
 	public static String name;
 	
+	/*
 //public ExchangeSite(String name, long id, Map<String, List<Currency>> currencyMap) {
 //		super();
 //		// TODO Auto-generated constructor stub
 //	}
 	
-	/*
 //	private final long id;
 
 //	Map<String,Float> exchangeRates;
@@ -52,10 +54,9 @@ public class ExchangeSite implements MoneyService {
 	public long getId() {
 		return id;
 	}
-*/
-
 //	public Map<String,Double> tempMap;
 	
+	 */
 
 // Doublecheck this/test
 	@Override
@@ -81,13 +82,16 @@ public class ExchangeSite implements MoneyService {
 
 	@Override
 	public void printSiteReport(String destination) {
-		// TODO Auto-generated method stub
+		// TODO If destinion = syso call to printout metod 
+		//if dest cotains txt then call printout to txtfile  JOHANNES FILER 
 		
 	}
 
 	@Override
 	public void shutDownService(String destination) {
-		// TODO Auto-generated method stub
+		Rapport test = new Rapport(LocalDateTime.now(), List<Transaction>);
+		
+		MoneyServiceIO.saveDailyTransactionListAsText(List<Transaction>, test.getUniqueFileName());
 		
 	}
 	
@@ -101,7 +105,7 @@ public class ExchangeSite implements MoneyService {
 	@Override
 	public Optional<Double> getAvailableAmount(String currencyCode) 
 	{
-		tempMap = MoneyBox.getCurrencyList();
+		tempMap = MoneyBox.getCurrencyMap();
 		if(true){
 			// TODO Add code for optional handling
 			return Optional.empty();
@@ -112,6 +116,8 @@ public class ExchangeSite implements MoneyService {
 		}
 	}
 	
+// TODO Add metod completeOrder (GO VOID) Return inte transaction | Add to a list?-> SWOSH
+// TODO getList<Transaction>
 	
 //	@Override
 //	public String toString() {
