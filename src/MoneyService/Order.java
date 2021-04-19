@@ -2,10 +2,14 @@ package MoneyService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.IntSupplier;
 import java.util.stream.Stream;
+
+import affix.java.effective.streams.StreamPipe.typeOfTransaction;
 
 
 
@@ -28,7 +32,7 @@ public class Order {
 		this.value = value;
 		this.currencyCode = currencyCode;
 		this.TransactionType = Transaction;
-		this.date = LocalDate.parse(MoneyServiceIO.refDate);
+		this.date = MoneyServiceIO.refDate;
 
 	}
 
@@ -78,22 +82,29 @@ public class Order {
 	
 	/**
 	 * TODO add function to return the cost of the amount bought
+	 * Needs polish!
 	 */
 	public int calculatePrice(String currencyCode, int amount, List<ExchangeRate> currencyList) {
-		
-		int cost = 2;
+		Iterator<E> listIterator = currencyList.iterator();
+		int cost = 0;
+		while(listIterator.hasNext()) {
+			if(listIterator.next().getName().equals(currencyCode)) {
+				cost = (float)((float)amount*listIterator.getExchangeRate())*1.005;
+			}
+		}
 		return cost;
 	}
 
-	/**
-	 * TODO fix randomize currency and buy/sell
-	 */
 
-	public List<Order> generateDailyOrder(List<ExchangeRate> tempCurrencies ) {
-		Random rd = new Random();
-		List<Order> tempList = new ArrayList<Order>(25);
-        List<Integer> tempValues = new ArrayList<Integer>(25);
-		for(int i=0; i<25; i++){
+	public List<Order> generateDailyOrder(List<ExchangeRate> tempCurrencies, int amount) {
+		Random rand = new Random();
+		List<Order> tempList = new ArrayList<Order>(amount);
+        List<Integer> tempValues = new ArrayList<Integer>(amount); 
+		List<typeOfTransaction> tempTransactionTypes = new ArrayList<typeOfTransaction>(2);
+		tempTransactionTypes.add(typeOfTransaction.BUY);
+		tempTransactionTypes.add(typeOfTransaction.SELL);
+        
+		for(int i=0; i<amount; i++){
 			Stream<Integer> randomFilteredValues = 
 					Stream.generate(rd::nextInt)
 					.limit(250)
@@ -103,16 +114,17 @@ public class Order {
 
 			Optional<Integer> optionalHighValue = randomFilteredValues.findAny();
 			optionalHighValue.ifPresent(v -> tempValues.add(v));
-			if(tempValues.size()<25&&i==24)
+			if(tempValues.size()<amount&&i==(amount--))
 				i--;
-
 		}
 		
-		tempValues.forEach((d) -> tempList.add(new Order(d, "EUR", typeOfTransaction.BUY)));	//Need Random 
+		
+		tempValues.forEach((d) -> tempList.add(new Order(d,
+				tempCurrencies.get(rand.nextInt(tempCurrencies.size())),
+				tempTransactionTypes.get(rand.nextInt(tempTransactionTypes.size())))));	//Need Random 
 	
 
 		return tempList;
 	}
-
 
 }
