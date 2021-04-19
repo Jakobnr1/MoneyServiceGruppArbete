@@ -19,10 +19,11 @@ public class Transaction implements Serializable {
 	
 	//Constructor
 	
-	public Transaction(String currencyCode, int amount, TransactionMode mode) {
+	public Transaction(Order order) { //TODO
+
 		++uniqueId;
 		this.id = uniqueId;
-		this.timeStamp = LocalDateTime.now();
+		this.timeStamp = MoneyServiceIO.refDate; //TODO 
 		this.currencyCode = currencyCode;
 		this.amount = amount;
 		this.mode = mode;
