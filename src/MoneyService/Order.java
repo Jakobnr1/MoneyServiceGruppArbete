@@ -81,7 +81,8 @@ public class Order {
 	 * TODO add function to return the cost of the amount bought
 	 * Needs polish!
 	 */
-	public float calculatePrice(String currencyCode, int amount, List<ExchangeRate> currencyList) {
+	// Changed to static for now !!! TODO
+	public static float calculatePrice(String currencyCode, int amount, List<ExchangeRate> currencyList) {
 		Iterator<E> listIterator = currencyList.iterator();
 		float cost = 0;
 		while(listIterator.hasNext()) {

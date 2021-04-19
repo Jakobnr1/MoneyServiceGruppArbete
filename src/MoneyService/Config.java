@@ -7,6 +7,7 @@ public class Config {
 	//Attributes
 	private static int MIN_AMMOUNT = 1;
 	private static int MAX_AMMOUNT = 2000;
+
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
 	
 	//Methods
