@@ -17,7 +17,6 @@ public class Order {
 
 	public enum typeOfTransaction {SELL, BUY}
 
-	//id= date&id++
 	private typeOfTransaction TransactionType;
 	private static long id = 1;
 	private long orderId;

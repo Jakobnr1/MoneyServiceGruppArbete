@@ -14,13 +14,13 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class ExchangeSite implements MoneyService {
-public ExchangeSite(long id, Map<String, List<Currency>> currencyMap) {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public static String name;
 	
-
-
+//public ExchangeSite(String name, long id, Map<String, List<Currency>> currencyMap) {
+//		super();
+//		// TODO Auto-generated constructor stub
+//	}
+	
 	/*
 //	private final long id;
 
@@ -54,7 +54,8 @@ public ExchangeSite(long id, Map<String, List<Currency>> currencyMap) {
 	}
 */
 
-	public Map<String,Double> tempMap;
+//	public Map<String,Double> tempMap;
+	
 
 // Doublecheck this/test
 	@Override
@@ -62,21 +63,20 @@ public ExchangeSite(long id, Map<String, List<Currency>> currencyMap) {
 		int value = orderData.getValue();
 		String currency = orderData.getCurrencyCode();
 		
-		Double totalCurrency = tempMap.get(currency);
-		
-		return (value>totalCurrency)?true : false;
+		int totalCurrency = MoneyBox.getCurrencyMap().get(currency).getTotalValue();
+		MoneyBox.getCurrencyMap().get(currency).setTotalValue(totalCurrency-value);
+		return (value<totalCurrency)?true : false;
 	}
 
 // Doublecheck this/test
 	@Override
 	public boolean sellMoney(Order orderData) throws IllegalArgumentException {
 		int value = orderData.getValue();
-		
 		String currency = orderData.getCurrencyCode();
 		
-		Double totalCurrency = tempMap.get(currency);
-		
-		return (value>totalCurrency)?true : false;
+		int totalCurrency = MoneyBox.getCurrencyMap().get(currency).getTotalValue();
+		MoneyBox.getCurrencyMap().get(currency).setTotalValue(totalCurrency+value);
+		return (value<totalCurrency)?true : false;
 	}
 
 	@Override

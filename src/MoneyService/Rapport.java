@@ -1,42 +1,52 @@
 package MoneyService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Rapport {
 
 	private final long id;
-	LocalDate day;
-	List<Transaction> dailyTransaction;
+	LocalDateTime day;
+	List<Transaction> dailyTransactions;
+	public static int uniqueId = 0;
+	public static String uniqueFilename;
 	
-	public Rapport(long id, LocalDate day, List<Transaction> dailyTransaction) {
-		super();
-		this.id = id;
+	public Rapport(LocalDateTime day, List<Transaction> dailyTransactions) {
+		++uniqueId;
+		this.id = uniqueId;
 		this.day = day;
-		this.dailyTransaction = dailyTransaction;
+		this.dailyTransactions = dailyTransactions;
+		this.uniqueFilename = String.format("Report_%s_%s.ser",ExchangeSite.name.toString().trim(), day.toLocalDate());
 	}
 
-	public LocalDate getDay() {
+	public LocalDateTime getDay() {
 		return day;
 	}
 
-	public void setDay(LocalDate day) {
+	public void setDay(LocalDateTime day) {
 		this.day = day;
 	}
 
 	public List<Transaction> getDailyTransaction() {
-		return dailyTransaction;
+		return dailyTransactions;
 	}
 
 	public void setDailyTransaction(List<Transaction> dailyTransaction) {
-		this.dailyTransaction = dailyTransaction;
+		this.dailyTransactions = dailyTransaction;
 	}
 
 	public long getId() {
 		return id;
 	}
+
+	public String getUniqueFileName() {
+		return this.uniqueFilename;
+	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return String.format("Rapport [id=%s, day=%s, dailyTransactions=%s]", id, day, dailyTransactions);
+	}
 
 }
