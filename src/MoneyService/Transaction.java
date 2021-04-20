@@ -14,19 +14,22 @@ public class Transaction implements Serializable {
 	private final LocalDateTime timeStamp;
 	private final String currencyCode;
 	private final int amount;
-	private final TransactionMode mode; //TODO Has to be renamed in accordance with Transaction HQReq-spec
+	private final TransactionMode mode;
 	private static int uniqueId = 0;
 	
 	//Constructor
 	
-	public Transaction(Order order) { //TODO
-
+	public Transaction(Order order) {
+		this(order, LocalDateTime.now());
+	}
+	
+	public Transaction(Order order, LocalDateTime ref) {
 		++uniqueId;
 		this.id = uniqueId;
-		this.timeStamp = MoneyServiceIO.refDate; //TODO 
-		this.currencyCode = currencyCode;
-		this.amount = amount;
-		this.mode = mode;
+		this.currencyCode = order.getCurrencyCode();
+		this.amount = order.getValue();
+		this.mode = order.getTransactionType();
+		this.timeStamp = ref;
 	}
 	
 	//Methods

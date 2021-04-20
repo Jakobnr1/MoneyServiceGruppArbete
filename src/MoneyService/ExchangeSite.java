@@ -25,7 +25,6 @@ public class ExchangeSite implements MoneyService {
 	private static Map<String, Currency> currencyMap;
 	private static List<ExchangeRate> rates;	
 	
-
 		
 	public ExchangeSite(String Name) {
 		ExchangeSite.name = Name;
@@ -133,7 +132,7 @@ public class ExchangeSite implements MoneyService {
 
 	@Override
 	public void printSiteReport(String destination) {
-
+		backupReport = new Report(LocalDateTime.now(), transactionList);
 		if(destination.contains("syso")) {
 			for(int i = 0; i < transactionList.size(); i++) {
 				System.out.println(transactionList.get(i));
@@ -147,7 +146,7 @@ public class ExchangeSite implements MoneyService {
 
 	@Override
 	public void shutDownService(String destination) {
-
+		backupReport = new Report(LocalDateTime.now(), transactionList);
 		if(destination.contains(".txt")) {
 			MoneyServiceIO.saveDailyTransactionListAsText(transactionList, backupReport.getUniqueFileName());
 		}else if(destination.contains(".db")) {
@@ -211,4 +210,27 @@ public class ExchangeSite implements MoneyService {
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+public void setName(String name) {
+	ExchangeSite.name = name;
+}
+	
 }
