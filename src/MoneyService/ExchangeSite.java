@@ -20,14 +20,33 @@ import MoneyService.Order.TransactionMode;
 public class ExchangeSite implements MoneyService {
 	public static String name;
 	public static List <Transaction> transactionList = new ArrayList<>();
-	private Report backupReport = new Report(LocalDateTime.now(), transactionList);
+	private Report backupReport;
+	private static MoneyBox theBox;
+	private static Map<String, Currency> currencyMap;
+	private static List<ExchangeRate> rates;	
+	
 
-
+		
+	public ExchangeSite(String Name) {
+		ExchangeSite.name = Name;
+		backupReport = new Report(LocalDateTime.now(), transactionList);
+		ExchangeSite.currencyMap = new TreeMap<String, Currency>();
+		ExchangeSite.theBox= new MoneyBox(currencyMap);
+		ExchangeSite.rates = new ArrayList<ExchangeRate>();
+	}
+		
+	
+	
+	
+	public void startTheDay() {
+		Config.fillTheMoneyBox(ExchangeSite.theBox, ExchangeSite.currencyMap);
+		
+		ExchangeSite.rates = Config.setTheRates();
+		
+		Config.setRatesInCurrency(ExchangeSite.rates, currencyMap);
+	}
+	
 	/*
-//public ExchangeSite(String name, long id, Map<String, List<Currency>> currencyMap) {
-//		super();
-//		// TODO Auto-generated constructor stub
-//	}
 
 //	private final long id;
 
@@ -62,6 +81,10 @@ public class ExchangeSite implements MoneyService {
 //	public Map<String,Double> tempMap;
 
 	 */
+
+
+
+	
 
 	/**
 	 * Skip the one in Order and use this one instead to get price.

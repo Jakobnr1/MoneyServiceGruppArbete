@@ -95,7 +95,7 @@ public class Order {
         
 		for(int i=0; i<amount; i++){
 			Stream<Integer> randomFilteredValues = 
-					Stream.generate(rd::nextInt)
+					Stream.generate(rand::nextInt)
 					.limit(250)
 					.map(d -> d%2500)
 					.filter(d -> d>50)
@@ -109,7 +109,7 @@ public class Order {
 		
 		
 		tempValues.forEach((d) -> tempList.add(new Order(d,
-				tempCurrencies.get(rand.nextInt(tempCurrencies.size())),
+				tempCurrencies.get(rand.nextInt(tempCurrencies.size())).toString(),
 				tempTransactionTypes.get(rand.nextInt(tempTransactionTypes.size())))));	//Need Random 
 	
 

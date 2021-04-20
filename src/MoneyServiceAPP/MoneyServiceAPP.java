@@ -15,33 +15,44 @@ import MoneyService.ExchangeSite;
 import MoneyService.MoneyBox;
 import MoneyService.MoneyServiceIO;
 import MoneyService.Order;
+import MoneyService.Order.TransactionMode;
 import MoneyService.Transaction;
-import MoneyService.Rapport;
+import MoneyService.Report;
 
 public class MoneyServiceAPP {
 
 	public static void main(String[] args) {
 
 		
-		//TODO Create Menu system
+		//Starts the day
+		ExchangeSite theSite = new ExchangeSite("North");
+		theSite.startTheDay();
 
-		//Start the day, fill the box and set the rates.
-
-	//	ExchangeSite theSite = new ExchangeSite();
-		Map<String, Currency> currencyMap = new TreeMap<String, Currency>();
-		MoneyBox theBox = new MoneyBox(currencyMap);
-		List<ExchangeRate> rates = new ArrayList<ExchangeRate>();
-
-		Config.fillTheMoneyBox(theBox, currencyMap);
-
-		rates=Config.setTheRates();
-
-		Config.setRatesInCurrency(rates, currencyMap);
-		int price= ExchangeSite.calculatePrice("EUR", 500);
-//		Currency.getExchangeRate("EUR");
 		
-		//Creaeate a order
-//		Order myOrder = new Order(500,"EUR", typeOfTransaction.BUY);
+		//TODO Create Menu system
+		
+		// Show currencyList and exchangeRates
+		
+		// User input -> Buy/Sell , Currency , Amount
+		
+		// Show the price
+		int price= ExchangeSite.calculatePrice("EUR", 500);
+	
+		// OK input from user.
+				
+		// Create a order
+		Order myOrder = new Order(499,"EUR", TransactionMode.BUY);
+		
+		// 
+		if(myOrder.getTransactionType() == TransactionMode.BUY) {
+			theSite.buyMoney(myOrder);
+		}
+		else {
+			theSite.sellMoney(myOrder);
+			System.out.println("Not enough money in that currency. Order canceled");
+		}
+		
+		
 //
 //		//TODO add function to return the cost of the amount bought
 //
