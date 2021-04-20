@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Rapport {
+public class Report {
 
 	private final long id;
 	LocalDateTime day; //TODO
@@ -12,7 +12,7 @@ public class Rapport {
 	public static int uniqueId = 0;
 	public static String uniqueFilename;
 	
-	public Rapport(LocalDateTime day, List<Transaction> dailyTransactions) {
+	public Report(LocalDateTime day, List<Transaction> dailyTransactions) {
 		++uniqueId;
 		this.id = uniqueId;
 		this.day = day;

@@ -1,32 +1,46 @@
 package MoneyService;
 
+
 public class Currency implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
-	private int totalValue;
 
-	public Currency(int totalValue) {
-		if(totalValue < 0) totalValue =0;
-			this.totalValue = totalValue;
+
+	private int totalValue;
+	Float buyRate;
+	Float sellRate;
+
+
+	public Currency(int totalValue, Float buyRate, Float sellRate) {
+		if(totalValue < 0) {
+			totalValue =0;
+		}
+		this.totalValue = totalValue;
+		this.buyRate = buyRate;
+		this.sellRate = sellRate;	
+	}
+
+	public Float getBuyRate() {
+		return buyRate;
+	}
+	public void setBuyRate(Float buyRate) {
+		this.buyRate = buyRate;
+	}
+	public Float getSellRate() {
+		return sellRate;
+	}
+	public void setSellRate(Float sellRate) {
+		this.sellRate = sellRate;
 	}
 	public int getTotalValue() {
 		return totalValue;
 	}
-  
 
-	public boolean setTotalValue(int valueToChange) {
-		if(this.totalValue - valueToChange < 0) {
-      return false; }
-       
-    else{
-    this.totalValue = valueToChange;   
-		return true;
-       }
+	public void setTotalValue(int valueToChange) {
+		this.totalValue = valueToChange;   
 	}
 
 
@@ -34,8 +48,8 @@ public class Currency implements java.io.Serializable {
 	public String toString() {
 		return String.format("Currency [totalValue=%s]",totalValue);
 	} 
-	
-	
-	
+
+
+
 
 }

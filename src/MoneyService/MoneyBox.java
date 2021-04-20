@@ -11,7 +11,7 @@ public class MoneyBox implements java.io.Serializable {
 
 	public MoneyBox(Map<String, Currency> currencyMap) {
 		super();
-		this.currencyMap = currencyMap;
+		MoneyBox.currencyMap = currencyMap;
 	}
 
 
@@ -21,7 +21,7 @@ public class MoneyBox implements java.io.Serializable {
 
 
 	public void setCurrencyMap(Map<String, Currency> currencyMap) {
-		this.currencyMap = currencyMap;
+		MoneyBox.currencyMap = currencyMap;
 	}
 
 

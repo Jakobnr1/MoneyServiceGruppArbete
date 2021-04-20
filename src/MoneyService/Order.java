@@ -77,21 +77,6 @@ public class Order {
 				this.currencyCode, this.value, this.TransactionType);
 	}
 	
-	/**
-	 * TODO add function to return the cost of the amount bought
-	 * Needs polish!
-	 */
-	// Changed to static for now !!! TODO
-	public static float calculatePrice(String currencyCode, int amount, List<ExchangeRate> currencyList) {
-		Iterator<E> listIterator = currencyList.iterator();
-		float cost = 0;
-		while(listIterator.hasNext()) {
-			if(listIterator.next().getName().equals(currencyCode)) {
-				cost = (float)((float)amount*listIterator.getExchangeRate())*1.005;
-			}
-		}
-		return cost;
-	}
 
 	/**
 	 * Generates randomized Orders depending on the parameters sent in
