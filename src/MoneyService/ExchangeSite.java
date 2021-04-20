@@ -20,8 +20,11 @@ import MoneyService.Order.TransactionMode;
 public class ExchangeSite implements MoneyService {
 	public static String name;
 	public static List <Transaction> transactionList = new ArrayList<>();
-	private Report backupReport = new Report(LocalDateTime.now(), transactionList);
+	private Report backupReport;
 
+	public ExchangeSite(String name) {
+		this.name = name;
+	}
 
 	/*
 //public ExchangeSite(String name, long id, Map<String, List<Currency>> currencyMap) {
@@ -110,7 +113,7 @@ public class ExchangeSite implements MoneyService {
 
 	@Override
 	public void printSiteReport(String destination) {
-
+		backupReport = new Report(LocalDateTime.now(), transactionList);
 		if(destination.contains("syso")) {
 			for(int i = 0; i < transactionList.size(); i++) {
 				System.out.println(transactionList.get(i));
@@ -124,7 +127,7 @@ public class ExchangeSite implements MoneyService {
 
 	@Override
 	public void shutDownService(String destination) {
-
+		backupReport = new Report(LocalDateTime.now(), transactionList);
 		if(destination.contains(".txt")) {
 			MoneyServiceIO.saveDailyTransactionListAsText(transactionList, backupReport.getUniqueFileName());
 		}else if(destination.contains(".db")) {
@@ -188,4 +191,27 @@ public class ExchangeSite implements MoneyService {
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+public void setName(String name) {
+	ExchangeSite.name = name;
+}
+	
 }
