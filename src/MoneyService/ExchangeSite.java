@@ -63,6 +63,24 @@ public class ExchangeSite implements MoneyService {
 
 	 */
 
+	/**
+	 * Skip the one in Order and use this one instead to get price.
+	 * @param currencyCode
+	 * @param amount
+	 * @return int price
+	 */
+
+	public static int calculatePrice(String currencyCode, int amount) {
+
+		Map<String, Currency> currencyMap= MoneyBox.getCurrencyMap();
+		float calcPrice = currencyMap.get(currencyCode).sellRate.floatValue();
+
+		double price = amount*calcPrice;
+		return (int) Math.round(price);
+		
+	}
+	
+	
 	// Doublecheck this/test
 	@Override
 	public boolean buyMoney(Order orderData) throws IllegalArgumentException {
@@ -84,7 +102,7 @@ public class ExchangeSite implements MoneyService {
 		//TODO maybe change float to double?
 
 //		float totalPrice = Currency.calculatePrice(orderData.getCurrencyCode(), value, Currency.getExchangeRate(orderData.getCurrencyCode()));// TODO this method needs to be created if currency should hold exchange rates
-		float totalPrice = Currency.calculatePrice(orderData.getCurrencyCode(), value);
+		float totalPrice = calculatePrice(orderData.getCurrencyCode(), value);
 		//		 float totalPrice = Order.calculatePrice(orderData.getCurrencyCode(), value, Config.getExchangeRateList());
 
 		return (totalPrice<totalCurrency)?true : false;

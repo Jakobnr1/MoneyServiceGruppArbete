@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import MoneyService.Config;
 import MoneyService.Currency;
 import MoneyService.ExchangeRate;
 import MoneyService.ExchangeSite;
@@ -31,13 +32,13 @@ public class MoneyServiceAPP {
 		MoneyBox theBox = new MoneyBox(currencyMap);
 		List<ExchangeRate> rates = new ArrayList<ExchangeRate>();
 
-		fillTheMoneyBox(theBox, currencyMap);
+		Config.fillTheMoneyBox(theBox, currencyMap);
 
-		rates=setTheRates();
+		rates=Config.setTheRates();
 
-		Currency.setRates(rates, currencyMap);
-		int price= Currency.calculatePrice("EUR", 500);
-		Currency.getExchangeRate("EUR");
+		Config.setRatesInCurrency(rates, currencyMap);
+		int price= ExchangeSite.calculatePrice("EUR", 500);
+//		Currency.getExchangeRate("EUR");
 		
 		//Creaeate a order
 //		Order myOrder = new Order(500,"EUR", typeOfTransaction.BUY);
@@ -100,24 +101,5 @@ public class MoneyServiceAPP {
 //		MoneyServiceIO.saveSerializedReport(R);
 	}
 
-	public static List<ExchangeRate> setTheRates() {
-		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.currencyConfigFilename)));
-		for(ExchangeRate er:test) {
-			System.out.println(er.toString());
-		}		
-		return test;
-	}
-
-	public static MoneyBox fillTheMoneyBox(MoneyBox theBox, Map<String, Currency> currencyMap ) {
-		Map<String, Integer> testMap = new HashMap<String,Integer>(MoneyServiceIO.parseProjectConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.projectConfigFilename)));
-
-		Set<String> keySet = testMap.keySet();
-		for(String k:keySet) {
-			Currency tempCurrency = new Currency(testMap.get(k).intValue(), 0.0f, 0.0f);
-			currencyMap.putIfAbsent(k, tempCurrency);
-			System.out.println(k.toString());
-		}
-		return theBox;
-	}
-
+	
 }
