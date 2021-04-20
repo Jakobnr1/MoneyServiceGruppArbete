@@ -20,7 +20,7 @@ import MoneyService.Order.TransactionMode;
 public class ExchangeSite implements MoneyService {
 	public static String name;
 	public static List <Transaction> transactionList = new ArrayList<>();
-	private Rapport backupReport = new Rapport(LocalDateTime.now(), transactionList);
+	private Report backupReport = new Report(LocalDateTime.now(), transactionList);
 
 
 	/*
@@ -87,7 +87,7 @@ public class ExchangeSite implements MoneyService {
 		int value = orderData.getValue();
 		String currency = orderData.getCurrencyCode();
 
-		int totalCurrency = MoneyBox.getCurrencyMap().get(currency).getTotalValue();
+		int totalCurrency = (int)MoneyBox.getCurrencyMap().get(currency).getTotalValue();
 
 		return (value<totalCurrency)?true : false;
 	}
@@ -98,7 +98,7 @@ public class ExchangeSite implements MoneyService {
 		int value = orderData.getValue();
 		String currency = MoneyServiceIO.getReferenceCurrency();
 
-		int totalCurrency = MoneyBox.getCurrencyMap().get(currency).getTotalValue();
+		int totalCurrency = (int)MoneyBox.getCurrencyMap().get(currency).getTotalValue();
 		//TODO maybe change float to double?
 
 //		float totalPrice = Currency.calculatePrice(orderData.getCurrencyCode(), value, Currency.getExchangeRate(orderData.getCurrencyCode()));// TODO this method needs to be created if currency should hold exchange rates
@@ -143,8 +143,8 @@ public class ExchangeSite implements MoneyService {
 	@Override
 	public Optional<Double> getAvailableAmount(String currencyCode) 
 	{
-
-		Double temp= (double)MoneyBox.getCurrencyMap().get(currencyCode).getTotalValue();
+		
+		Double temp= MoneyBox.getCurrencyMap().get(currencyCode).getTotalValue();
 
 		if(temp != 0){//Should be null???? if null else = dead code
 
@@ -159,8 +159,8 @@ public class ExchangeSite implements MoneyService {
 		int value = orderData.getValue();
 		String currency = orderData.getCurrencyCode();
 		String refCurrency = MoneyServiceIO.getReferenceCurrency();
-		int totalCurrency = MoneyBox.getCurrencyMap().get(currency).getTotalValue();
-		int totalRefCurrency = MoneyBox.getCurrencyMap().get(refCurrency).getTotalValue();
+		int totalCurrency = (int)MoneyBox.getCurrencyMap().get(currency).getTotalValue();
+		int totalRefCurrency = (int)MoneyBox.getCurrencyMap().get(refCurrency).getTotalValue();
 		if(orderData.getTransactionType() == TransactionMode.BUY) {
 
 			MoneyBox.getCurrencyMap().get(currency).setTotalValue(totalCurrency-value);
