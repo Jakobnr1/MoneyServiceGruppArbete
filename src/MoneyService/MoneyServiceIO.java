@@ -41,8 +41,8 @@ public class MoneyServiceIO {
 	 * @param listToBeParsed
 	 * @return Map<String,Integer> Containing: CurrencyName and Value
 	 */
-	public static Map<String,Integer> parseProjectConfig(List<String> listToBeParsed){
-		Map<String,Integer> currencyMap = new HashMap<>();
+	public static Map<String,Double> parseProjectConfig(List<String> listToBeParsed){
+		Map<String,Double> currencyMap = new HashMap<>();
 		Stream<String> fileNameStream = listToBeParsed.stream().limit(1);
 		Iterator<String> fileNameStreamIter = fileNameStream.iterator();
 		while(fileNameStreamIter.hasNext()) {
@@ -61,7 +61,7 @@ public class MoneyServiceIO {
 			String temp = currencyIterator.next();
 			if(!(temp.contains("End") || temp.contains("ReferenceCurrency"))){
 			String[] boxParts = temp.split("=");
-			currencyMap.putIfAbsent(boxParts[0].trim(), Integer.parseInt(boxParts[1].trim())); //TODO ändra type till currency
+			currencyMap.putIfAbsent(boxParts[0].trim(), Double.parseDouble(boxParts[1].trim())); //TODO ändra type till currency
 		}
 		}
 		Stream<String> refString = listToBeParsed.stream().skip(2);
@@ -150,7 +150,7 @@ public class MoneyServiceIO {
 	 * @return Boolean true if successful.
 	 */
 	
-	public static boolean saveSerializedReport(Rapport r) {
+	public static boolean saveSerializedReport(Report r) {
 		boolean saved = false;
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(r.getUniqueFileName().trim()))){
 			oos.writeObject(r.getDailyTransaction());

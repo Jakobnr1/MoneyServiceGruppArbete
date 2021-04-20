@@ -9,7 +9,7 @@ public class Currency implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 
-	private int totalValue;
+	private double totalValue;
 	Float buyRate;
 	Float sellRate;
 
@@ -35,7 +35,7 @@ public class Currency implements java.io.Serializable {
 	public void setSellRate(Float sellRate) {
 		this.sellRate = sellRate;
 	}
-	public int getTotalValue() {
+	public double getTotalValue() {
 		return totalValue;
 	}
 
