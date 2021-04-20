@@ -35,7 +35,8 @@ public class Currency implements java.io.Serializable {
 	public void setSellRate(Float sellRate) {
 		this.sellRate = sellRate;
 	}
-	public double getTotalValue() {
+	//changed to Double from double
+	public Double getTotalValue() {
 		return totalValue;
 	}
 
