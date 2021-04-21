@@ -40,12 +40,20 @@ public class ExchangeSite implements MoneyService {
 	 * @param amount
 	 * @return int price
 	 */
-	public static int calculatePrice(String currencyCode, int amount) {
-
+	public static int calculatePrice(String currencyCode, int amount,Order.TransactionMode transactionType) {
 		Map<String, Currency> currencyMap= MoneyBox.getCurrencyMap();
-		float calcPrice = currencyMap.get(currencyCode).sellRate.floatValue();
-
-		double price = amount*calcPrice;
+		float calcPrice =0;
+		double price =0;
+		
+		if(transactionType == TransactionMode.SELL) {
+		calcPrice = currencyMap.get(currencyCode).sellRate.floatValue();
+		
+		}
+		else if(transactionType == TransactionMode.BUY) {
+			calcPrice = currencyMap.get(currencyCode).buyRate.floatValue();
+		}
+		price = amount*calcPrice;
+		
 		return (int) Math.round(price);
 	}
 
@@ -62,7 +70,7 @@ public class ExchangeSite implements MoneyService {
 		if(customerCur.isEmpty() || totalRefCurrency.isEmpty()) {
 			return false;
 		}
-		double exRate = calculatePrice(currency, value);
+		double exRate = calculatePrice(currency, value,TransactionMode.BUY);
 		
 		return (exRate<totalRefCurrency.get())?true : false;
 		
@@ -124,7 +132,7 @@ public class ExchangeSite implements MoneyService {
 		
 	}
 
-	public void completeOrder(Order orderData) {		
+	public Order completeOrder(Order orderData) {		
 		int value = orderData.getValue();
 		String currency = orderData.getCurrencyCode();
 
@@ -137,7 +145,7 @@ public class ExchangeSite implements MoneyService {
 			int buy = customerCur.get().intValue();
 			MoneyBox.getCurrencyMap().get(currency).setTotalValue(value + buy);
 			int sell = companyCur.get().intValue();
-			int total = calculatePrice(currency, value);
+			int total = calculatePrice(currency, value,TransactionMode.BUY);
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(sell - total);
 			transactionList.add(new Transaction(orderData));
 		}
@@ -146,10 +154,11 @@ public class ExchangeSite implements MoneyService {
 			int sell = customerCur.get().intValue();
 			MoneyBox.getCurrencyMap().get(currency).setTotalValue(sell - value);
 			int ourCurrency = companyCur.get().intValue();
-			int total = calculatePrice(currency, value);
+			int total = calculatePrice(currency, value,TransactionMode.SELL);
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(ourCurrency + total);
 			transactionList.add(new Transaction(orderData));
 		}
+		return orderData;
 	}
 
 	public static List<Transaction> getTransactionList(){
