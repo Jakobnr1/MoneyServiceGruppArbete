@@ -58,13 +58,15 @@ public class ExchangeSite implements MoneyService {
 		Optional<Double> totalRefCurrency = getAvailableAmount(refCurrency);
 		Optional<Double> customerCur = getAvailableAmount(currency);
 
-		double exRate = calculatePrice(currency, value);
 
 		if(customerCur.isEmpty() || totalRefCurrency.isEmpty()) {
-			System.out.println("Error, one of the currencies couldn't be found!");
 			return false;
 		}
+		double exRate = calculatePrice(currency, value);
+		
 		return (exRate<totalRefCurrency.get())?true : false;
+		
+		
 	}
 
 	@Override
@@ -72,12 +74,13 @@ public class ExchangeSite implements MoneyService {
 		int value = orderData.getValue(); 
 		String currency = orderData.getCurrencyCode(); 
 
-		String refCurrency = MoneyServiceIO.getReferenceCurrency();
-		Optional<Double> totalRefCurrency = getAvailableAmount(refCurrency);
+		Optional<Double> totalRefCurrency = getAvailableAmount(currency);
+		
+		if(totalRefCurrency.isEmpty()) {
+		return false;	
+		}
 
-		double exRate = calculatePrice(currency, value);
-
-		return (exRate<totalRefCurrency.get())?true : false;
+		return (value<=totalRefCurrency.get())?true : false;
 	}
 
 	@Override
@@ -111,15 +114,14 @@ public class ExchangeSite implements MoneyService {
 	@Override
 	public Optional<Double> getAvailableAmount(String currencyCode) 
 	{
-
-		Double temp= MoneyBox.getCurrencyMap().get(currencyCode).getTotalValue();
-
-		if(temp != null){
-
-			return Optional.of(temp);
-		}else {
-			return Optional.empty(); 
+	
+		if(MoneyBox.getCurrencyMap().get(currencyCode) == null) {
+			
+			return Optional.empty();
 		}
+		Optional <Double> temp = Optional.of(MoneyBox.getCurrencyMap().get(currencyCode).getTotalValue());
+		return temp;
+		
 	}
 
 	public void completeOrder(Order orderData) {		
@@ -142,7 +144,7 @@ public class ExchangeSite implements MoneyService {
 
 		else if(orderData.getTransactionType() == TransactionMode.SELL) {
 			int sell = customerCur.get().intValue();
-			MoneyBox.getCurrencyMap().get(currency).setTotalValue(value - sell);
+			MoneyBox.getCurrencyMap().get(currency).setTotalValue(sell - value);
 			int ourCurrency = companyCur.get().intValue();
 			int total = calculatePrice(currency, value);
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(ourCurrency + total);
@@ -155,6 +157,10 @@ public class ExchangeSite implements MoneyService {
 	}
 
 
+
+	public static List<ExchangeRate> getRates() {
+		return rates;
+	}
 
 	public void setName(String name) {
 		ExchangeSite.name = name;

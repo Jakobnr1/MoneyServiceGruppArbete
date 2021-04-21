@@ -1,12 +1,12 @@
 package MoneyService;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.function.IntSupplier;
+
 import java.util.stream.Stream;
 
 
@@ -16,29 +16,19 @@ public class Order {
 	public enum TransactionMode {SELL, BUY}
 
 	private TransactionMode TransactionType;
-//	private static long id = 1;
-//	private long orderId;
-//	LocalDate date;
 	private int value;
 	private String currencyCode;
 	
 
 
 	public Order(int value, String currencyCode,TransactionMode Transaction) {
-//		this.orderId = id++;
 		this.value = value;
 		this.currencyCode = currencyCode;
 		this.TransactionType = Transaction;
-//		this.date = MoneyServiceIO.refDate;
 
 	}
 
-//	/**
-//	 * @return the Order Id
-//	 */
-//	public long getOrderId() {
-//		return orderId;
-//	}
+
 
 	/**
 	 * @return the Order Value
@@ -61,12 +51,7 @@ public class Order {
 		return currencyCode;
 	}
 
-//	/**
-//	 * @return the Order Date
-//	 */
-//	public LocalDate getOrderDate() {
-//		return date;
-//	}
+
 
 	/**
 	 * 
