@@ -70,7 +70,7 @@ public class Order {
 	 * @return a List of Orders
 	 */
 
-	public List<Order> generateDailyOrder(List<ExchangeRate> tempCurrencies, int amount) {
+	public static List<Order> generateDailyOrder(List<ExchangeRate> tempCurrencies, int amount) {
 		Random rand = new Random();
 		List<Order> tempList = new ArrayList<Order>(amount);
         List<Integer> tempValues = new ArrayList<Integer>(amount); 
@@ -92,9 +92,8 @@ public class Order {
 				i--;
 		}
 		
-		
 		tempValues.forEach((d) -> tempList.add(new Order(d,
-				tempCurrencies.get(rand.nextInt(tempCurrencies.size())).toString(),
+				tempCurrencies.get(rand.nextInt(tempCurrencies.size())).getName(),
 				tempTransactionTypes.get(rand.nextInt(tempTransactionTypes.size())))));	//Need Random 
 	
 
