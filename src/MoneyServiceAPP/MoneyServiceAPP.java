@@ -1,14 +1,17 @@
 package MoneyServiceAPP;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
 import MoneyService.Config;
+import MoneyService.Currency;
 import MoneyService.ExchangeRate;
 import MoneyService.ExchangeSite;
 import MoneyService.MoneyServiceIO;
 import MoneyService.Order;
 import MoneyService.Order.TransactionMode;
+import MoneyService.Transaction;
 
 
 public class MoneyServiceAPP {
@@ -77,6 +80,7 @@ public class MoneyServiceAPP {
 						System.out.println(er.toString());
 					}
 					System.out.println("********************************************************");
+
 					break;
 
 				case 2: 
@@ -199,7 +203,7 @@ public class MoneyServiceAPP {
 										theSite.completeOrder(myOrder);
 										System.out.println("Transaction completed! ");
 										System.out.println(ExchangeSite.getTransactionList().get(ExchangeSite.getTransactionList().size()-1).toString());
-										
+
 									}
 									else {
 										System.out.println("Not enough money thst currency. Order canceled");
@@ -233,9 +237,56 @@ public class MoneyServiceAPP {
 					break;
 
 				case 3:
+					List<Order> listOfOrders;
+					int i=0;
+					boolean stop = false;
+					do {
+						listOfOrders = Order.generateDailyOrder(ExchangeSite.getRates(), 35);
+						for(Order d: listOfOrders) {
+							if(i>24) {
+								stop = true;
+							}else {
+								if(d.getTransactionType() == TransactionMode.BUY) {
+									System.out.println("Tried: "+d.toString());
+									if(theSite.buyMoney(d)) {
+										theSite.completeOrder(d);
+										i++;
+										System.out.println(i + ": Worked");
+									}
+								}else {
+									System.out.println("Tried: "+d.toString());
+									if(theSite.sellMoney(d)) {
+										theSite.completeOrder(d);
+										i++;
+										System.out.println(i + ": Worked");
+									}
+
+								}
+
+							}
+
+						}
+
+					}while(!stop);
+
+					for(Transaction t : ExchangeSite.transactionList) {
+						System.out.println(""+t.toString());
+
+					}
+
+					Set<String> keySet = theSite.getCurrencyMap().keySet();
+					for(String k:keySet) {
+						
+						System.out.println(k+": "+theSite.getCurrencyMap().get(k).toString());
+					
+					}
+
+
+
 					break;
 				case 4:
 					exit=true;
+
 					break;
 
 				default:
