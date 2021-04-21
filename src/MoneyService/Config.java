@@ -8,8 +8,8 @@ import java.util.Set;
 
 public class Config {
 	//Attributes
-	private static int MIN_AMMOUNT = 1;
-	private static int MAX_AMMOUNT = 2000;
+	private static int MIN_AMMOUNT = 50;
+	private static int MAX_AMMOUNT = 10000;
 
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
 	
@@ -57,9 +57,9 @@ public class Config {
 	
 	public static List<ExchangeRate> setTheRates() {
 		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.currencyConfigFilename)));
-		for(ExchangeRate er:test) {
-			System.out.println(er.toString());
-		}
+//		for(ExchangeRate er:test) {
+//			System.out.println(er.toString());
+//		}
 		
 		return test;
 	}
@@ -72,7 +72,7 @@ public class Config {
 		for(String k:keySet) {
 			Currency tempCurrency = new Currency(testMap.get(k).intValue(), 0.0f, 0.0f);
 			currencyMap.putIfAbsent(k, tempCurrency);
-			System.out.println(k.toString());
+//			System.out.println(k.toString());
 		}
 		return theBox;
 	}
