@@ -5,9 +5,9 @@ import java.util.Scanner;
 import java.util.Set;
 
 import MoneyService.Config;
-import MoneyService.Currency;
 import MoneyService.ExchangeRate;
 import MoneyService.ExchangeSite;
+import MoneyService.MoneyBox;
 import MoneyService.MoneyServiceIO;
 import MoneyService.Order;
 import MoneyService.Order.TransactionMode;
@@ -68,7 +68,8 @@ public class MoneyServiceAPP {
 				System.out.println("1. - Show todays exchange rates");
 				System.out.println("2. - Create order");
 				System.out.println("3. - Random generate 25 orders");
-				System.out.println("4. - Exit the program");
+				System.out.println("4. - Create new currency");
+				System.out.println("5. - Exit the program");
 
 				String input=keyboard.next();
 				choice=Integer.parseInt(input);	
@@ -152,11 +153,16 @@ public class MoneyServiceAPP {
 								System.out.println("Bad input of currency, try again!");
 							}
 							else {
-								if(theSite.getCurrencyMap().get(currencyChoice).getTotalValue() >= Config.getMIN_AMMOUNT()){ 
-									okInput = true;
+								if(transMode == TransactionMode.SELL){ 
+									if(theSite.getCurrencyMap().get(currencyChoice).getTotalValue() >= Config.getMIN_AMMOUNT()){ 
+										okInput = true;
+									}
+									else {
+										System.out.println("Bad input of currency, try again!");
+									}
 								}
 								else {
-									System.out.println("Bad input of currency, try again!");
+									okInput = true;
 								}
 							}	
 						}
@@ -184,7 +190,7 @@ public class MoneyServiceAPP {
 						}
 						while(!okInput);
 
-						int price= ExchangeSite.calculatePrice(currencyChoice, amount); // Show the price
+						int price= ExchangeSite.calculatePrice(currencyChoice, amount, transMode); // Show the price
 						System.out.println("Cost: "+price+" "+MoneyServiceIO.getReferenceCurrency()); 
 
 						// OK input from user.
@@ -206,14 +212,14 @@ public class MoneyServiceAPP {
 
 									}
 									else {
-										System.out.println("Not enough money thst currency. Order canceled");
+										System.out.println("Not enough money that currency. Order canceled");
 									}
 								}
 								else {
 									if(theSite.buyMoney(myOrder)) {
 										theSite.completeOrder(myOrder);
 										System.out.println("Transaction completed! ");
-										//Need to print out the transaction to user here!
+										System.out.println(ExchangeSite.getTransactionList().get(ExchangeSite.getTransactionList().size()-1).toString());
 									}
 									else {
 										System.out.println("Not enough money in that currency. Order canceled");
@@ -276,15 +282,59 @@ public class MoneyServiceAPP {
 
 					Set<String> keySet = theSite.getCurrencyMap().keySet();
 					for(String k:keySet) {
-						
+
 						System.out.println(k+": "+theSite.getCurrencyMap().get(k).toString());
-					
+
 					}
 
 
 
 					break;
+
 				case 4:
+					String[] currecyNamesOK = {"CNY","BOB"};
+					String currencyName ="";
+					Float sellRate =0.0F;
+					do {
+						okInput = false;
+						boolean okAddCurrency = false;
+						System.out.println("Enter name of new currency: ");
+						currencyName = keyboard.next().strip().toUpperCase();
+						for(String s : currecyNamesOK) {
+							if(s.equals(currencyName)) {
+								okAddCurrency = true;
+							}
+						}
+						if(okAddCurrency) {
+							okInput = true;
+						}
+						else {
+							System.out.println("Bad input of name!");
+						}
+					}
+					while(!okInput);
+
+					do {
+						try {
+							okInput = false;
+							System.out.println("Enter currency rate (x.xxxx): ");
+							String temp = keyboard.next().strip();
+							sellRate = Float.parseFloat(temp);
+							okInput = true;
+						}
+						catch (NumberFormatException e) {
+							System.out.println("Bad input! Only number are allowed. Try again..");
+						}
+					}
+					while(!okInput);
+
+
+					MoneyBox.addNewCurrency(0, currencyName, sellRate);
+
+
+					break;
+
+				case 5:
 					exit=true;
 
 					break;
