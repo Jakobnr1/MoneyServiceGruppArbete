@@ -2,12 +2,15 @@ package MoneyService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import MoneyService.Order.TransactionMode;
+
+import java.util.logging.Logger;
+
+
 
 public class ExchangeSite implements MoneyService {
 	public static String name;
@@ -17,7 +20,12 @@ public class ExchangeSite implements MoneyService {
 	private static Map<String, Currency> currencyMap;
 	private static List<ExchangeRate> rates;	
 
-
+	private static Logger logger;
+	
+	static {
+		logger = Logger.getLogger("MoneyService");
+	}
+	
 	public ExchangeSite(String Name) {
 		ExchangeSite.name = Name;
 		backupReport = new Report(LocalDateTime.now(), transactionList);
@@ -27,6 +35,7 @@ public class ExchangeSite implements MoneyService {
 	}
 
 	public void startTheDay() {
+		logger.fine("Starting the day!");
 		Config.fillTheMoneyBox(ExchangeSite.theBox, ExchangeSite.currencyMap);
 
 		ExchangeSite.rates = Config.setTheRates();
@@ -53,7 +62,7 @@ public class ExchangeSite implements MoneyService {
 			calcPrice = currencyMap.get(currencyCode).buyRate.floatValue();
 		}
 		price = amount*calcPrice;
-		
+		logger.finer("Calculate price for: "+currencyCode+ " "+amount+" price: "+(int) Math.round(price));
 		return (int) Math.round(price);
 	}
 
@@ -107,8 +116,10 @@ public class ExchangeSite implements MoneyService {
 	public void shutDownService(String destination) {
 
 		if(destination.contains(".txt")) {
+			logger.fine("Saving daily transactions as text");
 			MoneyServiceIO.saveDailyTransactionListAsText(transactionList, backupReport.getUniqueFileName());
 		}else if(destination.contains(".db")) {
+			logger.fine("Saving daily transactions as serialized");
 			MoneyServiceIO.saveSerializedDailyTransactions(transactionList, backupReport.getUniqueFileName());
 		}
 	}
@@ -144,9 +155,11 @@ public class ExchangeSite implements MoneyService {
 		if(orderData.getTransactionType() == TransactionMode.BUY) {
 			int buy = customerCur.get().intValue();
 			MoneyBox.getCurrencyMap().get(currency).setTotalValue(value + buy);
+			logger.finest("Adding "+buy+" "+currency+ " to theBox. Total in box after: "+MoneyBox.getCurrencyMap().get(currency).getTotalValue());
 			int sell = companyCur.get().intValue();
 			int total = calculatePrice(currency, value,TransactionMode.BUY);
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(sell - total);
+			logger.finest("Selling "+sell+" "+companyCur+ " total in box after: "+MoneyBox.getCurrencyMap().get(refCurrency).getTotalValue());
 			transactionList.add(new Transaction(orderData));
 		}
 
@@ -158,6 +171,7 @@ public class ExchangeSite implements MoneyService {
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(ourCurrency + total);
 			transactionList.add(new Transaction(orderData));
 		}
+		logger.fine("Completed order: "+orderData.toString());
 		return orderData;
 	}
 
