@@ -1,0 +1,210 @@
+Apr 23, 2021 2:32:57 PM MoneyService.ExchangeSite startTheDay
+FINE: Starting the day!
+Apr 23, 2021 2:32:57 PM MoneyService.Config fillTheMoneyBox
+FINE: Filled MoneyBox with: AUD amount: Currency [totalValue=1500.0]
+Apr 23, 2021 2:32:57 PM MoneyService.Config fillTheMoneyBox
+FINE: Filled MoneyBox with: CHF amount: Currency [totalValue=1500.0]
+Apr 23, 2021 2:32:57 PM MoneyService.Config fillTheMoneyBox
+FINE: Filled MoneyBox with: JPY amount: Currency [totalValue=20000.0]
+Apr 23, 2021 2:32:57 PM MoneyService.Config fillTheMoneyBox
+FINE: Filled MoneyBox with: EUR amount: Currency [totalValue=5000.0]
+Apr 23, 2021 2:32:57 PM MoneyService.Config fillTheMoneyBox
+FINE: Filled MoneyBox with: GBP amount: Currency [totalValue=2500.0]
+Apr 23, 2021 2:32:57 PM MoneyService.Config fillTheMoneyBox
+FINE: Filled MoneyBox with: DKK amount: Currency [totalValue=10000.0]
+Apr 23, 2021 2:32:57 PM MoneyService.Config fillTheMoneyBox
+FINE: Filled MoneyBox with: USD amount: Currency [totalValue=2000.0]
+Apr 23, 2021 2:32:57 PM MoneyService.Config fillTheMoneyBox
+FINE: Filled MoneyBox with: SEK amount: Currency [totalValue=50000.0]
+Apr 23, 2021 2:32:57 PM MoneyService.Config fillTheMoneyBox
+FINE: Filled MoneyBox with: NOK amount: Currency [totalValue=10000.0]
+Apr 23, 2021 2:32:57 PM MoneyService.Config fillTheMoneyBox
+FINE: Filled MoneyBox with: RUB amount: Currency [totalValue=30000.0]
+Apr 23, 2021 2:32:57 PM MoneyService.Config setTheRates
+FINE: *********** Getting rates from CurrencyConfig_2021-04-19.txt ************
+Apr 23, 2021 2:32:57 PM MoneyService.Config setRatesInCurrency
+FINE: AUD buyRate: 6.4982457, sellRate6.5635543
+Apr 23, 2021 2:32:57 PM MoneyService.Config setRatesInCurrency
+FINE: CHF buyRate: 9.122236, sellRate9.213917
+Apr 23, 2021 2:32:57 PM MoneyService.Config setRatesInCurrency
+FINE: DKK buyRate: 1.351992, sellRate1.36558
+Apr 23, 2021 2:32:57 PM MoneyService.Config setRatesInCurrency
+FINE: EUR buyRate: 10.053579, sellRate10.154621
+Apr 23, 2021 2:32:57 PM MoneyService.Config setRatesInCurrency
+FINE: GBP buyRate: 11.624884, sellRate11.741716
+Apr 23, 2021 2:32:57 PM MoneyService.Config setRatesInCurrency
+FINE: JPY buyRate: 0.07734334, sellRate0.07812066
+Apr 23, 2021 2:32:57 PM MoneyService.Config setRatesInCurrency
+FINE: NOK buyRate: 1.0047182, sellRate1.0148159
+Apr 23, 2021 2:32:57 PM MoneyService.Config setRatesInCurrency
+FINE: RUB buyRate: 0.10998034, sellRate0.11108566
+Apr 23, 2021 2:32:57 PM MoneyService.Config setRatesInCurrency
+FINE: USD buyRate: 8.388148, sellRate8.472451
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: RUB 1350 price: 150
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=RUB, amount= 1350, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: JPY 900 price: 70
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=JPY, amount= 900, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 1950 price: 17788
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 1500 CHF to theBox. Total in box after: 3450.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 1950 price: 17788
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 50220 Optional[50220.0] total in box after: 32432.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=CHF, amount= 1950, mode= BUY ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: USD 800 price: 6778
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=USD, amount= 800, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: RUB 650 price: 71
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 28650 RUB to theBox. Total in box after: 29300.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: RUB 650 price: 71
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 39210 Optional[39210.0] total in box after: 39139.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=RUB, amount= 650, mode= BUY ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: EUR 350 price: 3554
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=EUR, amount= 350, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 2450 price: 22574
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=CHF, amount= 2450, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: GBP 2250 price: 26419
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=GBP, amount= 2250, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: NOK 1500 price: 1522
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=NOK, amount= 1500, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 450 price: 4105
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 1000 CHF to theBox. Total in box after: 1450.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 450 price: 4105
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 93208 Optional[93208.0] total in box after: 89103.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=CHF, amount= 450, mode= BUY ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 350 price: 3193
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 1450 CHF to theBox. Total in box after: 1800.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 350 price: 3193
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 89103 Optional[89103.0] total in box after: 85910.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=CHF, amount= 350, mode= BUY ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 2250 price: 20525
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 1800 CHF to theBox. Total in box after: 4050.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 2250 price: 20525
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 85910 Optional[85910.0] total in box after: 65385.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=CHF, amount= 2250, mode= BUY ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: NOK 650 price: 653
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 8500 NOK to theBox. Total in box after: 9150.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: NOK 650 price: 653
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 65385 Optional[65385.0] total in box after: 64732.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=NOK, amount= 650, mode= BUY ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 950 price: 8753
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=CHF, amount= 950, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 1500 price: 13821
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=CHF, amount= 1500, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: JPY 450 price: 35
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=JPY, amount= 450, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: JPY 800 price: 62
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=JPY, amount= 800, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: JPY 2250 price: 174
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 17850 JPY to theBox. Total in box after: 20100.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: JPY 2250 price: 174
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 87403 Optional[87403.0] total in box after: 87229.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=JPY, amount= 2250, mode= BUY ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: AUD 400 price: 2599
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 1500 AUD to theBox. Total in box after: 1900.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: AUD 400 price: 2599
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 87229 Optional[87229.0] total in box after: 84630.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=AUD, amount= 400, mode= BUY ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: NOK 2200 price: 2233
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=NOK, amount= 2200, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: CHF 300 price: 2764
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=CHF, amount= 300, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: GBP 100 price: 1174
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=GBP, amount= 100, mode= SELL ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: EUR 1350 price: 13572
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 4650 EUR to theBox. Total in box after: 6000.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: EUR 1350 price: 13572
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 90801 Optional[90801.0] total in box after: 77229.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=EUR, amount= 1350, mode= BUY ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: RUB 2450 price: 269
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 29300 RUB to theBox. Total in box after: 31750.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: RUB 2450 price: 269
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 77229 Optional[77229.0] total in box after: 76960.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=RUB, amount= 2450, mode= BUY ]
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: NOK 1050 price: 1055
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Adding 6950 NOK to theBox. Total in box after: 8000.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite calculatePrice
+FINER: Calculate price for: NOK 1050 price: 1055
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINEST: Selling 76960 Optional[76960.0] total in box after: 75905.0
+Apr 23, 2021 2:32:58 PM MoneyService.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=NOK, amount= 1050, mode= BUY ]
+Apr 23, 2021 2:32:59 PM MoneyService.ExchangeSite shutDownService
+FINE: Saving daily transactions as serialized

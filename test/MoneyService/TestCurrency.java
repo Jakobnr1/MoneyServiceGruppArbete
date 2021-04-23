@@ -5,56 +5,67 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestCurrency {
-
+	
+	Currency testCurr;
+	
 	@Test
-	public void creatingCurrencyBasic1() {
-		Currency c = new Currency(10);
-		assertNotNull(c);
+	public void testConstructor() {
+		testCurr = new Currency(1000, 5.45f, 6.45f);
 	}
-
-		
 	@Test
-	public void creatingCurrencyWrongValue() {
-		Currency c = new Currency(-50);
-		
-		assertEquals(c.getTotalValue(), 0);
-	}
-		
-	@Test
-	public void changeNumberOfNotes1() {
-		Currency c = new Currency(50);
-		
-		c.setTotalValue(100);
-		
-		assertEquals(c.getTotalValue(), 150);
+	public void testConstructorNoValue() {
+		testCurr = new Currency(0, 5.45f, 6.45f);
 	}
 	
 	@Test
-	public void changeNumberOfNotes2() {
-		Currency c = new Currency(50);
+	public void testGetBuyRate() {
+		testCurr = new Currency(1000, 5.45f, 6.45f);
+		Float buyRate = 5.45f;
+		assertEquals(buyRate, testCurr.getBuyRate());
 		
-		c.setTotalValue(-40);
+	}
+	@Test
+	public void testSetBuyRate() {
+		testCurr = new Currency(1000, 5.45f, 6.45f);
+		Float buyRate = 8.45f;
+		testCurr.setBuyRate(buyRate);
+		assertEquals(buyRate, testCurr.getBuyRate());
 		
-		assertEquals(c.getTotalValue(), 10);
+	}
+	@Test
+	public void testSetSellRate() {
+		testCurr = new Currency(1000, 5.45f, 6.45f);
+		Float sellRate = 3.45f;
+		testCurr.setSellRate(sellRate);
+		assertEquals(sellRate, testCurr.getSellRate());
+		
 	}
 	
 	@Test
-	public void changeNumberOfNotesBadInput() {
-		Currency c = new Currency(50);
+	public void testGetSellRate() {
+		testCurr = new Currency(1000, 5.45f, 6.45f);
+		Float sellRate = 6.45f;
+		assertEquals(sellRate, testCurr.getSellRate());
 		
-		c.setTotalValue(-60);
-		
-		assertEquals(c.getTotalValue(), 50);
 	}
-	
 	
 	@Test
-	public void toStringTest() {
-		Currency c = new Currency(50);
-		
-		String test= c.toString();
-				
-		assertEquals(test, "Currency [totalValue=50]");
+	public void testGetTotalValue() {
+		testCurr = new Currency(1000, 5.45f, 6.45f);
+		Double value = 1000D;
+		assertEquals(value, testCurr.getTotalValue());
 	}
 	
+	@Test
+	public void testSetTotalValue() {
+		testCurr = new Currency(1000, 5.45f, 6.45f);
+		Double value = 1000D;
+		testCurr.setTotalValue(1000);
+		assertEquals(value, testCurr.getTotalValue());
+	}
+	@Test
+	public void testToString() {
+		testCurr = new Currency(1000, 5.45f, 6.45f);
+		assertEquals("Currency [totalValue=1000.0]",testCurr.toString());
+	}
 }

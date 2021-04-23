@@ -16,7 +16,6 @@ public class MoneyBox implements java.io.Serializable {
 
 
 	public MoneyBox(Map<String, Currency> currencyMap) {
-		super();
 		MoneyBox.currencyMap = currencyMap;
 	}
 
@@ -38,15 +37,17 @@ public class MoneyBox implements java.io.Serializable {
 
 	public static boolean addNewCurrency(double amount, String currencyName, Float rate) {
 		Currency c = new Currency(0, rate, rate);
+		if(currencyMap.containsKey(currencyName)) {
+			return false;
+		}
 		currencyMap.putIfAbsent(currencyName, c);
 		currencyMap.get(currencyName).setBuyRate(rate * 0.995F);
 		currencyMap.get(currencyName).setSellRate(rate * 1.005F);
 
 		if(currencyMap.containsKey(currencyName)) {
 			logger.fine("New currency added: "+currencyName+ " rate from list:"+rate+" buyRate:"+c.getBuyRate()+" sellRate:"+c.getSellRate());
-			return true;			
 		}
-		return false;
+		return true;
 	}
 
 

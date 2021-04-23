@@ -9,10 +9,6 @@ import org.junit.Test;
 
 import MoneyService.Order.TransactionMode;
 
-//@Test
-//public void test() {
-//
-//}
 
 
 public class TestExchangeSite {

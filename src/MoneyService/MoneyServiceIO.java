@@ -20,8 +20,8 @@ import java.util.stream.Stream;
 
 public class MoneyServiceIO {
 
-	public static  String projectConfigFilename = "ProjectConfig_2021-04-01.txt";
-	public static String currencyConfigFilename = "CurrencyConfig_2021-04-01.txt";
+	public static  String projectConfigFilename = "ProjectConfig_2021-04-19.txt";
+	public static String currencyConfigFilename = "CurrencyConfig_2021-04-19.txt";
 	static String serializedDailyTransactionFilename = "DailyTransactions.ser";
 	static String serializedCustomerDataBaseFilename = "CustomerDatabase.ser";
 	static String textFormattedDailyTransactions = "DailyTransactions.txt";
