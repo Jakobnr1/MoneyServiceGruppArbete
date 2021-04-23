@@ -1,3 +1,0 @@
-Transaction [id=1, timeStamp=2021-04-21T12:35:14.455484900, currencyCode=NOK, amount=450, mode=SELL]
-Transaction [id=2, timeStamp=2021-04-21T12:35:25.594411100, currencyCode=EUR, amount=500, mode=SELL]
-Transaction [id=3, timeStamp=2021-04-21T12:35:48.874142500, currencyCode=GBP, amount=700, mode=BUY]

@@ -15,7 +15,7 @@ public class Currency implements java.io.Serializable {
 
 
 	public Currency(int totalValue, Float buyRate, Float sellRate) {
-		if(totalValue < 0) {
+		if(totalValue <= 0) {
 			totalValue =0;
 		}
 		this.totalValue = totalValue;

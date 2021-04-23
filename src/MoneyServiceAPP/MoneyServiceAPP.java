@@ -50,7 +50,7 @@ public class MoneyServiceAPP {
 
 		logger.addHandler(fh);
 		
-		Level currentLevel = Level.FINE;
+		Level currentLevel = Level.FINEST;
 
 		logger.setLevel(currentLevel); 
 		
@@ -382,8 +382,10 @@ public class MoneyServiceAPP {
 		}
 		while(!exit);
 
-		String destination = "testShutDown.txt";
+		String destination = "testShutDown.db";
+		
 		theSite.shutDownService(destination);
+		
 		System.exit(0);
 	}
 

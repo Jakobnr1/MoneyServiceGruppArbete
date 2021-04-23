@@ -26,12 +26,12 @@ public class Config {
 	}
 	
 	public static boolean setMIN_AMMOUNT(int MIN_AMMOUNT) {
-		MIN_AMMOUNT = MIN_AMMOUNT;
+		Config.MIN_AMMOUNT = MIN_AMMOUNT;
 		return true;
 	}
 	
 	public static boolean setMAX_AMMOUNT(int MAX_AMMOUNT) {
-		MAX_AMMOUNT = MAX_AMMOUNT;
+		Config.MAX_AMMOUNT = MAX_AMMOUNT;
 		return true;
 	}
 
