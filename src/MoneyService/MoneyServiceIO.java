@@ -140,6 +140,26 @@ public class MoneyServiceIO {
 		return saved;
 	}
 	
+	
+	/**
+	 * 
+	 * @param listToBeSaved
+	 * @param filename
+	 * @return
+	 */
+	
+	public static boolean saveSerializedCurrencyMap(Map<String, Currency> listToBeSaved, String filename) {
+		boolean saved = false;
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
+			oos.writeObject(listToBeSaved);
+		}
+		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));}
+		saved = true;
+		return saved;
+	}	
+	
+	
+	
 
 	/**
 	 * Saves a daily report in serialized form.

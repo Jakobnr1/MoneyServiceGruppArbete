@@ -114,7 +114,8 @@ public class ExchangeSite implements MoneyService {
 
 	@Override
 	public void shutDownService(String destination) {
-
+		MoneyServiceIO.saveSerializedCurrencyMap(currencyMap, "DailyCurrencyMap.ser");
+		logger.fine("Saved currencyMap as serialized form");
 		if(destination.contains(".txt")) {
 			logger.fine("Saving daily transactions as text");
 			MoneyServiceIO.saveDailyTransactionListAsText(transactionList, backupReport.getUniqueFileName());
