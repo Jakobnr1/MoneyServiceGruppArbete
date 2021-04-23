@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class Config {
 	//Attributes
@@ -12,6 +13,12 @@ public class Config {
 	private static int MAX_AMMOUNT = 10000;
 
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
+	
+	private static Logger logger;
+	
+	static {
+		logger = Logger.getLogger("MoneyService");
+	}
 	
 	//Methods
 	public static List<ExchangeRate> getExchangeRateList(){
@@ -44,22 +51,21 @@ public class Config {
 	 * @param currencyList
 	 * @param currencyMap
 	 */
-		public static void setRatesInCurrency(List<ExchangeRate> currencyList, Map<String, Currency> currencyMap) {
+		public static void setRatesInCurrency(List<ExchangeRate> currencyList, Map<String, Currency> currencyMap) {			
 			for(ExchangeRate s : currencyList) {
 				String key = s.getName();
 				Float buyRate = s.getExchangeRate() * 0.995F;
 				currencyMap.get(key).setBuyRate(buyRate);
 				Float sellRate = s.getExchangeRate() * 1.005f;
-				currencyMap.get(key).setSellRate(sellRate);;
+				currencyMap.get(key).setSellRate(sellRate);
+				logger.fine(""+key+" buyRate: "+buyRate+ ", sellRate"+sellRate);
 			}
 		}
 	
 	
 	public static List<ExchangeRate> setTheRates() {
 		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.currencyConfigFilename)));
-//		for(ExchangeRate er:test) {
-//			System.out.println(er.toString());
-//		}
+		logger.fine("*********** Getting rates from "+MoneyServiceIO.currencyConfigFilename+ " ************");
 		
 		return test;
 	}
@@ -72,7 +78,7 @@ public class Config {
 		for(String k:keySet) {
 			Currency tempCurrency = new Currency(testMap.get(k).intValue(), 0.0f, 0.0f);
 			currencyMap.putIfAbsent(k, tempCurrency);
-//			System.out.println(k.toString());
+			logger.fine("Filled MoneyBox with: "+k+" amount: "+tempCurrency);
 		}
 		return theBox;
 	}

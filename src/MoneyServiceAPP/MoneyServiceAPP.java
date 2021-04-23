@@ -1,14 +1,22 @@
 package MoneyServiceAPP;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.logging.FileHandler;
+import java.util.logging.Filter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.XMLFormatter;
 
 import MoneyService.Config;
 import MoneyService.ExchangeRate;
 import MoneyService.ExchangeSite;
 import MoneyService.MoneyBox;
 import MoneyService.MoneyServiceIO;
+import MoneyService.MonyeServiceLoggFilter;
 import MoneyService.Order;
 import MoneyService.Order.TransactionMode;
 import MoneyService.Transaction;
@@ -16,8 +24,39 @@ import MoneyService.Transaction;
 
 public class MoneyServiceAPP {
 
+	private static Logger logger;
+	private static FileHandler fh;
+
 	public static void main(String[] args) {
 
+		String logFormat =  "text";
+		
+		logger = Logger.getLogger("MoneyService");
+
+		try {
+			if(logFormat.equals("text")) {
+				fh = new FileHandler("MoneyServiceLog.txt");
+				fh.setFormatter(new SimpleFormatter());
+			}
+			else {
+				fh = new FileHandler("MoneyServiceLog.xml");
+				fh.setFormatter(new XMLFormatter());
+			}
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		logger.addHandler(fh);
+		
+		Level currentLevel = Level.FINE;
+
+		logger.setLevel(currentLevel); 
+		
+		Filter currentFilter = new MonyeServiceLoggFilter();
+		fh.setFilter(currentFilter);
+	
 		//Starts the day
 		ExchangeSite theSite = new ExchangeSite("North");
 		theSite.startTheDay();
@@ -91,7 +130,6 @@ public class MoneyServiceAPP {
 					TransactionMode transMode = TransactionMode.BUY;
 					int amount = 0;
 
-
 					System.out.println("BUY or SELL?");  
 					System.out.println("(BUY if you want to buy ex 500 EUR from exchange site)");
 					System.out.println("(SELL if you want to sell ex 320 GBP to exchange site)");
@@ -135,7 +173,6 @@ public class MoneyServiceAPP {
 							System.out.println(k.toString());									
 						}
 					}
-
 
 					System.out.println("Enter USD for US dollar, GBP for British pound... ");
 					System.out.println("If you want to exit press 0");
@@ -186,6 +223,7 @@ public class MoneyServiceAPP {
 							}
 							catch (NumberFormatException e) {
 								System.out.println("Bad input! Only number are allowed. Try again..");
+								logger.warning("Bad input! Only number are allowed.");
 							}
 						}
 						while(!okInput);
@@ -193,7 +231,6 @@ public class MoneyServiceAPP {
 						int price= ExchangeSite.calculatePrice(currencyChoice, amount, transMode); // Show the price
 						System.out.println("Cost: "+price+" "+MoneyServiceIO.getReferenceCurrency()); 
 
-						// OK input from user.
 						System.out.println("\nComplete order? ");
 						System.out.println("press y for complete order ");
 						System.out.println("press n for cancel order");
@@ -205,6 +242,7 @@ public class MoneyServiceAPP {
 							case "y":
 								Order myOrder = new Order(amount,currencyChoice, transMode);
 								if(myOrder.getTransactionType() == TransactionMode.SELL) {
+									logger.finer("Order created from user input: "+myOrder.toString());
 									if(theSite.sellMoney(myOrder)) {
 										theSite.completeOrder(myOrder);
 										System.out.println("Transaction completed! ");
@@ -213,9 +251,11 @@ public class MoneyServiceAPP {
 									}
 									else {
 										System.out.println("Not enough money that currency. Order canceled");
+										logger.finer("Not enough money that currency. Order canceled");
 									}
 								}
 								else {
+									logger.finer("Order created from user input: "+myOrder.toString());
 									if(theSite.buyMoney(myOrder)) {
 										theSite.completeOrder(myOrder);
 										System.out.println("Transaction completed! ");
@@ -223,6 +263,7 @@ public class MoneyServiceAPP {
 									}
 									else {
 										System.out.println("Not enough money in that currency. Order canceled");
+										logger.finer("Not enough money that currency. Order canceled");
 									}
 
 								}
@@ -266,28 +307,21 @@ public class MoneyServiceAPP {
 										i++;
 										System.out.println(i + ": Worked");
 									}
-
 								}
-
 							}
-
 						}
 
 					}while(!stop);
 
 					for(Transaction t : ExchangeSite.transactionList) {
 						System.out.println(""+t.toString());
-
 					}
 
 					Set<String> keySet = theSite.getCurrencyMap().keySet();
+					
 					for(String k:keySet) {
-
 						System.out.println(k+": "+theSite.getCurrencyMap().get(k).toString());
-
 					}
-
-
 
 					break;
 
@@ -324,19 +358,16 @@ public class MoneyServiceAPP {
 						}
 						catch (NumberFormatException e) {
 							System.out.println("Bad input! Only number are allowed. Try again..");
+							logger.warning("Bad input! Only number are allowed.");
 						}
 					}
 					while(!okInput);
 
-
 					MoneyBox.addNewCurrency(0, currencyName, sellRate);
-
-
 					break;
 
 				case 5:
 					exit=true;
-
 					break;
 
 				default:
@@ -346,6 +377,7 @@ public class MoneyServiceAPP {
 			}
 			catch (NumberFormatException e) {
 				System.out.println("Wrong choice! Try again");
+				logger.warning("Wrong choice! Try again");
 			}
 		}
 		while(!exit);
@@ -354,7 +386,6 @@ public class MoneyServiceAPP {
 		theSite.shutDownService(destination);
 		System.exit(0);
 	}
-
 
 }
 
