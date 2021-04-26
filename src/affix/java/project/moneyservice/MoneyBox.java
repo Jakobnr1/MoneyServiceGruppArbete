@@ -50,6 +50,16 @@ public class MoneyBox implements java.io.Serializable {
 		return true;
 	}
 
+	public static int denominationControl(String currencyName, double amount) {
+
+		int result = 0;
+		
+		if(currencyMap.containsKey(currencyName)) {
+		result = (int) (amount % 50);	
+		}
+		
+		return (int) amount - result ;	
+	}
 
 
 }
