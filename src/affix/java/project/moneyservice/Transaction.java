@@ -1,9 +1,7 @@
-package MoneyService;
+package affix.java.project.moneyservice;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import MoneyService.Order.TransactionMode;
 
 public class Transaction implements Serializable {
 	

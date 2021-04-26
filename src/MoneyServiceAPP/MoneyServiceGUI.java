@@ -3,7 +3,7 @@ package MoneyServiceAPP;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import MoneyService.ExchangeSite;
+import affix.java.project.moneyservice.ExchangeSite;
 
 public class MoneyServiceGUI {
 

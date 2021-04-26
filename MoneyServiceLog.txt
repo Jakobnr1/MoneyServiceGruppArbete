@@ -1,216 +1,46 @@
-apr. 23, 2021 3:54:33 EM MoneyService.ExchangeSite startTheDay
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.ExchangeSite startTheDay
 FINE: Starting the day!
-apr. 23, 2021 3:54:33 EM MoneyService.Config fillTheMoneyBox
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: AUD amount: Currency [totalValue=1500.0]
-apr. 23, 2021 3:54:33 EM MoneyService.Config fillTheMoneyBox
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: CHF amount: Currency [totalValue=1500.0]
-apr. 23, 2021 3:54:33 EM MoneyService.Config fillTheMoneyBox
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: JPY amount: Currency [totalValue=20000.0]
-apr. 23, 2021 3:54:33 EM MoneyService.Config fillTheMoneyBox
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: EUR amount: Currency [totalValue=5000.0]
-apr. 23, 2021 3:54:33 EM MoneyService.Config fillTheMoneyBox
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: GBP amount: Currency [totalValue=2500.0]
-apr. 23, 2021 3:54:33 EM MoneyService.Config fillTheMoneyBox
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: DKK amount: Currency [totalValue=10000.0]
-apr. 23, 2021 3:54:33 EM MoneyService.Config fillTheMoneyBox
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: USD amount: Currency [totalValue=2000.0]
-apr. 23, 2021 3:54:33 EM MoneyService.Config fillTheMoneyBox
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: SEK amount: Currency [totalValue=50000.0]
-apr. 23, 2021 3:54:33 EM MoneyService.Config fillTheMoneyBox
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: NOK amount: Currency [totalValue=10000.0]
-apr. 23, 2021 3:54:33 EM MoneyService.Config fillTheMoneyBox
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: RUB amount: Currency [totalValue=30000.0]
-apr. 23, 2021 3:54:33 EM MoneyService.Config setTheRates
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setTheRates
 FINE: *********** Getting rates from CurrencyConfig_2021-04-19.txt ************
-apr. 23, 2021 3:54:33 EM MoneyService.Config setRatesInCurrency
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
 FINE: AUD buyRate: 6.4982457, sellRate6.5635543
-apr. 23, 2021 3:54:33 EM MoneyService.Config setRatesInCurrency
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
 FINE: CHF buyRate: 9.122236, sellRate9.213917
-apr. 23, 2021 3:54:33 EM MoneyService.Config setRatesInCurrency
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
 FINE: DKK buyRate: 1.351992, sellRate1.36558
-apr. 23, 2021 3:54:33 EM MoneyService.Config setRatesInCurrency
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
 FINE: EUR buyRate: 10.053579, sellRate10.154621
-apr. 23, 2021 3:54:33 EM MoneyService.Config setRatesInCurrency
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
 FINE: GBP buyRate: 11.624884, sellRate11.741716
-apr. 23, 2021 3:54:33 EM MoneyService.Config setRatesInCurrency
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
 FINE: JPY buyRate: 0.07734334, sellRate0.07812066
-apr. 23, 2021 3:54:33 EM MoneyService.Config setRatesInCurrency
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
 FINE: NOK buyRate: 1.0047182, sellRate1.0148159
-apr. 23, 2021 3:54:33 EM MoneyService.Config setRatesInCurrency
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
 FINE: RUB buyRate: 0.10998034, sellRate0.11108566
-apr. 23, 2021 3:54:33 EM MoneyService.Config setRatesInCurrency
+apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
 FINE: USD buyRate: 8.388148, sellRate8.472451
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: JPY 600 price: 47
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=JPY, amount= 600, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: RUB 1250 price: 137
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 30000 RUB to theBox. Total in box after: 31250.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: RUB 1250 price: 137
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 50047 Optional[50047.0] total in box after: 49910.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=RUB, amount= 1250, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: EUR 1850 price: 18786
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=EUR, amount= 1850, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: RUB 900 price: 100
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=RUB, amount= 900, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: DKK 650 price: 879
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 10000 DKK to theBox. Total in box after: 10650.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: DKK 650 price: 879
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 68796 Optional[68796.0] total in box after: 67917.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=DKK, amount= 650, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: CHF 400 price: 3686
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=CHF, amount= 400, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: AUD 1000 price: 6498
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 1500 AUD to theBox. Total in box after: 2500.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: AUD 1000 price: 6498
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 71603 Optional[71603.0] total in box after: 65105.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=AUD, amount= 1000, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: USD 450 price: 3813
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=USD, amount= 450, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: JPY 1400 price: 108
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 19400 JPY to theBox. Total in box after: 20800.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: JPY 1400 price: 108
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 68918 Optional[68918.0] total in box after: 68810.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=JPY, amount= 1400, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: CHF 2100 price: 19157
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 1100 CHF to theBox. Total in box after: 3200.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: CHF 2100 price: 19157
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 68810 Optional[68810.0] total in box after: 49653.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=CHF, amount= 2100, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: EUR 1500 price: 15232
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=EUR, amount= 1500, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: DKK 1650 price: 2253
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=DKK, amount= 1650, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: NOK 2050 price: 2080
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=NOK, amount= 2050, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: NOK 2150 price: 2160
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 7950 NOK to theBox. Total in box after: 10100.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: NOK 2150 price: 2160
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 69218 Optional[69218.0] total in box after: 67058.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=NOK, amount= 2150, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: AUD 750 price: 4923
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=AUD, amount= 750, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: JPY 1200 price: 94
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=JPY, amount= 1200, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: DKK 1600 price: 2185
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=DKK, amount= 1600, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: USD 250 price: 2118
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=USD, amount= 250, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: AUD 300 price: 1949
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 1750 AUD to theBox. Total in box after: 2050.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: AUD 300 price: 1949
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 76378 Optional[76378.0] total in box after: 74429.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=AUD, amount= 300, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: AUD 250 price: 1625
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 2050 AUD to theBox. Total in box after: 2300.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: AUD 250 price: 1625
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 74429 Optional[74429.0] total in box after: 72804.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=AUD, amount= 250, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: JPY 1500 price: 117
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=JPY, amount= 1500, mode= SELL ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: DKK 1050 price: 1420
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 7400 DKK to theBox. Total in box after: 8450.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: DKK 1050 price: 1420
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 72921 Optional[72921.0] total in box after: 71501.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=DKK, amount= 1050, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: USD 2200 price: 18454
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 1300 USD to theBox. Total in box after: 3500.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: USD 2200 price: 18454
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 71501 Optional[71501.0] total in box after: 53047.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=USD, amount= 2200, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: RUB 150 price: 16
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 30350 RUB to theBox. Total in box after: 30500.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: RUB 150 price: 16
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 53047 Optional[53047.0] total in box after: 53031.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=RUB, amount= 150, mode= BUY ]
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: JPY 1500 price: 116
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Adding 18100 JPY to theBox. Total in box after: 19600.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite calculatePrice
-FINER: Calculate price for: JPY 1500 price: 116
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINEST: Selling 53031 Optional[53031.0] total in box after: 52915.0
-apr. 23, 2021 3:54:48 EM MoneyService.ExchangeSite completeOrder
-FINE: Completed order: OrderData [currencyCode=JPY, amount= 1500, mode= BUY ]
-apr. 23, 2021 3:54:55 EM MoneyService.ExchangeSite shutDownService
+apr. 26, 2021 11:11:12 FM affix.java.project.moneyservice.ExchangeSite shutDownService
+FINE: Saved currencyMap as serialized form
+apr. 26, 2021 11:11:12 FM affix.java.project.moneyservice.ExchangeSite shutDownService
 FINE: Saving daily transactions as serialized

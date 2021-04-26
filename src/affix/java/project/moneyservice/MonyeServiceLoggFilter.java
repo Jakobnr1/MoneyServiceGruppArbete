@@ -1,4 +1,4 @@
-package MoneyService;
+package affix.java.project.moneyservice;
 
 import java.util.logging.Filter;
 import java.util.logging.Level;

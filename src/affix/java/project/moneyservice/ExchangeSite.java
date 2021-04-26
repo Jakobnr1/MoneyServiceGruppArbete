@@ -1,4 +1,4 @@
-package MoneyService;
+package affix.java.project.moneyservice;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
-import MoneyService.Order.TransactionMode;
-
 import java.util.logging.Logger;
 
 
@@ -49,7 +47,7 @@ public class ExchangeSite implements MoneyService {
 	 * @param amount
 	 * @return int price
 	 */
-	public static int calculatePrice(String currencyCode, int amount,Order.TransactionMode transactionType) {
+	public static int calculatePrice(String currencyCode, int amount,TransactionMode transactionType) {
 		Map<String, Currency> currencyMap= MoneyBox.getCurrencyMap();
 		float calcPrice =0;
 		double price =0;

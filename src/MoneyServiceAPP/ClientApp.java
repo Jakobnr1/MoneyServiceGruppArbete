@@ -1,7 +1,7 @@
 package MoneyServiceAPP;
 
-import MoneyService.Order;
-import MoneyService.PayService;
+import affix.java.project.moneyservice.Order;
+import affix.java.project.moneyservice.PayService;
 
 public class ClientApp {
 

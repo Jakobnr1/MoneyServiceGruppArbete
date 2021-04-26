@@ -1,4 +1,4 @@
-package MoneyService;
+package affix.java.project.moneyservice;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

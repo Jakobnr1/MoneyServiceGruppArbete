@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
+import affix.java.project.moneyservice.ExchangeRate;
+
 
 
 //@Test
