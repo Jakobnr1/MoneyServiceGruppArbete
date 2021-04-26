@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class Config {
 	//Attributes
 	private static int MIN_AMMOUNT = 50;
-	private static int MAX_AMMOUNT = 10000;
+	private static int MAX_AMMOUNT = 50000;
 
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
 	

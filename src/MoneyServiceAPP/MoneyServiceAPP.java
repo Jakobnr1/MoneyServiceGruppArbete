@@ -2,6 +2,7 @@ package MoneyServiceAPP;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.FileHandler;
@@ -12,7 +13,7 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
 
 import affix.java.project.moneyservice.Config;
-import affix.java.project.moneyservice.ExchangeRate;
+import affix.java.project.moneyservice.Currency;
 import affix.java.project.moneyservice.ExchangeSite;
 import affix.java.project.moneyservice.MoneyBox;
 import affix.java.project.moneyservice.MoneyServiceIO;
@@ -30,7 +31,7 @@ public class MoneyServiceAPP {
 	public static void main(String[] args) {
 
 		String logFormat =  "text";
-		
+
 		logger = Logger.getLogger("MoneyService");
 
 		try {
@@ -49,14 +50,14 @@ public class MoneyServiceAPP {
 		}
 
 		logger.addHandler(fh);
-		
+
 		Level currentLevel = Level.FINEST;
 
 		logger.setLevel(currentLevel); 
-		
+
 		Filter currentFilter = new MonyeServiceLoggFilter();
 		fh.setFilter(currentFilter);
-	
+
 		//Starts the day
 		ExchangeSite theSite = new ExchangeSite("North");
 		theSite.startTheDay();
@@ -116,8 +117,11 @@ public class MoneyServiceAPP {
 				switch (choice) {
 				case 1: 
 					System.out.println("********************* Todays rates *********************");
-					for(ExchangeRate er:ExchangeSite.getRates()) {
-						System.out.println(er.toString());
+					for(Entry<String, Currency> er:theSite.getCurrencyMap().entrySet()) {
+						System.out.format(er.getKey().toString());
+						System.out.format(" Buying: %.3f",er.getValue().getSellRate());
+						System.out.format(" Selling: %.3f",er.getValue().getBuyRate());
+						System.out.println("");
 					}
 					System.out.println("********************************************************");
 
@@ -131,8 +135,8 @@ public class MoneyServiceAPP {
 					int amount = 0;
 
 					System.out.println("BUY or SELL?");  
-					System.out.println("(BUY if you want to buy ex 500 EUR from exchange site)");
-					System.out.println("(SELL if you want to sell ex 320 GBP to exchange site)");
+					System.out.println("(BUY if you want to buy ex 50 EUR from exchange site)");
+					System.out.println("(SELL if you want to sell ex 350 GBP to exchange site)");
 					System.out.println();
 					System.out.println("press b for BUY a currency");
 					System.out.println("press s for SELL a currency");
@@ -208,13 +212,16 @@ public class MoneyServiceAPP {
 
 					if(!stopOrder) {
 
-						System.out.format("Enter amount");
+						System.out.println("Enter amount in steps of 50");
+						System.out.println("Existing denominations are: 50, 100, 200, 500, 1000");
+						System.out.println("(If you ex write 453 you will have 450)");
 						do {
 							try {
 								okInput = false;
 								String temp = keyboard.next();
 								amount = Integer.parseInt(temp);
 								if(amount >= Config.getMIN_AMMOUNT() && amount <= Config.getMAX_AMMOUNT()) {
+									amount= MoneyBox.denominationControl(currencyChoice, amount);
 									okInput = true;	
 								}
 								else {
@@ -228,9 +235,17 @@ public class MoneyServiceAPP {
 						}
 						while(!okInput);
 
-						int price= ExchangeSite.calculatePrice(currencyChoice, amount, transMode); // Show the price
-						System.out.println("Cost: "+price+" "+MoneyServiceIO.getReferenceCurrency()); 
-
+						int price= ExchangeSite.calculatePrice(currencyChoice, amount, transMode); 
+						
+						if(transMode == TransactionMode.SELL) {
+							System.out.println("Cost for buying "+amount+" "+currencyChoice+ ": "+price+" "+MoneyServiceIO.getReferenceCurrency()); 
+							System.out.format("Exchange buy rate in calculation: %.3f",theSite.getCurrencyMap().get(currencyChoice).getSellRate());
+						}
+						else {
+							System.out.println("You will get paid: "+price+ " "+MoneyServiceIO.getReferenceCurrency()+" when selling "+amount+" "+currencyChoice);
+							System.out.format("Exchange sell rate in calculation: %.3f",theSite.getCurrencyMap().get(currencyChoice).getBuyRate());
+						}
+						
 						System.out.println("\nComplete order? ");
 						System.out.println("press y for complete order ");
 						System.out.println("press n for cancel order");
@@ -318,7 +333,7 @@ public class MoneyServiceAPP {
 					}
 
 					Set<String> keySet = theSite.getCurrencyMap().keySet();
-					
+
 					for(String k:keySet) {
 						System.out.println(k+": "+theSite.getCurrencyMap().get(k).toString());
 					}
@@ -326,13 +341,17 @@ public class MoneyServiceAPP {
 					break;
 
 				case 4:
-					String[] currecyNamesOK = {"CNY","BOB"};
+					String[] currecyNamesOK = {"CNY"};
 					String currencyName ="";
 					Float sellRate =0.0F;
 					do {
 						okInput = false;
 						boolean okAddCurrency = false;
 						System.out.println("Enter name of new currency: ");
+						System.out.println("Accepted names right now: ");
+						for(String s : currecyNamesOK) {
+							System.out.println(s);							
+							}
 						currencyName = keyboard.next().strip().toUpperCase();
 						for(String s : currecyNamesOK) {
 							if(s.equals(currencyName)) {
@@ -383,9 +402,9 @@ public class MoneyServiceAPP {
 		while(!exit);
 
 		String destination = "testShutDown.db";
-		
+
 		theSite.shutDownService(destination);
-		
+
 		System.exit(0);
 	}
 
