@@ -1,4 +1,4 @@
-package MoneyService;
+package affix.java.project.moneyservice;
 
 
 public class Currency implements java.io.Serializable {

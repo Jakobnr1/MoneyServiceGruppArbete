@@ -7,7 +7,13 @@ import java.util.List;
 import java.util.Map;
 import org.junit.Test;
 
-import MoneyService.Order.TransactionMode;
+import affix.java.project.moneyservice.Currency;
+import affix.java.project.moneyservice.ExchangeRate;
+import affix.java.project.moneyservice.ExchangeSite;
+import affix.java.project.moneyservice.MoneyBox;
+import affix.java.project.moneyservice.Order;
+import affix.java.project.moneyservice.Transaction;
+import affix.java.project.moneyservice.TransactionMode;
 
 
 

@@ -8,6 +8,10 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import affix.java.project.moneyservice.Config;
+import affix.java.project.moneyservice.ExchangeRate;
+import affix.java.project.moneyservice.ExchangeSite;
+
 
 
 public class testConfig {

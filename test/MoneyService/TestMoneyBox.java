@@ -10,6 +10,11 @@ import java.util.TreeMap;
 
 import org.junit.Test;
 
+import affix.java.project.moneyservice.Config;
+import affix.java.project.moneyservice.Currency;
+import affix.java.project.moneyservice.ExchangeRate;
+import affix.java.project.moneyservice.MoneyBox;
+
 public class TestMoneyBox {
 	
 	Map<String, Currency> currencyMap = new HashMap<>();

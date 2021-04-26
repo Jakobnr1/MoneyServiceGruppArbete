@@ -11,15 +11,15 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
 
-import MoneyService.Config;
-import MoneyService.ExchangeRate;
-import MoneyService.ExchangeSite;
-import MoneyService.MoneyBox;
-import MoneyService.MoneyServiceIO;
-import MoneyService.MonyeServiceLoggFilter;
-import MoneyService.Order;
-import MoneyService.Order.TransactionMode;
-import MoneyService.Transaction;
+import affix.java.project.moneyservice.Config;
+import affix.java.project.moneyservice.ExchangeRate;
+import affix.java.project.moneyservice.ExchangeSite;
+import affix.java.project.moneyservice.MoneyBox;
+import affix.java.project.moneyservice.MoneyServiceIO;
+import affix.java.project.moneyservice.MonyeServiceLoggFilter;
+import affix.java.project.moneyservice.Order;
+import affix.java.project.moneyservice.Transaction;
+import affix.java.project.moneyservice.TransactionMode;
 
 
 public class MoneyServiceAPP {

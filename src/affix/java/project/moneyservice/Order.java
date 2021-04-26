@@ -1,4 +1,4 @@
-package MoneyService;
+package affix.java.project.moneyservice;
 
 
 import java.util.ArrayList;
@@ -12,8 +12,6 @@ import java.util.stream.Stream;
 
 
 public class Order {
-
-	public enum TransactionMode {SELL, BUY}
 
 	private TransactionMode TransactionType;
 	private int value;
