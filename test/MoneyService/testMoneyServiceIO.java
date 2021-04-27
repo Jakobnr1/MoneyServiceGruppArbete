@@ -87,15 +87,15 @@ public class testMoneyServiceIO {
 	@Test
 	public void tesParceCurrencyConfig() {
 		List <ExchangeRate> testList = new ArrayList<ExchangeRate>();
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,19), 1, "AUD", 6.5309f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,19), 100, "CHF", 916.8076f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,19), 100, "DKK", 135.8786f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,19), 1, "EUR", 10.1041f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,19), 1, "GBP", 11.6833f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,19), 100, "JPY", 7.7732f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,19), 100, "NOK", 100.9767f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,19), 100, "RUB", 11.0533f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,19), 1, "USD", 8.4303f));
+		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 1, "AUD", 6.5024f));
+		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 100, "CHF", 917.305f));
+		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 100, "DKK", 136.1902f));
+		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 1, "EUR", 10.1273f));
+		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 1, "GBP", 11.6702f));
+		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 100, "JPY", 7.7879f));
+		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 100, "NOK", 100.9289f));
+		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 100, "RUB", 11.1971f));
+		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 1, "USD", 8.4066f));
 
 		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.currencyConfigFilename)));
 		
