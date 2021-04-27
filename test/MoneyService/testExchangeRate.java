@@ -73,7 +73,7 @@ public class testExchangeRate {
 		
 		testExchangeRate = new ExchangeRate(LocalDate.of(2021, 04, 23), 10, "EUR", 10.54f);
 		
-		assertEquals("Date: 2021-04-23, Currency: EUR, Exchangerate: 1.0540", testExchangeRate.toString());
+		assertEquals("Date: 2021-04-23, Currency: EUR, Exchangerate: 1,0540", testExchangeRate.toString());
 	}
 
 }

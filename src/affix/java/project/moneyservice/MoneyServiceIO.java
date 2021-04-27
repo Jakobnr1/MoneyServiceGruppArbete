@@ -20,14 +20,22 @@ import java.util.stream.Stream;
 
 public class MoneyServiceIO {
 
-	public static  String projectConfigFilename = "ProjectConfig_2021-04-19.txt";
-	public static String currencyConfigFilename = "CurrencyConfig_2021-04-19.txt";
+	public static  String projectConfigFilename = "ProjectConfig_"+LocalDate.now().toString()+".txt";
+	public static String currencyConfigFilename = "CurrencyConfig_"+LocalDate.now().toString()+".txt";
+//	public static  String projectConfigFilename = "ProjectConfig_2021-04-19.txt";
+//	public static String currencyConfigFilename = "CurrencyConfig_2021-04-19.txt";	
 	static String serializedDailyTransactionFilename = "DailyTransactions.ser";
 	static String serializedCustomerDataBaseFilename = "CustomerDatabase.ser";
 	static String textFormattedDailyTransactions = "DailyTransactions.txt";
 	public static String referenceCurrency;
 	public static LocalDate refDate;
 	public static LocalDateTime LDT = LocalDateTime.now(); //TODO
+	
+	
+	public void changeDate(LocalDate date) {
+		projectConfigFilename = "ProjectConfig_"+date.toString()+".txt";
+		currencyConfigFilename = "CurrencyConfig_"+date.toString()+".txt";
+	}
 	
 	
 	public static String getReferenceCurrency() {

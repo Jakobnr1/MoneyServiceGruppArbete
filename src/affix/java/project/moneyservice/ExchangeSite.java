@@ -23,10 +23,14 @@ public class ExchangeSite implements MoneyService {
 	static {
 		logger = Logger.getLogger("MoneyService");
 	}
-	
 	public ExchangeSite(String Name) {
+		this(Name,LocalDateTime.now());
+	}
+	
+	
+	public ExchangeSite(String Name, LocalDateTime TimeStamp) {
 		ExchangeSite.name = Name;
-		backupReport = new Report(LocalDateTime.now(), transactionList);
+		backupReport = new Report(TimeStamp, transactionList);
 		ExchangeSite.currencyMap = new TreeMap<String, Currency>();
 		ExchangeSite.theBox= new MoneyBox(currencyMap);
 		ExchangeSite.rates = new ArrayList<ExchangeRate>();
