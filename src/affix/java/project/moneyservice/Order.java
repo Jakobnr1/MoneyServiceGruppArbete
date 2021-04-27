@@ -16,7 +16,7 @@ public class Order {
 	private TransactionMode TransactionType;
 	private int value;
 	private String currencyCode;
-	
+
 
 
 	public Order(int value, String currencyCode,TransactionMode Transaction) {
@@ -59,7 +59,7 @@ public class Order {
 		return String.format("OrderData [currencyCode=%s, amount= %d, mode= %s ]",
 				this.currencyCode, this.value, this.TransactionType);
 	}
-	
+
 
 	/**
 	 * Generates randomized Orders depending on the parameters sent in
@@ -71,29 +71,23 @@ public class Order {
 	public static List<Order> generateDailyOrder(List<ExchangeRate> tempCurrencies, int amount) {
 		Random rand = new Random();
 		List<Order> tempList = new ArrayList<Order>(amount);
-        List<Integer> tempValues = new ArrayList<Integer>(amount); 
+		List<Integer> tempValues = new ArrayList<Integer>(amount); 
 		List<TransactionMode> tempTransactionTypes = new ArrayList<TransactionMode>(2);
 		tempTransactionTypes.add(TransactionMode.BUY);
 		tempTransactionTypes.add(TransactionMode.SELL);
-        
-		for(int i=0; i<amount; i++){
-			Stream<Integer> randomFilteredValues = 
-					Stream.generate(rand::nextInt)
-					.limit(250)
-					.map(d -> d%2500)
-					.filter(d -> d>50)
-					.filter(d -> d%50==0);                        
 
-			Optional<Integer> optionalHighValue = randomFilteredValues.findAny();
-			optionalHighValue.ifPresent(v -> tempValues.add(v));
-			if(tempValues.size()<amount&&i==(amount--))
-				i--;
-		}
-		
+		do { Stream<Integer> randomFilteredValues = Stream.generate(rand::nextInt).limit(250)
+				.map(d -> d%2500)      
+				.filter(d -> d>50)   
+				.filter(d -> d%50==0); 
+		Optional<Integer> optionalHighValue = randomFilteredValues.findAny(); 
+		optionalHighValue.ifPresent(v -> tempValues.add(v));   
+		}while(tempValues.size()<amount);
+
 		tempValues.forEach((d) -> tempList.add(new Order(d,
 				tempCurrencies.get(rand.nextInt(tempCurrencies.size())).getName(),
 				tempTransactionTypes.get(rand.nextInt(tempTransactionTypes.size())))));	//Need Random 
-	
+
 
 		return tempList;
 	}

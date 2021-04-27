@@ -135,7 +135,9 @@ public class MoneyServiceIO {
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
 			oos.writeObject(listToBeSaved);
 		}
-		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized daily transaction"+ioe.toString()));}
+		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized daily transaction"+ioe.toString()));
+		return false;
+		}
 		saved = true;
 		return saved;
 	}
@@ -153,7 +155,9 @@ public class MoneyServiceIO {
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
 			oos.writeObject(listToBeSaved);
 		}
-		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));}
+		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));
+		return false;
+		}
 		saved = true;
 		return saved;
 	}	
@@ -173,7 +177,10 @@ public class MoneyServiceIO {
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(r.getUniqueFileName().trim()))){
 			oos.writeObject(r.getDailyTransaction());
 		}
-		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized daily transaction"+ioe.toString()));}
+		catch(IOException ioe) { 
+			System.out.println(String.format("Error when saving serialized daily transaction "+ioe.toString()));
+			return false;
+		}
 		saved = true;
 		return saved;
 	}

@@ -11,6 +11,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	testExchangeRate.class, 
 	TestExchangeSite.class,
 	TestMoneyBox.class, 
+	testMoneyServiceIO.class,
 	})
 public class AllTests {
 
