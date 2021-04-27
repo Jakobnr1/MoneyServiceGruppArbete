@@ -12,6 +12,10 @@ import org.junit.runners.Suite.SuiteClasses;
 	TestExchangeSite.class,
 	TestMoneyBox.class, 
 	testMoneyServiceIO.class,
+	testOrder.class,
+	testReport.class,
+	testTransaction.class,
+	testTransactionMode.class,
 	})
 public class AllTests {
 
