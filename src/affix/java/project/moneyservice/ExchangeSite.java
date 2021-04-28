@@ -1,5 +1,6 @@
 package affix.java.project.moneyservice;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +17,16 @@ public class ExchangeSite implements MoneyService {
 	private Report backupReport;
 	private static MoneyBox theBox;
 	private static Map<String, Currency> currencyMap;
-	private static List<ExchangeRate> rates;	
+	private static List<ExchangeRate> rates;
+	private static LocalDate date;
 
 	private static Logger logger;
 	
 	static {
 		logger = Logger.getLogger("MoneyService");
 	}
+	
+	
 	public ExchangeSite(String Name) {
 		this(Name,LocalDateTime.now());
 	}
@@ -35,6 +39,9 @@ public class ExchangeSite implements MoneyService {
 		ExchangeSite.theBox= new MoneyBox(currencyMap);
 		ExchangeSite.rates = new ArrayList<ExchangeRate>();
 	}
+
+
+
 
 	public void startTheDay() {
 		logger.fine("Starting the day!");
@@ -163,7 +170,7 @@ public class ExchangeSite implements MoneyService {
 			int total = calculatePrice(currency, value,TransactionMode.BUY);
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(sell - total);
 			logger.finest("Selling "+sell+" "+companyCur+ " total in box after: "+MoneyBox.getCurrencyMap().get(refCurrency).getTotalValue());
-			transactionList.add(new Transaction(orderData));
+			transactionList.add(new Transaction(orderData));//RIP
 		}
 
 		else if(orderData.getTransactionType() == TransactionMode.SELL) {
@@ -172,7 +179,7 @@ public class ExchangeSite implements MoneyService {
 			int ourCurrency = companyCur.get().intValue();
 			int total = calculatePrice(currency, value,TransactionMode.SELL);
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(ourCurrency + total);
-			transactionList.add(new Transaction(orderData));
+			transactionList.add(new Transaction(orderData));//RIP
 		}
 		logger.fine("Completed order: "+orderData.toString());
 		return orderData;

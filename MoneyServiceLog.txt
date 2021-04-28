@@ -1,46 +1,42 @@
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.ExchangeSite startTheDay
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.ExchangeSite startTheDay
 FINE: Starting the day!
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: AUD amount: Currency [totalValue=1500.0]
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: CHF amount: Currency [totalValue=1500.0]
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: JPY amount: Currency [totalValue=20000.0]
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: EUR amount: Currency [totalValue=5000.0]
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: GBP amount: Currency [totalValue=2500.0]
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: DKK amount: Currency [totalValue=10000.0]
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: USD amount: Currency [totalValue=2000.0]
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: SEK amount: Currency [totalValue=50000.0]
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: NOK amount: Currency [totalValue=10000.0]
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config fillTheMoneyBox
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config fillTheMoneyBox
 FINE: Filled MoneyBox with: RUB amount: Currency [totalValue=30000.0]
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setTheRates
-FINE: *********** Getting rates from CurrencyConfig_2021-04-19.txt ************
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
-FINE: AUD buyRate: 6.4982457, sellRate6.5635543
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
-FINE: CHF buyRate: 9.122236, sellRate9.213917
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
-FINE: DKK buyRate: 1.351992, sellRate1.36558
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
-FINE: EUR buyRate: 10.053579, sellRate10.154621
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
-FINE: GBP buyRate: 11.624884, sellRate11.741716
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
-FINE: JPY buyRate: 0.07734334, sellRate0.07812066
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
-FINE: NOK buyRate: 1.0047182, sellRate1.0148159
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
-FINE: RUB buyRate: 0.10998034, sellRate0.11108566
-apr. 26, 2021 11:10:49 FM affix.java.project.moneyservice.Config setRatesInCurrency
-FINE: USD buyRate: 8.388148, sellRate8.472451
-apr. 26, 2021 11:11:12 FM affix.java.project.moneyservice.ExchangeSite shutDownService
-FINE: Saved currencyMap as serialized form
-apr. 26, 2021 11:11:12 FM affix.java.project.moneyservice.ExchangeSite shutDownService
-FINE: Saving daily transactions as serialized
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config setTheRates
+FINE: *********** Getting rates from CurrencyConfig_2021-04-28.txt ************
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINE: AUD buyRate: 6.483719, sellRate6.5488815
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINE: CHF buyRate: 9.166272, sellRate9.258395
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINE: DKK buyRate: 1.3581045, sellRate1.3717537
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINE: EUR buyRate: 10.098752, sellRate10.200248
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINE: GBP buyRate: 11.702095, sellRate11.819704
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINE: JPY buyRate: 0.07777915, sellRate0.07856085
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINE: NOK buyRate: 1.0049411, sellRate1.015041
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINE: RUB buyRate: 0.109454975, sellRate0.11055502
+apr. 28, 2021 1:15:35 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINE: USD buyRate: 8.403273, sellRate8.487728

@@ -1,16 +1,27 @@
 package MoneyServiceAPP;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.logging.FileHandler;
 import java.util.logging.Filter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
+import java.util.stream.Stream;
 
 import affix.java.project.moneyservice.Config;
 import affix.java.project.moneyservice.Currency;
@@ -110,6 +121,7 @@ public class MoneyServiceAPP {
 				System.out.println("3. - Random generate 25 orders");
 				System.out.println("4. - Create new currency");
 				System.out.println("5. - Exit the program");
+				System.out.println("6. - Random generate 25 orders per day for all days in april");
 
 				String input=keyboard.next();
 				choice=Integer.parseInt(input);	
@@ -236,7 +248,7 @@ public class MoneyServiceAPP {
 						while(!okInput);
 
 						int price= ExchangeSite.calculatePrice(currencyChoice, amount, transMode); 
-						
+
 						if(transMode == TransactionMode.SELL) {
 							System.out.println("Cost for buying "+amount+" "+currencyChoice+ ": "+price+" "+MoneyServiceIO.getReferenceCurrency()); 
 							System.out.format("Exchange buy rate in calculation: %.3f",theSite.getCurrencyMap().get(currencyChoice).getSellRate());
@@ -351,7 +363,7 @@ public class MoneyServiceAPP {
 						System.out.println("Accepted names right now: ");
 						for(String s : currecyNamesOK) {
 							System.out.println(s);							
-							}
+						}
 						currencyName = keyboard.next().strip().toUpperCase();
 						for(String s : currecyNamesOK) {
 							if(s.equals(currencyName)) {
@@ -389,10 +401,27 @@ public class MoneyServiceAPP {
 					exit=true;
 					break;
 
+				case 6:
+					String userInput;
+					Scanner sc = new Scanner(System.in);
+					System.out.println("Enter the first date: YYYY-MM-DD");
+					userInput = sc.nextLine();
+					LocalDate firstDate = LocalDate.parse(userInput);
+					System.out.println("Enter the second date: YYYY-MM-DD");
+					userInput = sc.nextLine();
+					//OBS tar inte med sista dagen därav plus en dag.
+					LocalDate secondDate = LocalDate.parse(userInput).plusDays(1);
+					Stream<LocalDate> ldStream = firstDate.datesUntil(secondDate)
+							.filter(ld -> !(ld.getDayOfWeek().equals(DayOfWeek.SATURDAY)) && !(ld.getDayOfWeek().equals(DayOfWeek.SUNDAY)));
+					ldStream.forEach(test());
+					break;
+
 				default:
 					System.out.println("Wrong choice!");
 					break;
 				}
+
+
 			}
 			catch (NumberFormatException e) {
 				System.out.println("Wrong choice! Try again");
@@ -408,8 +437,38 @@ public class MoneyServiceAPP {
 		System.exit(0);
 	}
 
+	public static Consumer<LocalDate> test(){
+		Consumer<LocalDate> dateConsumer = (ld) -> {
+			List <Transaction> templist = new ArrayList<>();
+			LocalDateTime timestamp = ld.atStartOfDay();
+			ExchangeSite temp = new ExchangeSite("North",timestamp);
+			temp.startTheDay();
+			MoneyServiceIO.setRefDate(ld);
+			List<Order> listOfOrders = Order.generateDailyOrder(ExchangeSite.getRates(), 35);
+			for(Order d: listOfOrders) {
+				Transaction temptrans = new Transaction(d, timestamp);
+				templist.add(temptrans);
+				if(d.getTransactionType() == (TransactionMode.BUY)) {
+					if(temp.buyMoney(d)) {
+						temp.completeOrder(d);
+						System.out.println("(b)Succses order complete");
+					}
+					else {
+						System.out.println("Error couldnt afford");
+					}
+				}
+				else {
+					if(temp.sellMoney(d)) {
+						temp.completeOrder(d);
+						System.out.println("(s)Succses order complete");
+					}
+					else {
+						System.out.println("Error not enough money");
+					}
+				}			
+			}
+			System.out.println(templist);
+		};
+		return dateConsumer;
+	}
 }
-
-
-
-

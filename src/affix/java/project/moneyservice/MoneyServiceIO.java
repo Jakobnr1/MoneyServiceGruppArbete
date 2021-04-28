@@ -32,12 +32,25 @@ public class MoneyServiceIO {
 	public static LocalDateTime LDT = LocalDateTime.now(); //TODO
 	
 	
-	public void changeDate(LocalDate date) {
+	public static void changeDate(LocalDate date) {
 		projectConfigFilename = "ProjectConfig_"+date.toString()+".txt";
 		currencyConfigFilename = "CurrencyConfig_"+date.toString()+".txt";
 	}
+		
 	
 	
+	public static LocalDate getRefDate() {
+		return refDate;
+	}
+
+
+
+	public static void setRefDate(LocalDate refDate) {
+		MoneyServiceIO.refDate = refDate;
+	}
+
+
+
 	public static String getReferenceCurrency() {
 		return referenceCurrency;
 	}
