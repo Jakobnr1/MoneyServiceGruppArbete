@@ -18,30 +18,26 @@ public class ExchangeSite implements MoneyService {
 	private static MoneyBox theBox;
 	private static Map<String, Currency> currencyMap;
 	private static List<ExchangeRate> rates;
-	private static LocalDate date;
+	private static Map<LocalDate, Map<String, Currency>> superMap;
 
 	private static Logger logger;
-	
+
 	static {
 		logger = Logger.getLogger("MoneyService");
 	}
-	
-	
 	public ExchangeSite(String Name) {
 		this(Name,LocalDateTime.now());
 	}
-	
-	
+
+
 	public ExchangeSite(String Name, LocalDateTime TimeStamp) {
 		ExchangeSite.name = Name;
 		backupReport = new Report(TimeStamp, transactionList);
 		ExchangeSite.currencyMap = new TreeMap<String, Currency>();
 		ExchangeSite.theBox= new MoneyBox(currencyMap);
 		ExchangeSite.rates = new ArrayList<ExchangeRate>();
+		ExchangeSite.superMap = new TreeMap<LocalDate, Map<String, Currency>>();
 	}
-
-
-
 
 	public void startTheDay() {
 		logger.fine("Starting the day!");
@@ -62,10 +58,10 @@ public class ExchangeSite implements MoneyService {
 		Map<String, Currency> currencyMap= MoneyBox.getCurrencyMap();
 		float calcPrice =0;
 		double price =0;
-		
+
 		if(transactionType == TransactionMode.SELL) {
-		calcPrice = currencyMap.get(currencyCode).sellRate.floatValue();
-		
+			calcPrice = currencyMap.get(currencyCode).sellRate.floatValue();
+
 		}
 		else if(transactionType == TransactionMode.BUY) {
 			calcPrice = currencyMap.get(currencyCode).buyRate.floatValue();
@@ -89,10 +85,10 @@ public class ExchangeSite implements MoneyService {
 			return false;
 		}
 		double exRate = calculatePrice(currency, value,TransactionMode.BUY);
-		
+
 		return (exRate<totalRefCurrency.get())?true : false;
-		
-		
+
+
 	}
 
 	@Override
@@ -101,9 +97,9 @@ public class ExchangeSite implements MoneyService {
 		String currency = orderData.getCurrencyCode(); 
 
 		Optional<Double> totalRefCurrency = getAvailableAmount(currency);
-		
+
 		if(totalRefCurrency.isEmpty()) {
-		return false;	
+			return false;	
 		}
 
 		return (value<=totalRefCurrency.get())?true : false;
@@ -123,7 +119,10 @@ public class ExchangeSite implements MoneyService {
 
 	@Override
 	public void shutDownService(String destination) {
-		MoneyServiceIO.saveSerializedCurrencyMap(currencyMap, "DailyCurrencyMap.ser");
+		
+		superMap = MoneyServiceIO.readSerializedCurrencyMap("DailyCurrencyMap.ser");
+		MoneyServiceIO.saveSerializedCurrencyMap(superMap, currencyMap, "DailyCurrencyMap.ser");
+		
 		logger.fine("Saved currencyMap as serialized form");
 		if(destination.contains(".txt")) {
 			logger.fine("Saving daily transactions as text");
@@ -143,14 +142,14 @@ public class ExchangeSite implements MoneyService {
 	@Override
 	public Optional<Double> getAvailableAmount(String currencyCode) 
 	{
-	
+
 		if(MoneyBox.getCurrencyMap().get(currencyCode) == null) {
-			
+
 			return Optional.empty();
 		}
 		Optional <Double> temp = Optional.of(MoneyBox.getCurrencyMap().get(currencyCode).getTotalValue());
 		return temp;
-		
+
 	}
 
 	public Order completeOrder(Order orderData) {		
@@ -170,7 +169,7 @@ public class ExchangeSite implements MoneyService {
 			int total = calculatePrice(currency, value,TransactionMode.BUY);
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(sell - total);
 			logger.finest("Selling "+sell+" "+companyCur+ " total in box after: "+MoneyBox.getCurrencyMap().get(refCurrency).getTotalValue());
-			transactionList.add(new Transaction(orderData));//RIP
+			transactionList.add(new Transaction(orderData));
 		}
 
 		else if(orderData.getTransactionType() == TransactionMode.SELL) {
@@ -179,7 +178,7 @@ public class ExchangeSite implements MoneyService {
 			int ourCurrency = companyCur.get().intValue();
 			int total = calculatePrice(currency, value,TransactionMode.SELL);
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(ourCurrency + total);
-			transactionList.add(new Transaction(orderData));//RIP
+			transactionList.add(new Transaction(orderData));
 		}
 		logger.fine("Completed order: "+orderData.toString());
 		return orderData;

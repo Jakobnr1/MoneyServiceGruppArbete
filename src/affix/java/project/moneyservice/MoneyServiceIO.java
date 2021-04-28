@@ -32,25 +32,12 @@ public class MoneyServiceIO {
 	public static LocalDateTime LDT = LocalDateTime.now(); //TODO
 	
 	
-	public static void changeDate(LocalDate date) {
+	public void changeDate(LocalDate date) {
 		projectConfigFilename = "ProjectConfig_"+date.toString()+".txt";
 		currencyConfigFilename = "CurrencyConfig_"+date.toString()+".txt";
 	}
-		
 	
 	
-	public static LocalDate getRefDate() {
-		return refDate;
-	}
-
-
-
-	public static void setRefDate(LocalDate refDate) {
-		MoneyServiceIO.refDate = refDate;
-	}
-
-
-
 	public static String getReferenceCurrency() {
 		return referenceCurrency;
 	}
@@ -80,7 +67,7 @@ public class MoneyServiceIO {
 			String temp = currencyIterator.next();
 			if(!(temp.contains("End") || temp.contains("ReferenceCurrency"))){
 			String[] boxParts = temp.split("=");
-			currencyMap.putIfAbsent(boxParts[0].trim(), Double.parseDouble(boxParts[1].trim())); //TODO Ã¤ndra type till currency
+			currencyMap.putIfAbsent(boxParts[0].trim(), Double.parseDouble(boxParts[1].trim())); //TODO ändra type till currency
 		}
 		}
 		Stream<String> refString = listToBeParsed.stream().skip(2);
@@ -183,6 +170,36 @@ public class MoneyServiceIO {
 		return saved;
 	}	
 	
+	public static boolean saveSerializedCurrencyMap(Map<LocalDate, Map<String, Currency>> superMap, Map<String, Currency> listToBeSaved, String filename) {
+		
+		if(superMap.containsKey(refDate)) {
+			superMap.replace(refDate, listToBeSaved);
+		}
+		else {
+			superMap.putIfAbsent(refDate, listToBeSaved);
+		}
+		
+		boolean saved = false;
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
+			oos.writeObject(superMap);
+		}
+		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));
+		return false;
+		}
+		saved = true;
+		return saved;
+	}	
+	
+		
+	public static Map<LocalDate,Map<String,Currency>> readSerializedCurrencyMap(String filename){
+		Map<LocalDate,Map<String,Currency>> tempMap = new HashMap<>();
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
+			tempMap = (Map<LocalDate,Map<String,Currency>>) ois.readObject();
+		}
+		
+		catch(IOException |ClassNotFoundException ioe){System.out.println("Error when reading currencyMap" +ioe.toString());}
+		return tempMap;
+	}
 	
 	
 

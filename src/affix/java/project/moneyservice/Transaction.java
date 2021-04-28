@@ -61,7 +61,7 @@ public class Transaction implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("Transaction [id=%s, timeStamp=%s, currencyCode=%s, amount=%s, mode=%s]\n", this.id, this.timeStamp,
+		return String.format("Transaction [id=%s, timeStamp=%s, currencyCode=%s, amount=%s, mode=%s]", this.id, this.timeStamp,
 				this.currencyCode, this.amount, this.mode);
 	}
 }
