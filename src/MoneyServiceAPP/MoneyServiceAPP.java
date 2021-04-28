@@ -130,10 +130,12 @@ public class MoneyServiceAPP {
 				case 1: 
 					System.out.println("********************* Todays rates *********************");
 					for(Entry<String, Currency> er:theSite.getCurrencyMap().entrySet()) {
-						System.out.format(er.getKey().toString());
-						System.out.format(" Buying: %.3f",er.getValue().getSellRate());
-						System.out.format(" Selling: %.3f",er.getValue().getBuyRate());
-						System.out.println("");
+						if(!(er.getKey().equalsIgnoreCase(MoneyServiceIO.referenceCurrency))){
+							System.out.format(er.getKey().toString());
+							System.out.format(" Buying: %.3f",er.getValue().getSellRate());
+							System.out.format(" Selling: %.3f",er.getValue().getBuyRate());
+							System.out.println("");							
+						}
 					}
 					System.out.println("********************************************************");
 
@@ -178,15 +180,19 @@ public class MoneyServiceAPP {
 					if(transMode == TransactionMode.SELL) {
 						Set<String> keySet = theSite.getCurrencyMap().keySet();
 						for(String k:keySet) {
-							if(theSite.getCurrencyMap().get(k).getTotalValue() >= Config.getMIN_AMMOUNT()){ 
-								System.out.println(k.toString());									
+							if(!(k.equalsIgnoreCase(MoneyServiceIO.referenceCurrency))){
+								if(theSite.getCurrencyMap().get(k).getTotalValue() >= Config.getMIN_AMMOUNT()){ 
+									System.out.println(k.toString());									
+								}								
 							}
 						}
 					}
 					else {
 						Set<String> keySet = theSite.getCurrencyMap().keySet();
 						for(String k:keySet) {
-							System.out.println(k.toString());									
+							if(!(k.equalsIgnoreCase(MoneyServiceIO.referenceCurrency))){
+								System.out.println(k.toString());																	
+							}
 						}
 					}
 
@@ -207,7 +213,8 @@ public class MoneyServiceAPP {
 							}
 							else {
 								if(transMode == TransactionMode.SELL){ 
-									if(theSite.getCurrencyMap().get(currencyChoice).getTotalValue() >= Config.getMIN_AMMOUNT()){ 
+									if(theSite.getCurrencyMap().get(currencyChoice).getTotalValue() >= Config.getMIN_AMMOUNT() |! 
+											currencyChoice.equalsIgnoreCase(MoneyServiceIO.referenceCurrency)){ 
 										okInput = true;
 									}
 									else {
@@ -409,7 +416,7 @@ public class MoneyServiceAPP {
 					LocalDate firstDate = LocalDate.parse(userInput);
 					System.out.println("Enter the second date: YYYY-MM-DD");
 					userInput = sc.nextLine();
-					//OBS tar inte med sista dagen därav plus en dag.
+					//OBS tar inte med sista dagen dï¿½rav plus en dag.
 					LocalDate secondDate = LocalDate.parse(userInput).plusDays(1);
 					Stream<LocalDate> ldStream = firstDate.datesUntil(secondDate)
 							.filter(ld -> !(ld.getDayOfWeek().equals(DayOfWeek.SATURDAY)) && !(ld.getDayOfWeek().equals(DayOfWeek.SUNDAY)));
