@@ -20,8 +20,8 @@ import java.util.stream.Stream;
 
 public class MoneyServiceIO {
 
-	public static  String projectConfigFilename = "ProjectConfig_2021-04-19.txt";
-	public static String currencyConfigFilename = "CurrencyConfig_2021-04-19.txt";
+	public static  String projectConfigFilename = "ProjectConfig_2021-04-23.txt";
+	public static String currencyConfigFilename = "CurrencyConfig_2021-04-23.txt";
 	static String serializedDailyTransactionFilename = "DailyTransactions.ser";
 	static String serializedCustomerDataBaseFilename = "CustomerDatabase.ser";
 	static String textFormattedDailyTransactions = "DailyTransactions.txt";
@@ -150,10 +150,18 @@ public class MoneyServiceIO {
 	 * @return
 	 */
 	
-	public static boolean saveSerializedCurrencyMap(Map<String, Currency> listToBeSaved, String filename) {
+	public static boolean saveSerializedCurrencyMap(Map<LocalDate, Map<String, Currency>> superMap, Map<String, Currency> listToBeSaved, String filename) {
+		
+		if(superMap.containsKey(refDate)) {
+			superMap.replace(refDate, listToBeSaved);
+		}
+		else {
+			superMap.putIfAbsent(refDate, listToBeSaved);
+		}
+		
 		boolean saved = false;
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
-			oos.writeObject(listToBeSaved);
+			oos.writeObject(superMap);
 		}
 		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));
 		return false;
@@ -162,8 +170,16 @@ public class MoneyServiceIO {
 		return saved;
 	}	
 	
-	
-	
+		
+	public static Map<LocalDate,Map<String,Currency>> readSerializedCurrencyMap(String filename){
+		Map<LocalDate,Map<String,Currency>> tempMap = new HashMap<>();
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
+			tempMap = (Map<LocalDate,Map<String,Currency>>) ois.readObject();
+		}
+		
+		catch(IOException |ClassNotFoundException ioe){System.out.println("Error when reading currencyMap" +ioe.toString());}
+		return tempMap;
+	}
 
 	/**
 	 * Saves a daily report in serialized form.

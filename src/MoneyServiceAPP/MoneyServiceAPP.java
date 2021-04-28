@@ -33,6 +33,9 @@ public class MoneyServiceAPP {
 		String logFormat =  "text";
 
 		logger = Logger.getLogger("MoneyService");
+		
+//		System.setProperty("java.util.logging.SimpleFormatter.format",
+//				"[%2$tF %1$tT] [%1$-2s] %1s %n");
 
 		try {
 			if(logFormat.equals("text")) {

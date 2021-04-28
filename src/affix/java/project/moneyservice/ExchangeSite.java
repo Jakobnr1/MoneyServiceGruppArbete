@@ -1,12 +1,16 @@
 package affix.java.project.moneyservice;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.logging.Logger;
+
+import MoneyServiceAPP.MoneyServiceAPP;
 
 
 
@@ -16,7 +20,8 @@ public class ExchangeSite implements MoneyService {
 	private Report backupReport;
 	private static MoneyBox theBox;
 	private static Map<String, Currency> currencyMap;
-	private static List<ExchangeRate> rates;	
+	private static List<ExchangeRate> rates;
+	private static Map<LocalDate, Map<String, Currency>> superMap;
 
 	private static Logger logger;
 	
@@ -30,10 +35,12 @@ public class ExchangeSite implements MoneyService {
 		ExchangeSite.currencyMap = new TreeMap<String, Currency>();
 		ExchangeSite.theBox= new MoneyBox(currencyMap);
 		ExchangeSite.rates = new ArrayList<ExchangeRate>();
+		ExchangeSite.superMap = new TreeMap<LocalDate, Map<String, Currency>>();
 	}
 
 	public void startTheDay() {
 		logger.fine("Starting the day!");
+		
 		Config.fillTheMoneyBox(ExchangeSite.theBox, ExchangeSite.currencyMap);
 
 		ExchangeSite.rates = Config.setTheRates();
@@ -112,7 +119,11 @@ public class ExchangeSite implements MoneyService {
 
 	@Override
 	public void shutDownService(String destination) {
-		MoneyServiceIO.saveSerializedCurrencyMap(currencyMap, "DailyCurrencyMap.ser");
+		
+		superMap = MoneyServiceIO.readSerializedCurrencyMap("DailyCurrencyMap.ser");
+		
+		MoneyServiceIO.saveSerializedCurrencyMap(superMap, currencyMap, "DailyCurrencyMap.ser");
+			
 		logger.fine("Saved currencyMap as serialized form");
 		if(destination.contains(".txt")) {
 			logger.fine("Saving daily transactions as text");
