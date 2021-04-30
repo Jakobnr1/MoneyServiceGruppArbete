@@ -23,7 +23,7 @@ public class ExchangeSite implements MoneyService {
 	private static Logger logger;
 
 	static {
-		logger = Logger.getLogger("MoneyService");
+		logger = Logger.getLogger(Config.getLogName());
 	}
 	public ExchangeSite(String Name) {
 		this(Name,LocalDateTime.now());

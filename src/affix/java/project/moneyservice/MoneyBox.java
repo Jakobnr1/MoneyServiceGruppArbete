@@ -9,7 +9,7 @@ public class MoneyBox implements java.io.Serializable {
 	private static Logger logger;
 
 	static {
-		logger = Logger.getLogger("MoneyService");
+		logger = Logger.getLogger(Config.getLogName());
 	}
 
 	private static Map<String, Currency> currencyMap;

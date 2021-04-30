@@ -1,0 +1,6 @@
+siteName= NORTH
+logName= MoneyServiceLogNorth
+logFormat= text
+logLevel= all
+min_ammount=50
+max_ammount=20000

@@ -41,36 +41,17 @@ public class MoneyServiceAPP {
 
 	public static void main(String[] args) {
 
-		String logFormat =  "text";
-
-		logger = Logger.getLogger("MoneyService");
-
-		try {
-			if(logFormat.equals("text")) {
-				fh = new FileHandler("MoneyServiceLog.txt");
-				fh.setFormatter(new SimpleFormatter());
-			}
-			else {
-				fh = new FileHandler("MoneyServiceLog.xml");
-				fh.setFormatter(new XMLFormatter());
-			}
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		//If argument with config file are provided readConfigFile() sets siteName, logName, logFormat, logLevel, min_ammount and max_ammount.
+		//No argument/ config file = default values written in Config.class are used.
+		if(args.length >= 1) {
+				Config.readConfigFile(args[0]);
 		}
 
-		logger.addHandler(fh);
+		//
+		Config.setUpLogger(logger, fh, args);
 
-		Level currentLevel = Level.FINEST;
+		ExchangeSite theSite = new ExchangeSite(Config.getSiteName());
 
-		logger.setLevel(currentLevel); 
-
-		Filter currentFilter = new MonyeServiceLoggFilter();
-		fh.setFilter(currentFilter);
-
-		//Starts the day
-		ExchangeSite theSite = new ExchangeSite("North");
 		theSite.startTheDay();
 
 		boolean okInput=false;
@@ -264,7 +245,7 @@ public class MoneyServiceAPP {
 							System.out.println("You will get paid: "+price+ " "+MoneyServiceIO.getReferenceCurrency()+" when selling "+amount+" "+currencyChoice);
 							System.out.format("Exchange sell rate in calculation: %.3f",theSite.getCurrencyMap().get(currencyChoice).getBuyRate());
 						}
-						
+
 						System.out.println("\nComplete order? ");
 						System.out.println("press y for complete order ");
 						System.out.println("press n for cancel order");
