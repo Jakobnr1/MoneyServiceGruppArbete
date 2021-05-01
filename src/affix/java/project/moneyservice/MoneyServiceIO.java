@@ -16,32 +16,33 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.stream.Stream;
 
 public class MoneyServiceIO {
 
 	public static  String projectConfigFilename = "ProjectConfig_"+LocalDate.now().toString()+".txt";
 	public static String currencyConfigFilename = "CurrencyConfig_"+LocalDate.now().toString()+".txt";
-//	public static  String projectConfigFilename = "ProjectConfig_2021-04-19.txt";
-//	public static String currencyConfigFilename = "CurrencyConfig_2021-04-19.txt";	
+	//	public static  String projectConfigFilename = "ProjectConfig_2021-04-19.txt";
+	//	public static String currencyConfigFilename = "CurrencyConfig_2021-04-19.txt";	
 	static String serializedDailyTransactionFilename = "DailyTransactions.ser";
 	static String serializedCustomerDataBaseFilename = "CustomerDatabase.ser";
 	static String textFormattedDailyTransactions = "DailyTransactions.txt";
 	public static String referenceCurrency;
 	public static LocalDate refDate;
 	public static LocalDateTime LDT = LocalDateTime.now(); //TODO
-	
-	
+
+
 	public void changeDate(LocalDate date) {
 		projectConfigFilename = "ProjectConfig_"+date.toString()+".txt";
 		currencyConfigFilename = "CurrencyConfig_"+date.toString()+".txt";
 	}
-	
-	
+
+
 	public static String getReferenceCurrency() {
 		return referenceCurrency;
 	}
-	
+
 	public static void setRefDate(LocalDate refDate) {
 		MoneyServiceIO.refDate = refDate;
 	}
@@ -70,9 +71,9 @@ public class MoneyServiceIO {
 		while(currencyIterator.hasNext()){
 			String temp = currencyIterator.next();
 			if(!(temp.contains("End") || temp.contains("ReferenceCurrency"))){
-			String[] boxParts = temp.split("=");
-			currencyMap.putIfAbsent(boxParts[0].trim(), Double.parseDouble(boxParts[1].trim())); //TODO �ndra type till currency
-		}
+				String[] boxParts = temp.split("=");
+				currencyMap.putIfAbsent(boxParts[0].trim(), Double.parseDouble(boxParts[1].trim())); //TODO �ndra type till currency
+			}
 		}
 		Stream<String> refString = listToBeParsed.stream().skip(2);
 		Iterator<String> refIterator = refString.iterator();
@@ -82,11 +83,11 @@ public class MoneyServiceIO {
 				String[] parts = tempString.split("=");
 				MoneyServiceIO.referenceCurrency = parts[1].trim();
 			}
-			
+
 		}
 		return currencyMap;
 	}
-	
+
 	/**
 	 * Parses an entire list of Currencies
 	 * @param List of Strings to be parsed
@@ -112,8 +113,8 @@ public class MoneyServiceIO {
 			int scalar = Integer.parseInt(valueParts[0].trim());
 			Float price = Float.parseFloat(parts[3].trim());
 			try {
-			ExchangeRate er = new ExchangeRate(day,scalar,valueParts[1].trim(),price);
-			exchangeRateList.add(er);
+				ExchangeRate er = new ExchangeRate(day,scalar,valueParts[1].trim(),price);
+				exchangeRateList.add(er);
 			}
 			catch(IllegalArgumentException ioe) {System.out.println(String.format("NO"));
 			};
@@ -153,15 +154,15 @@ public class MoneyServiceIO {
 		saved = true;
 		return saved;
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @param listToBeSaved
 	 * @param filename
 	 * @return
 	 */
-	
+
 	public static boolean saveSerializedCurrencyMap(Map<String, Currency> listToBeSaved, String filename) {
 		boolean saved = false;
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
@@ -173,16 +174,16 @@ public class MoneyServiceIO {
 		saved = true;
 		return saved;
 	}	
-	
+
 	public static boolean saveSerializedCurrencyMap(Map<LocalDate, Map<String, Currency>> superMap, Map<String, Currency> listToBeSaved, String filename) {
-		
+
 		if(superMap.containsKey(refDate)) {
 			superMap.replace(refDate, listToBeSaved);
 		}
 		else {
 			superMap.putIfAbsent(refDate, listToBeSaved);
 		}
-		
+
 		boolean saved = false;
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
 			oos.writeObject(superMap);
@@ -193,19 +194,19 @@ public class MoneyServiceIO {
 		saved = true;
 		return saved;
 	}	
-	
-		
+
+
 	public static Map<LocalDate,Map<String,Currency>> readSerializedCurrencyMap(String filename){
 		Map<LocalDate,Map<String,Currency>> tempMap = new HashMap<>();
 		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
 			tempMap = (Map<LocalDate,Map<String,Currency>>) ois.readObject();
 		}
-		
+
 		catch(IOException |ClassNotFoundException ioe){System.out.println("Error when reading currencyMap" +ioe.toString());}
 		return tempMap;
 	}
-	
-	
+
+
 
 	/**
 	 * Saves a daily report in serialized form.
@@ -213,7 +214,7 @@ public class MoneyServiceIO {
 	 * @param Rapport R which includes the unique daily FileName
 	 * @return Boolean true if successful.
 	 */
-	
+
 	public static boolean saveSerializedReport(Report r) {
 		boolean saved = false;
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(r.getUniqueFileName().trim()))){
@@ -226,8 +227,8 @@ public class MoneyServiceIO {
 		saved = true;
 		return saved;
 	}
-	
-	
+
+
 
 	/**
 	 * Reads Serialized daily transactions
@@ -265,6 +266,7 @@ public class MoneyServiceIO {
 
 	}
 
+	
 	/**
 	 * Saves serialized customer database 
 	 * @param mapToBeSaved

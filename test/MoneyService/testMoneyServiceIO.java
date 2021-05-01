@@ -168,6 +168,5 @@ public class testMoneyServiceIO {
 		String fileName ="testTesxt4.txt";
 		assertTrue(MoneyServiceIO.saveDailyTransactionListAsText(theSite.getTransactionList(), fileName));
 	}
-	
 
 }
