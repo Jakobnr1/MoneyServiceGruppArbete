@@ -253,7 +253,7 @@ public class MoneyServiceAPP {
 		if(transMode == TransactionMode.SELL) {
 			Set<String> keySet = theSite.getCurrencyMap().keySet();
 			for(String k:keySet) {
-				if(!(k.equalsIgnoreCase(MoneyServiceIO.referenceCurrency))){
+				if(!(k.equalsIgnoreCase(MoneyServiceIO.referenceCurrency))) {
 					if(theSite.getCurrencyMap().get(k).getTotalValue() >= Config.getMIN_AMMOUNT()){ 
 						System.out.println(k.toString());									
 					}								
@@ -281,12 +281,12 @@ public class MoneyServiceAPP {
 				stopOrder = true;
 			}
 			else {
-				if(!theSite.getCurrencyMap().keySet().contains(currencyChoice) || theSite.getCurrencyMap().get(currencyChoice).getBuyRate() == 0.000f) {
+				if(!theSite.getCurrencyMap().keySet().contains(currencyChoice)) {
 					System.out.println("Bad input of currency, try again!");
 				}
 				else {
 					if(transMode == TransactionMode.SELL){ 
-						if(theSite.getCurrencyMap().get(currencyChoice).getTotalValue() >= Config.getMIN_AMMOUNT() |! 
+						if(theSite.getCurrencyMap().get(currencyChoice).getTotalValue() > Config.getMIN_AMMOUNT() |! 
 								currencyChoice.equalsIgnoreCase(MoneyServiceIO.referenceCurrency)){ 
 							okInput = true;
 						}

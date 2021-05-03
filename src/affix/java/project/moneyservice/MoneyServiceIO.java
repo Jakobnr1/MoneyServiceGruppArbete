@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Stream;
 
@@ -166,48 +167,54 @@ public class MoneyServiceIO {
 	 * @return
 	 */
 
-	public static boolean saveSerializedCurrencyMap(Map<String, Currency> listToBeSaved, String filename) {
+	public static boolean saveTxtMoneyBox(Map<String, Currency> listToBeSaved, String filename) {
 		boolean saved = false;
-		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
-			oos.writeObject(listToBeSaved);
+		try(PrintWriter pw = new PrintWriter(new FileWriter(filename.trim()))){
+			
+			for(String k:listToBeSaved.keySet()) {
+				pw.println(k+" = "+listToBeSaved.get(k).getTotalValue().intValue());
+			}
+				
+//			for(Currency c: listToBeSaved) {
+//				pw.println(t.toString());
+//			}
 		}
-		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));
-		return false;
+		catch(IOException ioe) {System.out.println(String.format("Error when Saving Daily Transactions as text" + ioe.toString()));
 		}
 		saved = true;
 		return saved;
 	}	
 
-	public static boolean saveSerializedCurrencyMap(Map<LocalDate, Map<String, Currency>> superMap, Map<String, Currency> listToBeSaved, String filename) {
+//	public static boolean saveSerializedCurrencyMap(Map<LocalDate, Map<String, Currency>> superMap, Map<String, Currency> listToBeSaved, String filename) {
+//
+//		if(superMap.containsKey(refDate)) {
+//			superMap.replace(refDate, listToBeSaved);
+//		}
+//		else {
+//			superMap.putIfAbsent(refDate, listToBeSaved);
+//		}
+//
+//		boolean saved = false;
+//		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
+//			oos.writeObject(superMap);
+//		}
+//		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));
+//		return false;
+//		}
+//		saved = true;
+//		return saved;
+//	}	
 
-		if(superMap.containsKey(refDate)) {
-			superMap.replace(refDate, listToBeSaved);
-		}
-		else {
-			superMap.putIfAbsent(refDate, listToBeSaved);
-		}
 
-		boolean saved = false;
-		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
-			oos.writeObject(superMap);
-		}
-		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));
-		return false;
-		}
-		saved = true;
-		return saved;
-	}	
-
-
-	public static Map<LocalDate,Map<String,Currency>> readSerializedCurrencyMap(String filename){
-		Map<LocalDate,Map<String,Currency>> tempMap = new HashMap<>();
-		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
-			tempMap = (Map<LocalDate,Map<String,Currency>>) ois.readObject();
-		}
-
-		catch(IOException |ClassNotFoundException ioe){System.out.println("Error when reading currencyMap" +ioe.toString());}
-		return tempMap;
-	}
+//	public static Map<LocalDate,Map<String,Currency>> readSerializedCurrencyMap(String filename){
+//		Map<LocalDate,Map<String,Currency>> tempMap = new HashMap<>();
+//		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
+//			tempMap = (Map<LocalDate,Map<String,Currency>>) ois.readObject();
+//		}
+//
+//		catch(IOException |ClassNotFoundException ioe){System.out.println("Error when reading currencyMap" +ioe.toString());}
+//		return tempMap;
+//	}
 
 
 
