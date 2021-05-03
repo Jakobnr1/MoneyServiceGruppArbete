@@ -1,0 +1,8 @@
+maj 03, 2021 10:38:40 FM affix.java.project.moneyservice.ExchangeSite startTheDay
+FINE: Starting the day!
+maj 03, 2021 10:39:12 FM affix.java.project.moneyservice.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=USD, amount= 250, mode= SELL ]
+maj 03, 2021 10:39:39 FM affix.java.project.moneyservice.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=CNY, amount= 50, mode= BUY ]
+maj 03, 2021 10:39:51 FM affix.java.project.moneyservice.ExchangeSite shutDownService
+FINE: Saving daily transactions as serialized

@@ -72,6 +72,9 @@ public class MoneyServiceIO {
 			String temp = currencyIterator.next();
 			if(!(temp.contains("End") || temp.contains("ReferenceCurrency"))){
 				String[] boxParts = temp.split("=");
+				if(boxParts[1].isBlank()) {
+					boxParts[1] = "0";
+				}
 				currencyMap.putIfAbsent(boxParts[0].trim(), Double.parseDouble(boxParts[1].trim())); //TODO �ndra type till currency
 			}
 		}
