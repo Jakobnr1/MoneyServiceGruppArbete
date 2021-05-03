@@ -36,8 +36,13 @@ public class MoneyServiceIO {
 		projectConfigFilename = "ProjectConfig_"+date.toString()+".txt";
 		currencyConfigFilename = "CurrencyConfig_"+date.toString()+".txt";
 	}
-	
-	
+
+	public static void setRefDate(LocalDate refDate) {
+		MoneyServiceIO.refDate = refDate;
+	}
+
+
+
 	public static String getReferenceCurrency() {
 		return referenceCurrency;
 	}
