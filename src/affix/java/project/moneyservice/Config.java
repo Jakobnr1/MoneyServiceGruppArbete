@@ -23,6 +23,11 @@ public class Config {
 	private static String logLevel = "OFF";
 	private static int MIN_AMMOUNT = 50;
 	private static int MAX_AMMOUNT = 50000;
+	private static float buyRateConfig = 0.995f;
+	private static float sellRateConfig = 1.005F;
+
+
+
 
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
 
@@ -59,8 +64,27 @@ public class Config {
 	public static int getMAX_AMMOUNT() {
 		return MAX_AMMOUNT;
 	}
+	
+	public static float getBuyRateConfig() {
+		return buyRateConfig;
+	}
 
-	public static void setUpLogger(Logger logger, FileHandler fh, String[] args) {
+
+	public static void setBuyRateConfig(float buyRateConfig) {
+		Config.buyRateConfig = buyRateConfig;
+	}
+
+
+	public static float getSellRateConfig() {
+		return sellRateConfig;
+	}
+
+
+	public static void setSellRateConfig(float sellRateConfig) {
+		Config.sellRateConfig = sellRateConfig;
+	}
+
+	public static Logger setUpLogger(Logger logger, FileHandler fh, String[] args) {
 
 		logger = Logger.getLogger(logName);
 
@@ -116,6 +140,7 @@ public class Config {
 		Filter currentFilter = new MonyeServiceLoggFilter();
 		fh.setFilter(currentFilter);
 
+		return logger;
 
 	}
 
@@ -228,6 +253,16 @@ public class Config {
 						System.out.println("max_ammount set to: "+value);
 						ok++;
 						break;
+					case "buyRate":
+						setBuyRateConfig(Float.parseFloat(value));
+						System.out.println("buyRate marginal set to: "+value);
+						ok++;
+						break;
+					case "sellRate":
+						setSellRateConfig(Float.parseFloat(value));
+						System.out.println("sellRate marginal set to: "+value);
+						ok++;
+						break;	
 					default:
 						break;
 					}
@@ -242,7 +277,8 @@ public class Config {
 			System.out.println("Bad input of MIN_AMMOUNT or MAX_AMMOUNT in config file! ");
 		}
 
-		if(ok == 6) {
+		if(ok == 8) {
+			System.out.println("Configuration of the system OK!");
 			return okRead=true;
 		}
 
@@ -284,9 +320,9 @@ public class Config {
 	public static void setRatesInCurrency(List<ExchangeRate> currencyList, Map<String, Currency> currencyMap) {			
 		for(ExchangeRate s : currencyList) {
 			String key = s.getName();
-			Float buyRate = s.getExchangeRate() * 0.995F;
+			Float buyRate = s.getExchangeRate() * getBuyRateConfig();
 			currencyMap.get(key).setBuyRate(buyRate);
-			Float sellRate = s.getExchangeRate() * 1.005f;
+			Float sellRate = s.getExchangeRate() * getSellRateConfig();
 			currencyMap.get(key).setSellRate(sellRate);
 			logger.fine(""+key+" buyRate: "+buyRate+ ", sellRate"+sellRate);
 		}
@@ -310,6 +346,10 @@ public class Config {
 			currencyMap.putIfAbsent(k, tempCurrency);
 			logger.fine("Filled MoneyBox with: "+k+" amount: "+tempCurrency);
 		}
+		
+		Currency tempCurrency = new Currency(0, 0.0f, 0.0f);
+		currencyMap.putIfAbsent("CNY", tempCurrency);
+		
 		return theBox;
 	}
 
