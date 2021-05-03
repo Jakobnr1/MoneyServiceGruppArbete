@@ -471,19 +471,19 @@ public class MoneyServiceAPP {
 				if(d.getTransactionType() == (TransactionMode.BUY)) {
 					if(temp.buyMoney(d)) {
 						temp.completeOrder(d);
-						System.out.println("(b)Succses order complete");
+//						System.out.println("(b)Succses order complete"); //DEBUG
 					}
 					else {
-						System.out.println("Error couldnt afford");
+//						System.out.println("Error couldnt afford"); //DEBUG
 					}
 				}
 				else {
 					if(temp.sellMoney(d)) {
 						temp.completeOrder(d);
-						System.out.println("(s)Succses order complete");
+//						System.out.println("(s)Succses order complete"); //DEBUG
 					}
 					else {
-						System.out.println("Error not enough money");
+//						System.out.println("Error not enough money"); //DEBUG
 					}
 				}			
 			}
