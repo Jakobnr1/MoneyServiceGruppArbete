@@ -9,7 +9,7 @@ public class MoneyBox implements java.io.Serializable {
 	private static Logger logger;
 
 	static {
-		logger = Logger.getLogger("MoneyService");
+		logger = Logger.getLogger(Config.getLogName());
 	}
 
 	private static Map<String, Currency> currencyMap;
@@ -41,8 +41,8 @@ public class MoneyBox implements java.io.Serializable {
 			return false;
 		}
 		currencyMap.putIfAbsent(currencyName, c);
-		currencyMap.get(currencyName).setBuyRate(rate * 0.995F);
-		currencyMap.get(currencyName).setSellRate(rate * 1.005F);
+		currencyMap.get(currencyName).setBuyRate(rate * Config.getBuyRateConfig());
+		currencyMap.get(currencyName).setSellRate(rate * Config.getSellRateConfig());
 
 		if(currencyMap.containsKey(currencyName)) {
 			logger.fine("New currency added: "+currencyName+ " rate from list:"+rate+" buyRate:"+c.getBuyRate()+" sellRate:"+c.getSellRate());
