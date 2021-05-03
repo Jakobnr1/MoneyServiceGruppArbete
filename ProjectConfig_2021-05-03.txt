@@ -10,6 +10,6 @@ NOK = 10000
 RUB = 30000
 USD = 5000
 SEK = 50000
-CNY = 
+CNY = 0
 End
 ReferenceCurrency = SEK

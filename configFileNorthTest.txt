@@ -1,7 +1,7 @@
 siteName= NORTH
 logName= MoneyServiceLogNorth
 logFormat= text
-logLevel= FINE
+logLevel= FINEST
 min_ammount=50
 max_ammount=50000
 buyRate= 0.995
