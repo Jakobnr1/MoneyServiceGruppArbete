@@ -39,13 +39,6 @@ public class MoneyServiceIO {
 	}
 
 
-	public static void setRefDate(LocalDate refDate) {
-		MoneyServiceIO.refDate = refDate;
-	}
-
-
-
-
 	public static String getReferenceCurrency() {
 		return referenceCurrency;
 	}
