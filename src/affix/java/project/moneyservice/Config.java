@@ -330,6 +330,7 @@ public class Config {
 
 
 	public static List<ExchangeRate> setTheRates() {
+		String folder = "Configs";
 		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.currencyConfigFilename)));
 		logger.fine("*********** Getting rates from "+MoneyServiceIO.currencyConfigFilename+ " ************");
 
@@ -338,6 +339,7 @@ public class Config {
 
 
 	public static MoneyBox fillTheMoneyBox(MoneyBox theBox, Map<String, Currency> currencyMap ) {
+		String folder = "DailyRates";
 		Map<String, Double> testMap = new HashMap<String,Double>(MoneyServiceIO.parseProjectConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.projectConfigFilename)));
 
 		Set<String> keySet = testMap.keySet();

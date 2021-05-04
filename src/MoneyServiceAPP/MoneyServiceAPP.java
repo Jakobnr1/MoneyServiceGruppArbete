@@ -66,7 +66,12 @@ public class MoneyServiceAPP {
 			case "e":
 				okInput=true;
 				break;
-
+			case "1":
+				List<String> temp =MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("Configs")+"ProjectConfig_2021-04-19.txt");
+				System.out.println(temp);
+				temp = MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("DailyRates") + "CurrencyConfig_2021-04-01.txt");
+				System.out.println(temp);
+				break;
 			default:
 				System.out.println("Wrong choice!");
 				break;
