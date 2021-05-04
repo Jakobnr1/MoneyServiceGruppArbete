@@ -25,10 +25,12 @@ public class Config {
 	private static int MAX_AMMOUNT = 50000;
 	private static float buyRateConfig = 0.995f;
 	private static float sellRateConfig = 1.005F;
+	private static String password = "Qwerty1234!";
 
 
 
 
+	
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
 
 	private static Logger logger;
@@ -148,7 +150,6 @@ public class Config {
 	public static boolean readConfigFile(String filename) {
 		boolean okRead = false;
 		int ok=0;
-		List<String> fileInput = new ArrayList<String>();
 		try(BufferedReader br = new BufferedReader(new FileReader(filename))){
 			while(br.ready()){
 				String input = br.readLine();
@@ -262,7 +263,12 @@ public class Config {
 						setSellRateConfig(Float.parseFloat(value));
 						System.out.println("sellRate marginal set to: "+value);
 						ok++;
-						break;	
+						break;
+					case "password":
+						setPassword(value);
+						System.out.println("Password for user section set");
+						ok++;
+						break;
 					default:
 						break;
 					}
@@ -277,12 +283,16 @@ public class Config {
 			System.out.println("Bad input of MIN_AMMOUNT or MAX_AMMOUNT in config file! ");
 		}
 
-		if(ok == 8) {
+		if(ok == 9) {
 			System.out.println("Configuration of the system OK!");
 			return okRead=true;
 		}
 
 		return okRead;
+	}
+
+	protected static void setPassword(String password) {
+		Config.password = password;
 	}
 
 
@@ -320,11 +330,13 @@ public class Config {
 	public static void setRatesInCurrency(List<ExchangeRate> currencyList, Map<String, Currency> currencyMap) {			
 		for(ExchangeRate s : currencyList) {
 			String key = s.getName();
-			Float buyRate = s.getExchangeRate() * getBuyRateConfig();
-			currencyMap.get(key).setBuyRate(buyRate);
-			Float sellRate = s.getExchangeRate() * getSellRateConfig();
-			currencyMap.get(key).setSellRate(sellRate);
-			logger.fine(""+key+" buyRate: "+buyRate+ ", sellRate"+sellRate);
+			if(currencyMap.containsKey(s.getName())) {
+				Float buyRate = s.getExchangeRate() * getBuyRateConfig();
+				currencyMap.get(key).setBuyRate(buyRate);
+				Float sellRate = s.getExchangeRate() * getSellRateConfig();
+				currencyMap.get(key).setSellRate(sellRate);
+				logger.fine(""+key+" buyRate: "+buyRate+ ", sellRate"+sellRate);				
+			}
 		}
 	}
 
@@ -351,6 +363,11 @@ public class Config {
 		currencyMap.putIfAbsent("CNY", tempCurrency);
 		
 		return theBox;
+	}
+
+
+	public static String getPassword() {
+		return password;
 	}
 
 
