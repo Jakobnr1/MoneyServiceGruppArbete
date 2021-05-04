@@ -6,3 +6,4 @@ min_ammount=50
 max_ammount=50000
 buyRate= 0.995
 sellRate= 1.005
+password= asdf123
