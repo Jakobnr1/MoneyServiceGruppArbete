@@ -1,6 +1,7 @@
 package affix.java.project.moneyservice;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -308,5 +309,41 @@ public class MoneyServiceIO {
 		return customerMap;
 	}
 	 */
+
+	public static List <File> findFolders() {
+		List<File> folderList = new ArrayList<>();
+		folderList.add (new File("Configs"));
+		folderList.add(new File("DailyRates"));
+		folderList.add(new File("Documents"));
+		folderList.add(new File("Orders"));
+		folderList.add(new File("SiteReports"));
+		folderList.add(new File("Transactions"));
+
+		for(File temp: folderList) {
+			if(temp.exists()){
+				//				System.out.println("Folder" + temp.getName() + " exsists");//DEBUG
+
+			}
+			else {
+				temp.mkdir();
+				System.out.println("Folder" + temp.getName() + " created.");
+			}
+		}
+		return folderList;
+	}
+	
+	public static String getPathName( String folder) {
+		List<File> folderList = findFolders();
+		String fileName = ""; 
+
+		for(File temp: folderList) {
+			if(temp.getName().equals(folder)){
+				fileName = temp.getPath() + "/";
+
+			}
+			
+		}
+		return fileName;
+	}
 
 }
