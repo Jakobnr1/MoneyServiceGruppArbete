@@ -3,11 +3,18 @@ package affix.java.project.moneyservice;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
+
+
 
 
 
@@ -117,7 +124,7 @@ public class ExchangeSite implements MoneyService {
 
 	@Override
 	public void shutDownService(String destination) {
-		
+
 		if(destination.contains(".txt")) {
 			logger.fine("Saving daily transactions as text");
 			MoneyServiceIO.saveDailyTransactionListAsText(transactionList, backupReport.getUniqueFileName());
@@ -177,6 +184,48 @@ public class ExchangeSite implements MoneyService {
 		logger.fine("Completed order: "+orderData.toString());
 		return orderData;
 	}
+
+	/**
+	 * @param "d" Order
+	 * @return A list of Order from d
+	 */
+	public static List<Order> addOrderToQueue(Order d){
+		List<Order> orderList = new LinkedList<Order>();
+		orderList.add(d);
+
+
+		return orderList;
+	}
+
+	/**
+	 * @param orderList. A list of Orders
+	 * @return orderList. Updated a list of orders that didn't go trough.
+	 */
+	public List<Order> processOrderQueue(List<Order> orderList){
+		for(Order o : orderList)
+		{
+			if(o.getTransactionType() == (TransactionMode.BUY)) {
+				if(buyMoney(o)) {
+					completeOrder(o);
+					orderList.remove(o);
+				}
+				else {
+					System.out.println("Order :"+ o +" did not go trough");
+				}
+			}
+			else if(o.getTransactionType() == (TransactionMode.SELL)) {
+				if(sellMoney(o)) {
+					completeOrder(o);
+					orderList.remove(o);
+				}
+				else {
+					System.out.println("Order :"+ o +" did not go trough");
+				}
+			}
+		}
+		return orderList;
+	}
+
 
 	public static List<Transaction> getTransactionList(){
 		return transactionList;
