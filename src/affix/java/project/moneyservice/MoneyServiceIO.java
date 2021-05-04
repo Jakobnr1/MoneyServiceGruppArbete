@@ -1,7 +1,6 @@
 package affix.java.project.moneyservice;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -35,11 +34,9 @@ public class MoneyServiceIO {
 	public static LocalDateTime LDT = LocalDateTime.now(); //TODO
 
 
-
 	public void changeDate(LocalDate date) {
-		
-		projectConfigFilename = getPathName("Configs") + "ProjectConfig_"+date.toString()+".txt";
-		currencyConfigFilename = getPathName("DailyRates") + "CurrencyConfig_"+date.toString()+".txt";
+		projectConfigFilename = "ProjectConfig_"+date.toString()+".txt";
+		currencyConfigFilename = "CurrencyConfig_"+date.toString()+".txt";
 	}
 
 
@@ -131,12 +128,11 @@ public class MoneyServiceIO {
 
 	/**
 	 * Reads a file and returns a list of strings.
-	 * @param  filename for storage. and action for folder choice
+	 * @param  filename for storage.
 	 * @return  The read List<String>.
 	 */
 	public static List<String> readTextFiles(String filename) {
 		List<String> readStringList = new ArrayList<String>();
-		
 		try(BufferedReader bf = new BufferedReader(new FileReader(filename.trim()))) {
 			while(bf.ready()) {
 				String temporaryString = bf.readLine();
@@ -174,14 +170,14 @@ public class MoneyServiceIO {
 	public static boolean saveTxtMoneyBox(Map<String, Currency> listToBeSaved, String filename) {
 		boolean saved = false;
 		try(PrintWriter pw = new PrintWriter(new FileWriter(filename.trim()))){
-
+			
 			for(String k:listToBeSaved.keySet()) {
 				pw.println(k+" = "+listToBeSaved.get(k).getTotalValue().intValue());
 			}
-
-			//			for(Currency c: listToBeSaved) {
-			//				pw.println(t.toString());
-			//			}
+				
+//			for(Currency c: listToBeSaved) {
+//				pw.println(t.toString());
+//			}
 		}
 		catch(IOException ioe) {System.out.println(String.format("Error when Saving Daily Transactions as text" + ioe.toString()));
 		}
@@ -189,36 +185,36 @@ public class MoneyServiceIO {
 		return saved;
 	}	
 
-	//	public static boolean saveSerializedCurrencyMap(Map<LocalDate, Map<String, Currency>> superMap, Map<String, Currency> listToBeSaved, String filename) {
-	//
-	//		if(superMap.containsKey(refDate)) {
-	//			superMap.replace(refDate, listToBeSaved);
-	//		}
-	//		else {
-	//			superMap.putIfAbsent(refDate, listToBeSaved);
-	//		}
-	//
-	//		boolean saved = false;
-	//		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
-	//			oos.writeObject(superMap);
-	//		}
-	//		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));
-	//		return false;
-	//		}
-	//		saved = true;
-	//		return saved;
-	//	}	
+//	public static boolean saveSerializedCurrencyMap(Map<LocalDate, Map<String, Currency>> superMap, Map<String, Currency> listToBeSaved, String filename) {
+//
+//		if(superMap.containsKey(refDate)) {
+//			superMap.replace(refDate, listToBeSaved);
+//		}
+//		else {
+//			superMap.putIfAbsent(refDate, listToBeSaved);
+//		}
+//
+//		boolean saved = false;
+//		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
+//			oos.writeObject(superMap);
+//		}
+//		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));
+//		return false;
+//		}
+//		saved = true;
+//		return saved;
+//	}	
 
 
-	//	public static Map<LocalDate,Map<String,Currency>> readSerializedCurrencyMap(String filename){
-	//		Map<LocalDate,Map<String,Currency>> tempMap = new HashMap<>();
-	//		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
-	//			tempMap = (Map<LocalDate,Map<String,Currency>>) ois.readObject();
-	//		}
-	//
-	//		catch(IOException |ClassNotFoundException ioe){System.out.println("Error when reading currencyMap" +ioe.toString());}
-	//		return tempMap;
-	//	}
+//	public static Map<LocalDate,Map<String,Currency>> readSerializedCurrencyMap(String filename){
+//		Map<LocalDate,Map<String,Currency>> tempMap = new HashMap<>();
+//		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
+//			tempMap = (Map<LocalDate,Map<String,Currency>>) ois.readObject();
+//		}
+//
+//		catch(IOException |ClassNotFoundException ioe){System.out.println("Error when reading currencyMap" +ioe.toString());}
+//		return tempMap;
+//	}
 
 
 
@@ -280,7 +276,7 @@ public class MoneyServiceIO {
 
 	}
 
-
+	
 	/**
 	 * Saves serialized customer database 
 	 * @param mapToBeSaved
@@ -313,39 +309,4 @@ public class MoneyServiceIO {
 	}
 	 */
 
-	public static List <File> findFolders() {
-		List<File> folderList = new ArrayList<>();
-		folderList.add (new File("Configs"));
-		folderList.add(new File("DailyRates"));
-		folderList.add(new File("Documents"));
-		folderList.add(new File("Orders"));
-		folderList.add(new File("SiteReports"));
-		folderList.add(new File("Transactions"));
-
-		for(File temp: folderList) {
-			if(temp.exists()){
-				//				System.out.println("Folder" + temp.getName() + " exsists");//DEBUG
-
-			}
-			else {
-				temp.mkdir();
-				System.out.println("Folder" + temp.getName() + " created.");
-			}
-		}
-		return folderList;
-	}
-	
-	public static String getPathName( String folder) {
-		List<File> folderList = findFolders();
-		String fileName = ""; 
-
-		for(File temp: folderList) {
-			if(temp.getName().equals(folder)){
-				fileName = temp.getPath() + "/";
-
-			}
-			
-		}
-		return fileName;
-	}
 }

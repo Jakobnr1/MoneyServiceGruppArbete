@@ -113,14 +113,14 @@ public class ExchangeSite implements MoneyService {
 		
 		if(destination.contains(".txt")) {
 			logger.fine("Saving daily transactions as text");
-			MoneyServiceIO.saveDailyTransactionListAsText(transactionList,MoneyServiceIO.getPathName("Transactions")+ backupReport.getUniqueFileName());
+			MoneyServiceIO.saveDailyTransactionListAsText(transactionList, backupReport.getUniqueFileName());
 		}else if(destination.contains(".db")) {
 			logger.fine("Saving daily transactions as serialized");
-			MoneyServiceIO.saveSerializedDailyTransactions(transactionList, MoneyServiceIO.getPathName("SiteReports")+backupReport.getUniqueFileName());
+			MoneyServiceIO.saveSerializedDailyTransactions(transactionList, backupReport.getUniqueFileName());
 		}
 		MoneyServiceIO.saveDailyTransactionListAsText(transactionList, "tempFile.txt");
 		
-		printSiteReport(destination);//TODO does this even get run?? used???
+		printSiteReport(destination);
 		
 	}
 
