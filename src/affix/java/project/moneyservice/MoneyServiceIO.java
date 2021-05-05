@@ -34,8 +34,8 @@ public class MoneyServiceIO {
 
 
 	public void changeDate(LocalDate date) {
-		projectConfigFilename = "ProjectConfig_"+date.toString()+".txt";
-		currencyConfigFilename = "CurrencyConfig_"+date.toString()+".txt";
+		projectConfigFilename = getPathName("Configs")+ "ProjectConfig_"+date.toString()+".txt";
+		currencyConfigFilename = getPathName("DailyRates")+ "CurrencyConfig_"+date.toString()+".txt";
 	}
 
 
