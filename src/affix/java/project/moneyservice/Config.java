@@ -194,7 +194,8 @@ public class Config {
 							System.out.println("*********Bad input of logLevel in config file!**********");
 							System.out.println("Default used: "+Config.getLogLevel());
 							break;
-						}											
+						}						 
+						
 						break;
 
 					case "min_ammount":
