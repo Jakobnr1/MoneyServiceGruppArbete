@@ -19,31 +19,71 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+/**
+ * This class defines the input and output of files in MoneyService
+ * 
+ */
 public class MoneyServiceIO {
 
+	/**
+	 * Attribute projectConfigFilename holding filepath for ProjectConfig
+	 */
 	public static String projectConfigFilename = "ProjectConfig_"+LocalDate.now().toString()+".txt";
+	/**
+	 * Attribute currencyConfigFilename holding filepath for CurrencyConfig
+	 */
 	public static String currencyConfigFilename = "CurrencyConfig_"+LocalDate.now().toString()+".txt";
 	//	public static  String projectConfigFilename = "ProjectConfig_2021-04-19.txt";
 	//	public static String currencyConfigFilename = "CurrencyConfig_2021-04-19.txt";	
+	/**
+	 * Attribute folderPaths holding File paths for storing files
+	 */
 	public static List<File> folderPaths = new ArrayList<>();
+	/**
+	 * Attribute serializedDailyTransactionFilename holding filename for serialized DailyTransaction
+	 */
 	static String serializedDailyTransactionFilename = "DailyTransactions.ser";
-	static String serializedCustomerDataBaseFilename = "CustomerDatabase.ser";
+	/**
+	 * Attribute textFormattedDailyTransactions holding filename for textfile DailyTransactions
+	 */
 	static String textFormattedDailyTransactions = "DailyTransactions.txt";
+	/**
+	 * Attribute referenceCurrency defining the referenced Currency
+	 */
 	public static String referenceCurrency;
+	/**
+	 * Attribute refDate holding a LocalDate.
+	 */
 	public static LocalDate refDate;
+	/**
+	 * Attribute LDT holding the current day and time
+	 */
 	public static LocalDateTime LDT = LocalDateTime.now(); //TODO
 
 
+	/**
+	 * Changes the filepaths for projectConfigFilename
+	 *  and currencyConfigFilename to the inputed LocalDate
+	 * @param date holding a LocalDate
+	 */
 	public void changeDate(LocalDate date) {
 		projectConfigFilename = getPathName("Configs")+ "ProjectConfig_"+date.toString()+".txt";
 		currencyConfigFilename = getPathName("DailyRates")+ "CurrencyConfig_"+date.toString()+".txt";
 	}
 
 
+	/**
+	 * Getter for attribute referenceCurrency
+	 * @return a String holding referenceCurrency
+	 */
 	public static String getReferenceCurrency() {
 		return referenceCurrency;
 	}
 
+	/**
+	 * Sets the refDate for MoneyServiceIO.
+	 * @param refDate holds a LocalDate for refDate
+	 */
 	public static void setRefDate(LocalDate refDate) {
 		MoneyServiceIO.refDate = refDate;
 	}
@@ -94,7 +134,7 @@ public class MoneyServiceIO {
 
 	/**
 	 * Parses an entire list of Currencies
-	 * @param List of Strings to be parsed
+	 * @param listToBeParsed List<String> to be parsed
 	 * @return the parsed List<ExchangeRate>
 	 */
 	public static List<ExchangeRate> parseCurrencyConfig(List<String> listToBeParsed) {
@@ -144,7 +184,8 @@ public class MoneyServiceIO {
 
 	/**
 	 * Saves the daily transactions in serialized format
-	 * @param listToBeSaved, filename for storage.
+	 * @param listToBeSaved List<Transaction> of Transaction to be saved
+	 * @param filename String of a filename 
 	 * @return boolean true if done
 	 */
 	public static boolean saveSerializedDailyTransactions(List<Transaction> listToBeSaved, String filename) {
@@ -161,10 +202,10 @@ public class MoneyServiceIO {
 
 
 	/**
-	 * 
-	 * @param listToBeSaved
-	 * @param filename
-	 * @return
+	 * Saves the MoneyBox in a txt file
+	 * @param listToBeSaved Map<String,Currency> of the MoneyBox that is to be saved
+	 * @param filename holding the name of the file
+	 * @return boolean holding outcome of the operation
 	 */
 
 	public static boolean saveTxtMoneyBox(Map<String, Currency> listToBeSaved, String filename) {
@@ -189,8 +230,7 @@ public class MoneyServiceIO {
 
 	/**
 	 * Saves a daily report in serialized form.
-	 * 
-	 * @param Rapport R which includes the unique daily FileName
+	 * @param r Report to be saved
 	 * @return Boolean true if successful.
 	 */
 
@@ -211,7 +251,7 @@ public class MoneyServiceIO {
 
 	/**
 	 * Reads Serialized daily transactions
-	 * @param  filename for storage.
+	 * @param  filename holding the name of the file to be read
 	 * @return the list
 	 */
 
@@ -227,8 +267,9 @@ public class MoneyServiceIO {
 	}
 
 	/**
-	 * Saves daily transactions as List
-	 * @param dailyList
+	 * Saves the dailyTransactions as a list on a text file
+	 * @param dailyList List<Transaction> of Transactions to be saved
+	 * @param filename String holding the name of the file to be saved
 	 * @return boolean true if successful.
 	 */
 	public static boolean saveDailyTransactionListAsText(List<Transaction> dailyList, String filename){
@@ -278,14 +319,20 @@ public class MoneyServiceIO {
 	}
 	 */
 	
-	
+	/**
+	 * Adds the String path as a File in folderPaths
+	 * @param path String holding the filepath
+	 */
 	public static void setFolderPath(String path) {
 		folderPaths.add(new File(path));
 	}
 	
+	/**
+	 * Prints out the Files in folderPaths
+	 */
 	public static void printPathList() {
 		for(File s: folderPaths){
-			System.out.println("Path:"+s);
+			System.out.println("Path:"+s.getName());
 		}
 	}
 
@@ -313,17 +360,24 @@ public class MoneyServiceIO {
 	}
   */
 	
+	/**
+	 * Gets the folderpath from folderPaths
+	 * @param folder String holding the folderpath
+	 * @return String of the modified path to the folder
+	 */
 	public static String getPathName(String folder) {
 		
 		String fileName = ""; 
 		for(File temp: MoneyServiceIO.folderPaths) {
 			if(temp.getName().equals(folder)){
 				fileName = temp.getPath() + "/";
+
 			}
 		}
 		if(folder == "Transactions") {
 			fileName = fileName + Config.getSiteName() +"/"; 
 		}
+		
 		return fileName;
 	}
 
