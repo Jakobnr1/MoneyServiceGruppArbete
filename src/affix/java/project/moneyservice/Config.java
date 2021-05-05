@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,6 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
 
 public class Config {
-	//Attributes'
 	private static String siteName= "default";
 	private static String logName= "MoneyServiceLog";
 	private static String logFormat = "text";
@@ -25,10 +25,8 @@ public class Config {
 	private static int MAX_AMMOUNT = 50000;
 	private static float buyRateConfig = 0.995f;
 	private static float sellRateConfig = 1.005F;
-	private static String password = "Qwerty1234!";
-
-
-
+	private static char[] password = {'Q','w','e','r','t','y','u','i'}; 
+	
 
 	
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
@@ -39,54 +37,9 @@ public class Config {
 		logger = Logger.getLogger(logName);
 	}
 
-	public static String getLogName() {
-		return logName;
-	}
 
 
-	public static List<ExchangeRate> getExchangeRateList(){
-		return exchangeRateList;
-	}
-
-	public static boolean setMIN_AMMOUNT(int MIN_AMMOUNT) {
-		Config.MIN_AMMOUNT = MIN_AMMOUNT;
-		return true;
-	}
-
-	public static boolean setMAX_AMMOUNT(int MAX_AMMOUNT) {
-		Config.MAX_AMMOUNT = MAX_AMMOUNT;
-		return true;
-	}
-
-
-	public static int getMIN_AMMOUNT() {
-		return MIN_AMMOUNT;
-	}
-
-	public static int getMAX_AMMOUNT() {
-		return MAX_AMMOUNT;
-	}
-	
-	public static float getBuyRateConfig() {
-		return buyRateConfig;
-	}
-
-
-	public static void setBuyRateConfig(float buyRateConfig) {
-		Config.buyRateConfig = buyRateConfig;
-	}
-
-
-	public static float getSellRateConfig() {
-		return sellRateConfig;
-	}
-
-
-	public static void setSellRateConfig(float sellRateConfig) {
-		Config.sellRateConfig = sellRateConfig;
-	}
-
-	public static Logger setUpLogger(Logger logger, FileHandler fh, String[] args) {
+	public static Logger setUpLogger(Logger logger, FileHandler fh) {
 
 		logger = Logger.getLogger(logName);
 
@@ -241,7 +194,8 @@ public class Config {
 							System.out.println("*********Bad input of logLevel in config file!**********");
 							System.out.println("Default used: "+Config.getLogLevel());
 							break;
-						}											
+						}						 
+						
 						break;
 
 					case "min_ammount":
@@ -266,7 +220,6 @@ public class Config {
 						break;
 					case "password":
 						setPassword(value);
-						System.out.println("Password for user section set");
 						ok++;
 						break;
 					default:
@@ -290,11 +243,115 @@ public class Config {
 
 		return okRead;
 	}
-
-	protected static void setPassword(String password) {
-		Config.password = password;
+	
+	/**
+	 * The method sets buy and sell rate in each currency.
+	 * Needs to be run early in program start! 
+	 * @param currencyList
+	 * @param currencyMap
+	 */
+	public static void setRatesInCurrency(List<ExchangeRate> currencyList, Map<String, Currency> currencyMap) {			
+		for(ExchangeRate s : currencyList) {
+			String key = s.getName();
+			if(currencyMap.containsKey(s.getName())) {
+				Float buyRate = s.getExchangeRate() * getBuyRateConfig();
+				currencyMap.get(key).setBuyRate(buyRate);
+				Float sellRate = s.getExchangeRate() * getSellRateConfig();
+				currencyMap.get(key).setSellRate(sellRate);
+				logger.fine(""+key+" buyRate: "+buyRate+ ", sellRate"+sellRate);				
+			}
+		}
 	}
 
+
+	public static List<ExchangeRate> setTheRates() {
+		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.currencyConfigFilename)));
+		logger.fine("*********** Getting rates from "+MoneyServiceIO.currencyConfigFilename+ " ************");
+
+		return test;
+	}
+
+
+	public static MoneyBox fillTheMoneyBox(MoneyBox theBox, Map<String, Currency> currencyMap ) {
+		Map<String, Double> testMap = new HashMap<String,Double>(MoneyServiceIO.parseProjectConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.projectConfigFilename)));
+
+		Set<String> keySet = testMap.keySet();
+		for(String k:keySet) {
+			Currency tempCurrency = new Currency(testMap.get(k).intValue(), 0.0f, 0.0f);
+			currencyMap.putIfAbsent(k, tempCurrency);
+			logger.fine("Filled MoneyBox with: "+k+" amount: "+tempCurrency);
+		}
+		
+		return theBox;
+	}
+
+	public static boolean controlPwd(String temp) {
+		
+		char[] tempPass = new char[temp.length()];
+		
+		for(int i=0; i<temp.length(); i++) {
+			tempPass[i] = temp.charAt(i);
+		}
+		
+		boolean passwordMatch = Arrays.equals(tempPass, password);
+		
+		return passwordMatch;
+	}
+	
+	
+	static void setPassword(String password) {
+		
+		for(int i=0; i<password.length();i++) {
+			Config.password[i] = password.charAt(i);			
+		}
+	}
+
+	public static String getLogName() {
+		return logName;
+	}
+
+
+	public static List<ExchangeRate> getExchangeRateList(){
+		return exchangeRateList;
+	}
+
+	public static boolean setMIN_AMMOUNT(int MIN_AMMOUNT) {
+		Config.MIN_AMMOUNT = MIN_AMMOUNT;
+		return true;
+	}
+
+	public static boolean setMAX_AMMOUNT(int MAX_AMMOUNT) {
+		Config.MAX_AMMOUNT = MAX_AMMOUNT;
+		return true;
+	}
+
+
+	public static int getMIN_AMMOUNT() {
+		return MIN_AMMOUNT;
+	}
+
+	public static int getMAX_AMMOUNT() {
+		return MAX_AMMOUNT;
+	}
+	
+	public static float getBuyRateConfig() {
+		return buyRateConfig;
+	}
+
+
+	public static void setBuyRateConfig(float buyRateConfig) {
+		Config.buyRateConfig = buyRateConfig;
+	}
+
+
+	public static float getSellRateConfig() {
+		return sellRateConfig;
+	}
+
+
+	public static void setSellRateConfig(float sellRateConfig) {
+		Config.sellRateConfig = sellRateConfig;
+	}
 
 	public static String getLogFormat() {
 		return logFormat;
@@ -321,54 +378,7 @@ public class Config {
 		Config.logger = logger;
 	}
 
-	/**
-	 * The method sets buy and sell rate in each currency.
-	 * Needs to be run early in program start! 
-	 * @param currencyList
-	 * @param currencyMap
-	 */
-	public static void setRatesInCurrency(List<ExchangeRate> currencyList, Map<String, Currency> currencyMap) {			
-		for(ExchangeRate s : currencyList) {
-			String key = s.getName();
-			if(currencyMap.containsKey(s.getName())) {
-				Float buyRate = s.getExchangeRate() * getBuyRateConfig();
-				currencyMap.get(key).setBuyRate(buyRate);
-				Float sellRate = s.getExchangeRate() * getSellRateConfig();
-				currencyMap.get(key).setSellRate(sellRate);
-				logger.fine(""+key+" buyRate: "+buyRate+ ", sellRate"+sellRate);				
-			}
-		}
-	}
-
-
-	public static List<ExchangeRate> setTheRates() {
-		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("DailyRates")+ MoneyServiceIO.currencyConfigFilename)));
-		logger.fine("*********** Getting rates from "+MoneyServiceIO.currencyConfigFilename+ " ************");
-
-		return test;
-	}
-
-
-	public static MoneyBox fillTheMoneyBox(MoneyBox theBox, Map<String, Currency> currencyMap ) {
-		Map<String, Double> testMap = new HashMap<String,Double>(MoneyServiceIO.parseProjectConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("Configs")+MoneyServiceIO.projectConfigFilename)));
-
-		Set<String> keySet = testMap.keySet();
-		for(String k:keySet) {
-			Currency tempCurrency = new Currency(testMap.get(k).intValue(), 0.0f, 0.0f);
-			currencyMap.putIfAbsent(k, tempCurrency);
-			logger.fine("Filled MoneyBox with: "+k+" amount: "+tempCurrency);
-		}
-		
-		Currency tempCurrency = new Currency(0, 0.0f, 0.0f);
-		currencyMap.putIfAbsent("CNY", tempCurrency);
-		
-		return theBox;
-	}
-
-
-	public static String getPassword() {
-		return password;
-	}
+	
 
 
 	public static String getSiteName() {
@@ -379,5 +389,11 @@ public class Config {
 	public static void setSiteName(String siteName) {
 		Config.siteName = siteName;
 	}
+
+
+	
+
+
+
 
 }

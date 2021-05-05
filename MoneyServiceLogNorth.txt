@@ -1,2 +1,2 @@
-maj 04, 2021 2:27:40 EM affix.java.project.moneyservice.ExchangeSite startTheDay
+maj 05, 2021 11:12:47 FM affix.java.project.moneyservice.ExchangeSite startTheDay
 FINE: Starting the day!
