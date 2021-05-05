@@ -76,7 +76,7 @@ public class MoneyServiceIO {
 				if(boxParts[1].isBlank()) {
 					boxParts[1] = "0";
 				}
-				currencyMap.putIfAbsent(boxParts[0].trim(), Double.parseDouble(boxParts[1].trim())); //TODO �ndra type till currency
+				currencyMap.putIfAbsent(boxParts[0].trim(), Double.parseDouble(boxParts[1].trim())); 
 			}
 		}
 		Stream<String> refString = listToBeParsed.stream().skip(2);
@@ -175,9 +175,7 @@ public class MoneyServiceIO {
 				pw.println(k+" = "+listToBeSaved.get(k).getTotalValue().intValue());
 			}
 				
-//			for(Currency c: listToBeSaved) {
-//				pw.println(t.toString());
-//			}
+
 		}
 		catch(IOException ioe) {System.out.println(String.format("Error when Saving Daily Transactions as text" + ioe.toString()));
 		}
@@ -185,36 +183,7 @@ public class MoneyServiceIO {
 		return saved;
 	}	
 
-//	public static boolean saveSerializedCurrencyMap(Map<LocalDate, Map<String, Currency>> superMap, Map<String, Currency> listToBeSaved, String filename) {
-//
-//		if(superMap.containsKey(refDate)) {
-//			superMap.replace(refDate, listToBeSaved);
-//		}
-//		else {
-//			superMap.putIfAbsent(refDate, listToBeSaved);
-//		}
-//
-//		boolean saved = false;
-//		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename.trim()))){
-//			oos.writeObject(superMap);
-//		}
-//		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized currencyMap"+ioe.toString()));
-//		return false;
-//		}
-//		saved = true;
-//		return saved;
-//	}	
 
-
-//	public static Map<LocalDate,Map<String,Currency>> readSerializedCurrencyMap(String filename){
-//		Map<LocalDate,Map<String,Currency>> tempMap = new HashMap<>();
-//		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
-//			tempMap = (Map<LocalDate,Map<String,Currency>>) ois.readObject();
-//		}
-//
-//		catch(IOException |ClassNotFoundException ioe){System.out.println("Error when reading currencyMap" +ioe.toString());}
-//		return tempMap;
-//	}
 
 
 
@@ -320,6 +289,7 @@ public class MoneyServiceIO {
 		}
 	}
 
+  /*
 	public static List <File> findFolders() {
 		List<File> folderList = new ArrayList<>();
 		folderList.add(new File("Configs"));
@@ -341,6 +311,7 @@ public class MoneyServiceIO {
 		}
 		return folderList;
 	}
+  */
 	
 	public static String getPathName(String folder) {
 		
@@ -351,8 +322,11 @@ public class MoneyServiceIO {
 				fileName = temp.getPath() + "/";
 
 			}
-			
 		}
+		if(folder == "Transactions") {
+			fileName = fileName + Config.getSiteName() +"/"; 
+		}
+		
 		return fileName;
 	}
 

@@ -112,7 +112,7 @@ public class ExchangeSite implements MoneyService {
 
 	@Override
 	public void printSiteReport(String destination) {
-		MoneyServiceIO.saveTxtMoneyBox(MoneyBox.getCurrencyMap(), "SiteReport_"+Config.getSiteName()+"_"+LocalDate.now()+".txt");
+		MoneyServiceIO.saveTxtMoneyBox(MoneyBox.getCurrencyMap(), MoneyServiceIO.getPathName("SiteReports")+"SiteReport_"+Config.getSiteName()+"_"+LocalDate.now()+".txt");
 	}
 
 	@Override
@@ -120,10 +120,10 @@ public class ExchangeSite implements MoneyService {
 
 		if(destination.contains(".txt")) {
 			logger.fine("Saving daily transactions as text");
-			MoneyServiceIO.saveDailyTransactionListAsText(transactionList, backupReport.getUniqueFileName());
+			MoneyServiceIO.saveDailyTransactionListAsText(transactionList,  backupReport.getUniqueFileName());
 		}else if(destination.contains(".db")) {
 			logger.fine("Saving daily transactions as serialized");
-			MoneyServiceIO.saveSerializedDailyTransactions(transactionList, backupReport.getUniqueFileName());
+			MoneyServiceIO.saveSerializedDailyTransactions(transactionList, MoneyServiceIO.getPathName("Transactions")+ backupReport.getUniqueFileName());
 		}
 		MoneyServiceIO.saveDailyTransactionListAsText(transactionList, "tempFile.txt");
 		
