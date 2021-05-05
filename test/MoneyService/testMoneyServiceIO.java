@@ -128,21 +128,21 @@ public class testMoneyServiceIO {
 		assertFalse(MoneyServiceIO.saveSerializedDailyTransactions(emptyList, fileName));
 	}
 	
-	@Test
-	public void testSaveSerializedCurrencyMap() {
-
-		String fileName = "test2.txt";
-		assertTrue(MoneyServiceIO.saveSerializedCurrencyMap(theSite.getCurrencyMap(), fileName));
-		
-	}
-	@Test
-	public void testSaveSerializedCurrencyMapFail() {
-
-		String fileName = "";
-		Map <String, Currency> emptyMap = new HashMap<String, Currency>();
-		assertFalse(MoneyServiceIO.saveSerializedCurrencyMap(emptyMap, fileName));
-		
-	}
+//	@Test
+//	public void testSaveSerializedCurrencyMap() {
+//
+//		String fileName = "test2.txt";
+//		assertTrue(MoneyServiceIO.saveSerializedCurrencyMap(theSite.getCurrencyMap(), fileName));
+//		
+//	}
+//	@Test
+//	public void testSaveSerializedCurrencyMapFail() {
+//
+//		String fileName = "";
+//		Map <String, Currency> emptyMap = new HashMap<String, Currency>();
+//		assertFalse(MoneyServiceIO.saveSerializedCurrencyMap(emptyMap, fileName));
+//		
+//	}
 	
 	@SuppressWarnings("static-access")
 	@Test

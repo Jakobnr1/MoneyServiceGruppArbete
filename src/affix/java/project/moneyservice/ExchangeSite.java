@@ -207,7 +207,8 @@ public class ExchangeSite implements MoneyService {
 					orderList.remove(o);
 				}
 				else {
-					System.out.println("Order :"+ o +" did not go trough");
+					//System.out.println();
+					logger.finer("Order :"+ o +" did not go trough");
 				}
 			}
 			else if(o.getTransactionType() == (TransactionMode.SELL)) {
@@ -216,7 +217,8 @@ public class ExchangeSite implements MoneyService {
 					orderList.remove(o);
 				}
 				else {
-					System.out.println("Order :"+ o +" did not go trough");
+				//	System.out.println("Order :"+ o +" did not go trough");
+					logger.finer("Order :"+ o +" did not go trough");
 				}
 			}
 		}

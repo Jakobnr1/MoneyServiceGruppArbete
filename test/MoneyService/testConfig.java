@@ -49,4 +49,23 @@ public class testConfig {
 		assertEquals(max, Config.getMAX_AMMOUNT());
 	}
 	
+	@Test
+	public void readConfigSiteName() {
+		String nameBeforeRead = Config.getSiteName();
+		Config.readConfigFile("configFileNorthTest.txt");
+		String nameAfterRead = Config.getSiteName();
+		assertNotEquals(nameBeforeRead, nameAfterRead);
+		
+	}
+	
+	@Test
+	public void readConfigLogName() {
+		String nameBeforeRead = Config.getLogName();
+		System.out.println(nameBeforeRead);
+		Config.readConfigFile("configFileNorthTest2.txt");
+		String nameAfterRead = Config.getLogName();
+		System.out.println(nameAfterRead);
+		assertNotEquals(nameBeforeRead, nameAfterRead);
+		
+	}
 }
