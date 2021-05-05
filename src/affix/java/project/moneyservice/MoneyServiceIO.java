@@ -21,8 +21,8 @@ import java.util.stream.Stream;
 
 public class MoneyServiceIO {
 
-	public static String projectConfigFilename = getPathName("Configs")+"ProjectConfig_"+LocalDate.now().toString()+".txt";
-	public static String currencyConfigFilename = getPathName("DailyRates")+"CurrencyConfig_"+LocalDate.now().toString()+".txt";
+	public static String projectConfigFilename = "ProjectConfig_"+LocalDate.now().toString()+".txt";
+	public static String currencyConfigFilename = "CurrencyConfig_"+LocalDate.now().toString()+".txt";
 	//	public static  String projectConfigFilename = "ProjectConfig_2021-04-19.txt";
 	//	public static String currencyConfigFilename = "CurrencyConfig_2021-04-19.txt";	
 	public static List<File> folderPaths = new ArrayList<>();
