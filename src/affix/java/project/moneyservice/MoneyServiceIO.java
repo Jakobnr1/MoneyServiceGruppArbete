@@ -285,7 +285,7 @@ public class MoneyServiceIO {
 	
 	public static void printPathList() {
 		for(File s: folderPaths){
-			System.out.println("Path:"+s.getName());
+			System.out.println("Path:"+s);
 		}
 	}
 
