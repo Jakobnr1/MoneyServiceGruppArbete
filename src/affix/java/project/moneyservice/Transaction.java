@@ -60,7 +60,7 @@ public class Transaction implements Serializable {
 	}
 	
 	/**
-	 * Returns the UniqueId of the Transaction
+	 * Getter for attribute uniqueId
 	 * @return an int holding uniqueId 
 	 */
 	public static int getUniqueId() {
@@ -68,7 +68,7 @@ public class Transaction implements Serializable {
 	}
 
 	/**
-	 * Sets the UniqueId to Transaction according to param
+	 * Sets the uniqueId to Transaction according to input
 	 * @param newuniqueId holds a value for uniqueId
 	 */
 	public static void setUniqueId(int newuniqueId) {
