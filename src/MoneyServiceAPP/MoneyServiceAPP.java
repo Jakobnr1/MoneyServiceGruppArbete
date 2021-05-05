@@ -1,6 +1,5 @@
 package MoneyServiceAPP;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 import affix.java.project.moneyservice.Config;
 import affix.java.project.moneyservice.Currency;
 import affix.java.project.moneyservice.ExchangeSite;
@@ -83,9 +81,8 @@ public class MoneyServiceAPP {
 		
 		do {
 			try { 
-				
+				System.out.println("********* Customer menu **********");
 				System.out.println("\n\nPlease make a choice:");
-				System.out.println("-----------------------------");
 				System.out.println("1. - Show todays exchange rates");
 				System.out.println("2. - Create order");
 				System.out.println("3. - Employee menu ");
@@ -148,16 +145,14 @@ public class MoneyServiceAPP {
 		int choice=0;
 		do { 
 			try { 
-				System.out.println("\n\nPlease make a choice:");
-				System.out.println("-----------------------------");
+				System.out.println("******** Employee menu for Exchange site "+Config.getSiteName()+" *********");
+				System.out.println("\nPlease make a choice:");
 				System.out.println("1. - Show todays exchange rates");
-				System.out.println("2. - Create order for customer");
-				System.out.println("3. - Random generate 25 orders");
-				System.out.println("4. - Random generate 25 orders per day between two dates");
-				System.out.println("5. - Show cash box content");
-				System.out.println("6. - User menu");
+				System.out.println("2. - Show cash box content");
+				System.out.println("3. - Create order for customer");
+				System.out.println("4. - User menu");
 				System.out.println("0. - Exit the program, and end the day");
-				System.out.println("-----------------------------");
+				System.out.println("*********************************");
 
 				String input=keyboard.next();
 				choice=Integer.parseInt(input);	
@@ -174,82 +169,22 @@ public class MoneyServiceAPP {
 						}
 					}
 					System.out.println("********************************************************");
-
 					break;
 
-				case 2: 
+				case 2:
+					System.out.println("Content in cash box right now: ");
+					for(String k:theSite.getCurrencyMap().keySet()) {
+						System.out.println(k+": "+theSite.getCurrencyMap().get(k).getTotalValue().intValue());
+					}					
+					break;
+					
+				case 3: 
 					createOrder(theSite, keyboard);
 					break;
 
-				case 3:
-					List<Order> listOfOrders;
-					int i=0;
-					boolean stop = false;
-					do {
-						listOfOrders = Order.generateDailyOrder(theSite.getRates(), 35);
-						for(Order d: listOfOrders) {
-							if(i>24) {
-								stop = true;
-							}else {
-								if(d.getTransactionType() == TransactionMode.BUY) {
-									System.out.println("Tried: "+d.toString());
-									if(theSite.buyMoney(d)) {
-										theSite.completeOrder(d);
-										i++;
-										System.out.println(i + ": Worked");
-									}
-								}else {
-									System.out.println("Tried: "+d.toString());
-									if(theSite.sellMoney(d)) {
-										theSite.completeOrder(d);
-										i++;
-										System.out.println(i + ": Worked");
-									}
-								}
-							}
-						}
-
-					}while(!stop);
-
-					for(Transaction t : ExchangeSite.transactionList) {
-						System.out.println(""+t.toString());
-					}
-
-					Set<String> keySet = theSite.getCurrencyMap().keySet();
-
-					for(String k:keySet) {
-						System.out.println(k+": "+theSite.getCurrencyMap().get(k).toString());
-					}
-
-					break;
-
 				case 4:
-					String userInput;
-					Scanner sc = new Scanner(System.in);
-					System.out.println("Enter the first date: YYYY-MM-DD");
-					userInput = sc.nextLine();
-					LocalDate firstDate = LocalDate.parse(userInput);
-					System.out.println("Enter the second date: YYYY-MM-DD");
-					userInput = sc.nextLine();
-					//OBS tar inte med sista dagen d�rav plus en dag.
-					LocalDate secondDate = LocalDate.parse(userInput).plusDays(1);
-					Stream<LocalDate> ldStream = firstDate.datesUntil(secondDate)
-							.filter(ld -> !(ld.getDayOfWeek().equals(DayOfWeek.SATURDAY)) && !(ld.getDayOfWeek().equals(DayOfWeek.SUNDAY)));
-					ldStream.forEach(test());
-					break;
-
-				case 5:
-					System.out.println("Content in cash box: ");
-					keySet = theSite.getCurrencyMap().keySet();
-
-					for(String k:keySet) {
-						System.out.println(k+": "+theSite.getCurrencyMap().get(k).getTotalValue().intValue());
-					}
-					break;
-					
-				case 6:
 					clientMenu(theSite);
-					break;
+					break;				
 
 				case 0:
 					exit=true;
@@ -259,7 +194,6 @@ public class MoneyServiceAPP {
 					System.out.println("Wrong choice!");
 					break;
 				}
-
 
 			}
 			catch (NumberFormatException e) {
@@ -470,7 +404,7 @@ public class MoneyServiceAPP {
 				if(d.getTransactionType() == (TransactionMode.BUY)) {
 					if(temp.buyMoney(d)) {
 						temp.completeOrder(d);
-//						shutDownService(String destination);
+	//						shutDownService(String destination);
 						//						System.out.println("(b)Succses order complete"); //DEBUG
 					}
 					else {
