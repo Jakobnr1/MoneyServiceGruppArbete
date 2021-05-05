@@ -23,6 +23,9 @@ public class MoneyServiceIO {
 
 	public static  String projectConfigFilename = "ProjectConfig_"+LocalDate.now().toString()+".txt";
 	public static String currencyConfigFilename = "CurrencyConfig_"+LocalDate.now().toString()+".txt";
+	//	public static  String projectConfigFilename = "ProjectConfig_2021-04-19.txt";
+	//	public static String currencyConfigFilename = "CurrencyConfig_2021-04-19.txt";	
+	public static List<File> folderPaths = new ArrayList<>();
 	static String serializedDailyTransactionFilename = "DailyTransactions.ser";
 	static String serializedCustomerDataBaseFilename = "CustomerDatabase.ser";
 	static String textFormattedDailyTransactions = "DailyTransactions.txt";
@@ -243,11 +246,53 @@ public class MoneyServiceIO {
 	}
 
 	
+	/**
+	 * Saves serialized customer database 
+	 * @param mapToBeSaved
+	 * @return boolean true if done
+	 */
+	/*
+	public static boolean saveSerializedCustomerDatabase(Map<String,List<Customer>> mapToBeSaved) {
+		boolean saved = false;
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(serializedCustomerDataBaseFilename))){
+			oos.writeObject(mapToBeSaved);
+		}
+		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized daily transaction"+ioe.toString()));}
+		saved = true;
+		return saved;
+	}	
+	 */
+	/**
+	 * Reads serialized customer database 
+	 * @return the map
+	 */
+	/*
+	public static Map<String,List<Customer>> readSerializedCustomerDatabase(){
+		Map<String,List<Customer>> customerMap = null;
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(serializedCustomerDataBaseFilename))){
+		customerMap = (Map<String,List<Customer>>)ois.readObject();
+		}
+		catch(IOException |ClassNotFoundException ioe) {System.out.println(String.format("Error when reading serialized daily transactions"+ioe.toString()));
+		}
+		return customerMap;
+	}
+	 */
 	
+	
+	public static void setFolderPath(String path) {
+		folderPaths.add(new File(path));
+	}
+	
+	public static void printPathList() {
+		for(File s: folderPaths){
+			System.out.println("Path:"+s);
+		}
+	}
 
+  /*
 	public static List <File> findFolders() {
 		List<File> folderList = new ArrayList<>();
-		folderList.add (new File("Configs"));
+		folderList.add(new File("Configs"));
 		folderList.add(new File("DailyRates"));
 		folderList.add(new File("Documents"));
 		folderList.add(new File("Orders"));
@@ -266,12 +311,13 @@ public class MoneyServiceIO {
 		}
 		return folderList;
 	}
+  */
 	
-	public static String getPathName( String folder) {
-		List<File> folderList = findFolders();
-		String fileName = ""; 
+	public static String getPathName(String folder) {
 		
-		for(File temp: folderList) {
+		String fileName = ""; 
+
+		for(File temp: MoneyServiceIO.folderPaths) {
 			if(temp.getName().equals(folder)){
 				fileName = temp.getPath() + "/";
 
