@@ -1,18 +1,13 @@
 package affix.java.project.moneyservice;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
-import java.util.function.Consumer;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 
 
@@ -35,7 +30,6 @@ public class ExchangeSite implements MoneyService {
 		this(Name,LocalDateTime.now());
 	}
 
-
 	public ExchangeSite(String Name, LocalDateTime TimeStamp) {
 		ExchangeSite.name = Name;
 		backupReport = new Report(TimeStamp, transactionList);
@@ -43,7 +37,9 @@ public class ExchangeSite implements MoneyService {
 		ExchangeSite.theBox= new MoneyBox(currencyMap);
 		ExchangeSite.rates = new ArrayList<ExchangeRate>();
 	}
-
+/**
+ * Fills the MoneyBox and set the rates.
+ */
 	public void startTheDay() {
 		logger.fine("Starting the day!");
 		Config.fillTheMoneyBox(ExchangeSite.theBox, ExchangeSite.currencyMap);
@@ -76,6 +72,12 @@ public class ExchangeSite implements MoneyService {
 		return (int) Math.round(price);
 	}
 
+/**
+ *  Checks if we can afford to buy inputed Order.
+ * @param Order obj
+ * @throws IllegalArgumentException
+ * @return Boolean, if we can afford to buy the currency 
+ */
 	@Override
 	public boolean buyMoney(Order orderData) throws IllegalArgumentException {
 		int value = orderData.getValue();
@@ -96,6 +98,12 @@ public class ExchangeSite implements MoneyService {
 
 	}
 
+	/**
+	 *  Checks if we can buy the currency the customer wants to sell.
+	 * @param Order obj
+	 * @throws IllegalArgumentException
+	 * @return Boolean, if we have the foreign currency and right amount 
+	 */
 	@Override
 	public boolean sellMoney(Order orderData) throws IllegalArgumentException {
 		int value = orderData.getValue(); 
@@ -109,7 +117,11 @@ public class ExchangeSite implements MoneyService {
 
 		return (value<=totalRefCurrency.get())?true : false;
 	}
-
+	//kolla på denna
+	/**
+	 * Prints all the transactions in the transactionsList
+	 * @param
+	 */
 	@Override
 	public void printSiteReport(String destination) {
 
@@ -121,7 +133,10 @@ public class ExchangeSite implements MoneyService {
 			MoneyServiceIO.saveDailyTransactionListAsText(transactionList, backupReport.getUniqueFileName());
 		}
 	}
-
+	//Kolla på denna
+	/**
+	 * @param
+	 */
 	@Override
 	public void shutDownService(String destination) {
 
@@ -139,7 +154,10 @@ public class ExchangeSite implements MoneyService {
 		Map<String,Currency> tempMap = MoneyBox.getCurrencyMap();
 		return tempMap; 
 	}
-
+/**
+ * Checks how much of the param we have available and removes any type of null
+ * @param String of the type Currency
+ */
 	@Override
 	public Optional<Double> getAvailableAmount(String currencyCode) 
 	{
@@ -152,7 +170,12 @@ public class ExchangeSite implements MoneyService {
 		return temp;
 
 	}
-
+	/**
+	 * Calls after buyMoney or sellMoney
+	 * Complete the transaction
+	 * @param Order obj
+	 * @return Order
+	 */
 	public Order completeOrder(Order orderData) {		
 		int value = orderData.getValue();
 		String currency = orderData.getCurrencyCode();
@@ -226,17 +249,26 @@ public class ExchangeSite implements MoneyService {
 		return orderList;
 	}
 
-
+/**
+ * Get a TransactionList
+ * @return A list of transactions List<Transaction>
+ */
 	public static List<Transaction> getTransactionList(){
 		return transactionList;
 	}
 
 
-
+/**
+ * Get a List of rates
+ * @return rates
+ */
 	public static List<ExchangeRate> getRates() {
 		return rates;
 	}
-
+	/**
+	 * Sets a name for ExchangeSite
+	 * @param name
+	 */
 	public void setName(String name) {
 		ExchangeSite.name = name;
 	}
