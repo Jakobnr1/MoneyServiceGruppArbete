@@ -46,11 +46,13 @@ public class ExchangeSite implements MoneyService {
 
 	public void startTheDay() {
 		logger.fine("Starting the day!");
+		
 		Config.fillTheMoneyBox(ExchangeSite.theBox, ExchangeSite.currencyMap);
-
+		
 		ExchangeSite.rates = Config.setTheRates();
 
 		Config.setRatesInCurrency(ExchangeSite.rates, currencyMap);
+		
 	}
 
 	/**
