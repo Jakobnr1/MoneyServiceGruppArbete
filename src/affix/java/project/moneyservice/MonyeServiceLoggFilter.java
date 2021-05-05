@@ -3,7 +3,11 @@ package affix.java.project.moneyservice;
 import java.util.logging.Filter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
-
+//TODO
+/**
+ *
+ *
+ */
 public class MonyeServiceLoggFilter implements Filter{
 
 	@Override
