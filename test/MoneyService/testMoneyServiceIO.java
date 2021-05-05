@@ -38,7 +38,7 @@ public class testMoneyServiceIO {
 		int i=0;
 		boolean stop = false;
 		do {
-			listOfOrders = Order.generateDailyOrder(ExchangeSite.getRates(), 35);
+			listOfOrders = Order.generateDailyOrder(theSite.getRates(), 35);
 			for(Order d: listOfOrders) {
 				if(i>24) {
 					stop = true;
@@ -132,7 +132,7 @@ public class testMoneyServiceIO {
 	public void testSaveSerializedCurrencyMap() {
 
 		String fileName = "test2.txt";
-		assertTrue(MoneyServiceIO.saveSerializedCurrencyMap(theSite.getCurrencyMap(), fileName));
+		assertTrue(MoneyServiceIO.saveSerializedCurrencyMap(theSite.getCurrencyMap(), fileName)); // changed name? ERROR
 		
 	}
 	@Test

@@ -1,5 +1,6 @@
 package affix.java.project.moneyservice;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -55,7 +56,7 @@ public class ExchangeSite implements MoneyService {
 	 * @param amount
 	 * @return int price
 	 */
-	public static int calculatePrice(String currencyCode, int amount,TransactionMode transactionType) {
+	public int calculatePrice(String currencyCode, int amount,TransactionMode transactionType) {
 		Map<String, Currency> currencyMap= MoneyBox.getCurrencyMap();
 		float calcPrice =0;
 		double price =0;
@@ -209,7 +210,7 @@ public class ExchangeSite implements MoneyService {
 	 * @param "d" Order
 	 * @return A list of Order from d
 	 */
-	public static List<Order> addOrderToQueue(Order d){
+	public List<Order> addOrderToQueue(Order d){
 		List<Order> orderList = new LinkedList<Order>();
 		orderList.add(d);
 
@@ -250,7 +251,7 @@ public class ExchangeSite implements MoneyService {
  * Get a TransactionList
  * @return A list of transactions List<Transaction>
  */
-	public static List<Transaction> getTransactionList(){
+	public List<Transaction> getTransactionList(){
 		return transactionList;
 	}
 
@@ -259,7 +260,7 @@ public class ExchangeSite implements MoneyService {
  * Get a List of rates
  * @return rates
  */
-	public static List<ExchangeRate> getRates() {
+	public List<ExchangeRate> getRates() {
 		return rates;
 	}
 	/**

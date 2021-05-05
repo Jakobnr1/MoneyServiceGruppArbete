@@ -1,6 +1,5 @@
 package affix.java.project.moneyservice;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,7 +9,7 @@ public class Report {
 	LocalDateTime day; //TODO
 	List<Transaction> dailyTransactions;
 	public static int uniqueId = 0;
-	public static String uniqueFilename;
+	public String uniqueFilename;
 	
 	public Report(LocalDateTime day, List<Transaction> dailyTransactions) {
 		++uniqueId;
