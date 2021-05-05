@@ -26,9 +26,8 @@ public class Config {
 	private static float buyRateConfig = 0.995f;
 	private static float sellRateConfig = 1.005F;
 	private static char[] password = {'Q','w','e','r','t','y','u','i'}; 
-	
 
-	
+
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
 
 	private static Logger logger;
@@ -45,11 +44,11 @@ public class Config {
 
 		try {
 			if(logFormat.equals("text")) {
-				fh = new FileHandler(logName+".txt");
+				fh = new FileHandler(MoneyServiceIO.getPathName("Orders")+logName+".txt");
 				fh.setFormatter(new SimpleFormatter());
 			}
 			else {
-				fh = new FileHandler(logName+".xml");
+				fh = new FileHandler(MoneyServiceIO.getPathName("Orders")+logName+".xml");
 				fh.setFormatter(new XMLFormatter());
 			}
 		} catch (SecurityException e) {
@@ -62,35 +61,7 @@ public class Config {
 
 		String currentLevel = getLogLevel();
 
-		switch (currentLevel) {
-		case "ALL":
-			logger.setLevel(Level.ALL);
-			break;
-		case "CONFIG":
-			logger.setLevel(Level.CONFIG);
-			break;
-		case "FINE":
-			logger.setLevel(Level.FINE);
-			break;
-		case "FINER":
-			logger.setLevel(Level.FINER);
-			break;
-		case "FINEST":
-			logger.setLevel(Level.FINEST);
-			break;
-		case "INFO":
-			logger.setLevel(Level.INFO);
-			break;
-		case "SEVERE":
-			logger.setLevel(Level.SEVERE);
-			break;
-		case "WARNING":
-			logger.setLevel(Level.WARNING);
-			break;
-		case "OFF":
-			logger.setLevel(Level.OFF);
-			break;
-		}											
+		logger.setLevel(Level.parse(currentLevel));
 
 		Filter currentFilter = new MonyeServiceLoggFilter();
 		fh.setFilter(currentFilter);
@@ -99,6 +70,8 @@ public class Config {
 
 	}
 
+		
+	public enum LogLev {ALL, CONFIG, FINE, FINER, FINEST, INFO, SEVERE, WARNING, OFF}
 
 	public static boolean readConfigFile(String filename) {
 		boolean okRead = false;
@@ -112,6 +85,7 @@ public class Config {
 					String key = parts[0].strip();
 					String value = parts[1].strip();
 
+										
 					switch (key) {
 					case "siteName":
 						if(value.isEmpty()) {
@@ -143,59 +117,15 @@ public class Config {
 						System.out.println("Log format set to: "+value);
 						ok++;		
 						break;
-
-					case "logLevel":
-						switch (value.toUpperCase()) {
-						case "ALL":
-							logLevel="ALL";
-							System.out.println("Log level set to: "+value);
-							ok++;
-							break;
-						case "CONFIG":
-							logLevel="CONFIG";
-							System.out.println("Log level set to: "+value);
-							ok++;
-							break;
-						case "FINE":
-							logLevel="FINE";
-							System.out.println("Log level set to: "+value);
-							break;
-						case "FINER":
-							logLevel="FINER";
-							System.out.println("Log level set to: "+value);
-							ok++;
-							break;
-						case "FINEST":
-							logLevel="FINEST";
-							System.out.println("Log level set to: "+value);
-							ok++;
-							break;
-						case "INFO":
-							logLevel="INFO";
-							System.out.println("Log level set to: "+value);
-							ok++;
-							break;
-						case "SEVERE":
-							logLevel="SEVERE";
-							System.out.println("Log level set to: "+value);
-							ok++;
-							break;
-						case "WARNING":
-							logLevel="WARNING";
-							System.out.println("Log level set to: "+value);
-							ok++;
-							break;
-						case "OFF":
-							logLevel="OFF";
-							System.out.println("Log level set to: "+value);
-							ok++;
-							break;
-						default:
-							System.out.println("*********Bad input of logLevel in config file!**********");
-							System.out.println("Default used: "+Config.getLogLevel());
-							break;
-						}						 
 						
+					case "logLevel":					
+						for(LogLev l: LogLev.values()) {
+							String temp = l.toString();
+							if(temp.equals(value)){
+								logLevel = value.toUpperCase().trim();
+								System.out.println("Log level set to: "+value);
+							}
+						}						 
 						break;
 
 					case "min_ammount":
@@ -265,10 +195,10 @@ public class Config {
 			System.out.println("Configuration of the system OK!");
 			return okRead=true;
 		}
-	
+
 		return okRead;
 	}
-	
+
 	/**
 	 * The method sets buy and sell rate in each currency.
 	 * Needs to be run early in program start! 
@@ -290,7 +220,7 @@ public class Config {
 
 
 	public static List<ExchangeRate> setTheRates() {
-		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("DailyRates")+ MoneyServiceIO.currencyConfigFilename)));
+		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("DailyRates")+MoneyServiceIO.currencyConfigFilename)));
 		logger.fine("*********** Getting rates from "+MoneyServiceIO.currencyConfigFilename+ " ************");
 
 		return test;
@@ -306,26 +236,26 @@ public class Config {
 			currencyMap.putIfAbsent(k, tempCurrency);
 			logger.fine("Filled MoneyBox with: "+k+" amount: "+tempCurrency);
 		}
-		
+
 		return theBox;
 	}
 
 	public static boolean controlPwd(String temp) {
-		
+
 		char[] tempPass = new char[temp.length()];
-		
+
 		for(int i=0; i<temp.length(); i++) {
 			tempPass[i] = temp.charAt(i);
 		}
-		
+
 		boolean passwordMatch = Arrays.equals(tempPass, password);
-		
+
 		return passwordMatch;
 	}
-	
-	
+
+
 	static void setPassword(String password) {
-		
+
 		for(int i=0; i<password.length();i++) {
 			Config.password[i] = password.charAt(i);			
 		}
@@ -358,7 +288,7 @@ public class Config {
 	public static int getMAX_AMMOUNT() {
 		return MAX_AMMOUNT;
 	}
-	
+
 	public static float getBuyRateConfig() {
 		return buyRateConfig;
 	}
@@ -403,7 +333,7 @@ public class Config {
 		Config.logger = logger;
 	}
 
-	
+
 
 
 	public static String getSiteName() {
@@ -414,11 +344,5 @@ public class Config {
 	public static void setSiteName(String siteName) {
 		Config.siteName = siteName;
 	}
-
-
-	
-
-
-
 
 }
