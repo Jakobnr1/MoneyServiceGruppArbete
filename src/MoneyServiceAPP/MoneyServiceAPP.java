@@ -153,7 +153,7 @@ public class MoneyServiceAPP {
 				System.out.println("1. - Show todays exchange rates");
 				System.out.println("2. - Create order for customer");
 				System.out.println("3. - Random generate 25 orders");
-				System.out.println("4. - Random generate 25 orders per day for all days in april");
+				System.out.println("4. - Random generate 25 orders per day between two dates");
 				System.out.println("5. - Show cash box content");
 				System.out.println("6. - User menu");
 				System.out.println("0. - Exit the program, and end the day");
