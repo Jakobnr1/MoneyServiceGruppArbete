@@ -103,8 +103,8 @@ public class MoneyServiceAPP {
 							System.out.format("Buying: %.3f",er.getValue().getSellRate());
 							System.out.format(" Selling: %.3f",er.getValue().getBuyRate());
 							System.out.println();
-							System.out.println("Buying 100 "+er.getKey().toString()+", cost you: "+ExchangeSite.calculatePrice(er.getKey().toString(),100, TransactionMode.SELL) +" "+MoneyServiceIO.referenceCurrency);
-							System.out.println("Selling 100 "+er.getKey().toString()+", you will get paid: "+ExchangeSite.calculatePrice(er.getKey().toString(),100, TransactionMode.BUY) +" "+MoneyServiceIO.referenceCurrency);
+							System.out.println("Buying 100 "+er.getKey().toString()+", cost you: "+theSite.calculatePrice(er.getKey().toString(),100, TransactionMode.SELL) +" "+MoneyServiceIO.referenceCurrency);
+							System.out.println("Selling 100 "+er.getKey().toString()+", you will get paid: "+theSite.calculatePrice(er.getKey().toString(),100, TransactionMode.BUY) +" "+MoneyServiceIO.referenceCurrency);
 							System.out.println();
 						}
 					}
@@ -186,7 +186,7 @@ public class MoneyServiceAPP {
 					int i=0;
 					boolean stop = false;
 					do {
-						listOfOrders = Order.generateDailyOrder(ExchangeSite.getRates(), 35);
+						listOfOrders = Order.generateDailyOrder(theSite.getRates(), 35);
 						for(Order d: listOfOrders) {
 							if(i>24) {
 								stop = true;
@@ -391,7 +391,7 @@ public class MoneyServiceAPP {
 			}
 			while(!okInput);
 
-			int price= ExchangeSite.calculatePrice(currencyChoice, amount, transMode); 
+			int price= theSite.calculatePrice(currencyChoice, amount, transMode); 
 
 			if(transMode == TransactionMode.SELL) {
 				System.out.println("\nCost for buying "+amount+" "+currencyChoice+ ": "+price+" "+MoneyServiceIO.getReferenceCurrency()); 
@@ -463,7 +463,7 @@ public class MoneyServiceAPP {
 			ExchangeSite temp = new ExchangeSite("North",timestamp);
 			temp.startTheDay();
 			MoneyServiceIO.setRefDate(ld);
-			List<Order> listOfOrders = Order.generateDailyOrder(ExchangeSite.getRates(), 35);
+			List<Order> listOfOrders = Order.generateDailyOrder(temp.getRates(), 35);
 			for(Order d: listOfOrders) {
 				Transaction temptrans = new Transaction(d, timestamp);
 				templist.add(temptrans);
