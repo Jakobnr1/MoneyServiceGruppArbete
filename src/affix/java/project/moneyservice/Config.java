@@ -265,7 +265,7 @@ public class Config {
 			System.out.println("Configuration of the system OK!");
 			return okRead=true;
 		}
-
+	
 		return okRead;
 	}
 	
@@ -290,7 +290,7 @@ public class Config {
 
 
 	public static List<ExchangeRate> setTheRates() {
-		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.currencyConfigFilename)));
+		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("DailyRates")+ MoneyServiceIO.currencyConfigFilename)));
 		logger.fine("*********** Getting rates from "+MoneyServiceIO.currencyConfigFilename+ " ************");
 
 		return test;
@@ -298,7 +298,7 @@ public class Config {
 
 
 	public static MoneyBox fillTheMoneyBox(MoneyBox theBox, Map<String, Currency> currencyMap ) {
-		Map<String, Double> testMap = new HashMap<String,Double>(MoneyServiceIO.parseProjectConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.projectConfigFilename)));
+		Map<String, Double> testMap = new HashMap<String,Double>(MoneyServiceIO.parseProjectConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("Configs")+MoneyServiceIO.projectConfigFilename)));
 
 		Set<String> keySet = testMap.keySet();
 		for(String k:keySet) {

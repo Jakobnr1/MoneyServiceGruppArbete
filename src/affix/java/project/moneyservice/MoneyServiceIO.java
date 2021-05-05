@@ -316,17 +316,14 @@ public class MoneyServiceIO {
 	public static String getPathName(String folder) {
 		
 		String fileName = ""; 
-
 		for(File temp: MoneyServiceIO.folderPaths) {
 			if(temp.getName().equals(folder)){
 				fileName = temp.getPath() + "/";
-
 			}
 		}
 		if(folder == "Transactions") {
 			fileName = fileName + Config.getSiteName() +"/"; 
 		}
-		
 		return fileName;
 	}
 
