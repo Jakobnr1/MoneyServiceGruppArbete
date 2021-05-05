@@ -39,7 +39,7 @@ public class Transaction implements Serializable {
 	
 	/**
 	 * Constructor
-	 * @param order an order that is being processed
+	 * @param order holding value, currencyCode and transaction mode
 	 */
 	public Transaction(Order order) {
 		this(order, LocalDateTime.now());
@@ -47,7 +47,7 @@ public class Transaction implements Serializable {
 	
 	/**
 	 * Constructor
-	 * @param order an order that is being processed
+	 * @param order holding value, currencyCode and transaction mode
 	 * @param ref Time indicating when the order is being processed
 	 */
 	public Transaction(Order order, LocalDateTime ref) {
@@ -68,7 +68,7 @@ public class Transaction implements Serializable {
 	}
 
 	/**
-	 * Sets the uniqueId to Transaction according to input
+	 * Sets the uniqueId for Transaction according to input
 	 * @param newuniqueId holds a value for uniqueId
 	 */
 	public static void setUniqueId(int newuniqueId) {
