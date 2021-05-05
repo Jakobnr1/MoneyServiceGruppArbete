@@ -269,6 +269,31 @@ public class Config {
 						System.out.println("Password for user section set");
 						ok++;
 						break;
+					case "configFolder":
+						MoneyServiceIO.setFolderPath(value);
+						System.out.println("File Path for configFolder set");
+						ok++;
+						break;
+					case "dailyRatesFolder":
+						MoneyServiceIO.setFolderPath(value);
+						System.out.println("File Path for DailyRateFolder set");
+						ok++;
+						break;
+					case "orderFolder":
+						MoneyServiceIO.setFolderPath(value);
+						System.out.println("File Path for OrderFolder set");
+						ok++;
+						break;
+					case "siteReportsFolder":
+						MoneyServiceIO.setFolderPath(value);
+						System.out.println("File Path for SiteReportFolder set");
+						ok++;
+						break;
+					case "transactionsFolder":
+						MoneyServiceIO.setFolderPath(value);
+						System.out.println("File Path for TransactionFolder set");
+						ok++;
+						break;
 					default:
 						break;
 					}
