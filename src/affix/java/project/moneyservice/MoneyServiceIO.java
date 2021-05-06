@@ -18,11 +18,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+
 /**
  * This class defines the input and output of files in MoneyService
  * 
  */
 public class MoneyServiceIO {
+
 	/**
 	 * Attribute projectConfigFilename holding filepath for ProjectConfig
 	 */
@@ -31,6 +33,7 @@ public class MoneyServiceIO {
 	 * Attribute currencyConfigFilename holding filepath for CurrencyConfig
 	 */
 	public static String currencyConfigFilename = "CurrencyConfig_"+LocalDate.now().toString()+".txt";
+
 	/**
 	 * Attribute folderPaths holding File paths for storing files
 	 */
@@ -42,7 +45,7 @@ public class MoneyServiceIO {
 	/**
 	 * Attribute textFormattedDailyTransactions holding filename for textfile DailyTransactions
 	 */
-	static String serializedCustomerDataBaseFilename = "CustomerDatabase.ser";
+
 	/**
 	 * Attribute referenceCurrency defining the referenced Currency
 	 */
@@ -53,10 +56,22 @@ public class MoneyServiceIO {
 	public static String referenceCurrency;
 	/**
 	 * Attribute LDT holding the current day and time
+
+	static String textFormattedDailyTransactions = "DailyTransactions.txt";
+	/**
+	 * Attribute referenceCurrency defining the referenced Currency
+	 */
+	public static String referenceCurrency;
+	/**
+	 * Attribute refDate holding a LocalDate.
+
 	 */
 	public static LocalDate refDate;
+	/**
+	 * Attribute LDT holding the current day and time
+	 */
 	public static LocalDateTime LDT = LocalDateTime.now(); //TODO
-	
+
 	/**
 	 * Changes the filepaths for projectConfigFilename
 	 *  and currencyConfigFilename to the inputed LocalDate
@@ -219,9 +234,6 @@ public class MoneyServiceIO {
 	}	
 
 
-
-
-
 	/**
 	 * Saves a daily report in serialized form.
 	 * @param r Report to be saved
@@ -277,11 +289,11 @@ public class MoneyServiceIO {
 		return saved;
 
 	}
-
+	
 	/**
 	 * Adds the String path as a File in folderPaths
 	 * @param path String holding the filepath
-	 */	
+	 */
 	public static void setFolderPath(String path) {
 		folderPaths.add(new File(path));
 	}
@@ -291,7 +303,7 @@ public class MoneyServiceIO {
 	 */
 	public static void printPathList() {
 		for(File s: folderPaths){
-			System.out.println("Path:"+s);
+			System.out.println("Path:"+s.getName());
 		}
 	}
 
@@ -330,11 +342,13 @@ public class MoneyServiceIO {
 		for(File temp: MoneyServiceIO.folderPaths) {
 			if(temp.getName().equals(folder)){
 				fileName = temp.getPath() + "/";
+
 			}
 		}
 		if(folder == "Transactions") {
 			fileName = fileName + Config.getSiteName() +"/"; 
 		}
+		
 		return fileName;
 	}
 
