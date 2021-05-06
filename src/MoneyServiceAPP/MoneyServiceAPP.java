@@ -32,7 +32,7 @@ public class MoneyServiceAPP {
 	private static FileHandler fh;
 
 	public static void main(String[] args) {
-
+ 
 
 		if(args.length >= 1) {
 			Config.readConfigFile(args[0]);
