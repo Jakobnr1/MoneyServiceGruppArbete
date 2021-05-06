@@ -362,8 +362,14 @@ public class MoneyServiceAPP {
 						}
 					}
 					else {
-						okInput = true;
-						logger.finer("OK input of currency: "+currencyChoice);
+						if(!currencyChoice.equalsIgnoreCase(MoneyServiceIO.referenceCurrency)){ 
+							logger.finer("OK input of currency: "+currencyChoice);
+							okInput = true;
+						}
+						else {
+							System.out.println("Bad input of currency, try again!");
+							logger.finer("Bad input of currency: "+currencyChoice);
+						}
 					}
 				}	
 			}
@@ -413,8 +419,8 @@ public class MoneyServiceAPP {
 			System.out.println("press y for complete order ");
 			System.out.println("press n for cancel order");
 
-			String choiceContinue = keyboard.next().strip().toLowerCase();
 			do {
+				String choiceContinue = keyboard.next().strip().toLowerCase();
 				List<Order> orderList;
 				okInput = false;
 				switch(choiceContinue) {
@@ -439,7 +445,6 @@ public class MoneyServiceAPP {
 						if(theSite.buyMoney(myOrder)) {
 							orderList = theSite.addOrderToQueue(myOrder);
 							theSite.processOrderQueue(orderList);
-							theSite.completeOrder(myOrder);
 							System.out.println("Thanks you for doing business with us!");
 						}
 						else {
