@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import affix.java.project.moneyservice.Config;
 import affix.java.project.moneyservice.ExchangeSite;
-import affix.java.project.moneyservice.MoneyServiceIO;
 import affix.java.project.moneyservice.Order;
 import affix.java.project.moneyservice.Report;
 import affix.java.project.moneyservice.Transaction;
@@ -21,7 +20,6 @@ public class testReport {
 
 	static ExchangeSite theSite = new ExchangeSite("NORTH");
 	static Report testReport;
-	@SuppressWarnings("static-access")
 	@BeforeClass
 	public static void beforeTest() {
 		
@@ -87,7 +85,6 @@ public class testReport {
 		List<Transaction> testList = theSite.getTransactionList();
 		assertEquals(testList.toString(), testReport.getDailyTransaction().toString());
 	}
-	@SuppressWarnings("static-access")
 	@Test
 	public void testSetDalyTransaction() {
 		List<Transaction> testList = theSite.getTransactionList();

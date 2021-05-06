@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-
-import org.junit.Ignore;
 import org.junit.Test;
 
 import affix.java.project.moneyservice.Config;

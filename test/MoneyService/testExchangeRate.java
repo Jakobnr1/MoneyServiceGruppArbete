@@ -10,13 +10,9 @@ import affix.java.project.moneyservice.ExchangeRate;
 
 
 
-//@Test
-//public void test() {
-//	
-//	
-//}
+
 public class testExchangeRate {
-//	ExchangeSite tempExchangeSite = new ExchangeSite("North");
+
 	ExchangeRate testExchangeRate;
 	@Test
 	public void testConstructor() {

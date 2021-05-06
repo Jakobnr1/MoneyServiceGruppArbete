@@ -6,13 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import affix.java.project.moneyservice.Config;
-import affix.java.project.moneyservice.ExchangeRate;
 import affix.java.project.moneyservice.ExchangeSite;
-import affix.java.project.moneyservice.MoneyServiceIO;
 import affix.java.project.moneyservice.Order;
 import affix.java.project.moneyservice.TransactionMode;
 
@@ -24,9 +21,10 @@ public class testOrder {
 	@BeforeClass
 	public static void beforeTest() {
 		Config.readConfigFile("configFileNorthTest.txt");
-
+		
 		testOrder = new Order(150, "AUD", TransactionMode.BUY);
 		theSite.startTheDay();
+
 	}
 	@Test
 	public void testGetValue() {
@@ -50,7 +48,12 @@ public class testOrder {
 		String test = new Order(150, "AUD", TransactionMode.BUY).toString();
 		assertEquals(test, testOrder.toString());
 	}
-	
+	@Test
+	public void testGenerateorder() {
+		List<Order> testOrder = new ArrayList<>();
+		testOrder = Order.generateDailyOrder(theSite.getRates(), 10);
+		assertEquals(10, testOrder.size());
+	}
 
 
 }

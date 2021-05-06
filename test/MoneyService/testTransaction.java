@@ -27,6 +27,7 @@ public class testTransaction {
 		int tempId = testTransaction.getUniqueId();
 		assertEquals(tempId, testTransaction.getUniqueId());
 	}
+	@SuppressWarnings("static-access")
 	@Test
 	public void testSetUniqueId() {
 		int testId = 5;

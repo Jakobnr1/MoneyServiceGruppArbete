@@ -5,10 +5,8 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import affix.java.project.moneyservice.Config;
@@ -17,6 +15,7 @@ import affix.java.project.moneyservice.ExchangeSite;
 
 
 
+@SuppressWarnings("unused")
 public class testConfig {
 	private static Logger logger;
 	private static FileHandler fh ;

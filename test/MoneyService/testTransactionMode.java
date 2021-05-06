@@ -20,4 +20,5 @@ public class testTransactionMode {
 		assertEquals(testSell, TransactionMode.SELL);
 	}
 
+	
 }
