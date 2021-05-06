@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import affix.java.project.moneyservice.Config;
@@ -104,7 +103,7 @@ public class testMoneyServiceIO {
 		MoneyServiceIO.readTextFiles(test);
 	}
 	
-	@SuppressWarnings("static-access")
+	
 	@Test
 	public void testSaveSerializedDalyTranactions() {
 				
@@ -128,8 +127,7 @@ public class testMoneyServiceIO {
 		
 	}
 	
-	
-	@SuppressWarnings("static-access")
+
 	@Test
 	public void testSaveSerializedReport() {
 
@@ -142,8 +140,7 @@ public class testMoneyServiceIO {
 		MoneyServiceIO.printPathList();
 	}
 	
-	
-	@SuppressWarnings("static-access")
+
 	@Test
 	public void testReadSerializedDalyTransactionList() {
 
@@ -152,7 +149,7 @@ public class testMoneyServiceIO {
 		assertEquals(testList.toString(), MoneyServiceIO.readSerializedDailyTransactionList("TestList3.txt").toString());
 	}
 	
-	@SuppressWarnings("static-access")
+
 	@Test
 	public void testSaveDalyTransactionListAsTesxt() {
 		String fileName ="testTesxt4.txt";
@@ -167,6 +164,7 @@ public class testMoneyServiceIO {
 	}
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void testReadSerialzedFail() {
 		String test ="";
