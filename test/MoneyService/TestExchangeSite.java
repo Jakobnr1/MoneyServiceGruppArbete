@@ -5,8 +5,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import affix.java.project.moneyservice.Config;
 import affix.java.project.moneyservice.Currency;
 import affix.java.project.moneyservice.ExchangeRate;
 import affix.java.project.moneyservice.ExchangeSite;
@@ -21,7 +24,12 @@ public class TestExchangeSite {
 	ExchangeSite tempExchangeSite = new ExchangeSite("North");
 	Order tempOrder;
 	Order tempOrderAnotherOne;
-	
+	List<Order> orderList = new ArrayList<>();
+	@BeforeClass
+	public static void preCode() {
+		Config.readConfigFile("configFileNorthTest.txt");
+
+	}
 	@Test
 	public void testBuyMoneyTrue() {
 		tempExchangeSite.startTheDay();
@@ -37,6 +45,7 @@ public class TestExchangeSite {
 
 		assertFalse(tempExchangeSite.buyMoney(tempOrder));
 	}
+	
 	@Test
 	public void testBuyMoneyCustomerCurEmpty() {
 		tempExchangeSite.startTheDay();
@@ -58,9 +67,9 @@ public class TestExchangeSite {
 	@Test
 	public void testSellMoneyFalse() {
 		tempExchangeSite.startTheDay();
-		tempOrder = new Order(4500, "AUD", TransactionMode.SELL);
-		tempOrderAnotherOne = new Order(4500, "AUD", TransactionMode.SELL);
-		tempExchangeSite.sellMoney(tempOrder);
+
+		tempOrderAnotherOne = new Order(5005, "AUD", TransactionMode.SELL);
+		
 		
 		assertFalse(tempExchangeSite.sellMoney(tempOrderAnotherOne));
 	}
@@ -163,9 +172,57 @@ public class TestExchangeSite {
 		tempExchangeSiteTest.setName("Jesus");
 		
 	}
+	@SuppressWarnings("static-access")
+	@Test
+	public void testAddOrderToQueue() {
+		tempExchangeSite.startTheDay();
+		Order myOrder = new Order(500, "USD", TransactionMode.BUY);
+		orderList = tempExchangeSite.addOrderToQueue(myOrder);
+		int orders = 1;
+		assertEquals(orders, orderList.size());
+	}
 	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testProcessOrderQueueBuy() {
+		tempExchangeSite.startTheDay();
+		Order myOrder = new Order(500, "USD", TransactionMode.BUY);
+		orderList = tempExchangeSite.addOrderToQueue(myOrder);
+		tempExchangeSite.processOrderQueue(orderList);
+		assertTrue(orderList.size()== 0);
+		
+	}
+	@SuppressWarnings("static-access")
+	@Test
+	public void testProcessOrderQueueSell() {
+		tempExchangeSite.startTheDay();
+		tempOrder = new Order(500, "EUR", TransactionMode.SELL);
+		orderList = tempExchangeSite.addOrderToQueue(tempOrder);
+		tempExchangeSite.processOrderQueue(orderList);
+		assertTrue(orderList.size()== 0);
+		
+	}
+	@SuppressWarnings("static-access")
+	@Test
+	public void testProcessOrderQueueFailBuy() {
+
+		tempExchangeSite.startTheDay();
+		Order myOrder = new Order(50000, "USD", TransactionMode.BUY);
+		orderList = tempExchangeSite.addOrderToQueue(myOrder);
+		tempExchangeSite.processOrderQueue(orderList);
+		assertTrue(orderList.size()==1);
+	}
 	
-	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testProcessOrderQueueFailSell() {
+		tempExchangeSite.startTheDay();
+		Order myOrder = new Order(50000, "USD", TransactionMode.SELL);
+		orderList = tempExchangeSite.addOrderToQueue(myOrder);
+		tempExchangeSite.processOrderQueue(orderList);
+		assertTrue(orderList.size()==1);
+
+	}
 	
 	
 

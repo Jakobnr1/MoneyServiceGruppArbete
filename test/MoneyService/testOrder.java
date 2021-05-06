@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import affix.java.project.moneyservice.Config;
@@ -22,6 +23,8 @@ public class testOrder {
 	static Order testOrder;
 	@BeforeClass
 	public static void beforeTest() {
+		Config.readConfigFile("configFileNorthTest.txt");
+
 		testOrder = new Order(150, "AUD", TransactionMode.BUY);
 		theSite.startTheDay();
 	}
@@ -47,15 +50,7 @@ public class testOrder {
 		String test = new Order(150, "AUD", TransactionMode.BUY).toString();
 		assertEquals(test, testOrder.toString());
 	}
-	@SuppressWarnings("static-access")
-	@Test
-	public void testGenerateDalyOrder() {
-		List<ExchangeRate> testList = new ArrayList<>();
-		testList = Config.setTheRates();
-		int amount = 20;
-		List<Order> tempOrderList = testOrder.generateDailyOrder(testList, amount);
-		int lenght = tempOrderList.size();
-		assertEquals(amount, lenght);
-	}
+	
+
 
 }
