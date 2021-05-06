@@ -3,7 +3,7 @@ package affix.java.project.moneyservice;
 
 /**
  * This class defines a Currency in MoneyService
- * Transaction should be created by:
+ * Currency should be created by:
  * -int holding the amount
  * -Float holding the buy rate
  * -Float holding the sell rate
@@ -11,9 +11,7 @@ package affix.java.project.moneyservice;
  */
 public class Currency implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
+	@SuppressWarnings("javadoc")
 	private static final long serialVersionUID = 1L;
 
 
