@@ -11,27 +11,59 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 
-
-
-
+/**
+ * This class defines the ExchangeSite in MoneyService
+ * ExchangeSite should be created with a String holding a name
+ *
+ */
 public class ExchangeSite implements MoneyService {
+	/**
+	 * Attribute name holding the name of the ExchangeSite
+	 */
 	public static String name;
+	/**
+	 * Attribute transactionList holding the List of Transactions
+	 */
 	public static List <Transaction> transactionList = new ArrayList<>();
+	/**
+	 * Attribute backupReport holding the Report for ExchangeSite
+	 */
 	private Report backupReport;
+	/**
+	 * Attribute theBox holding the MoneyBox for the ExchangeSite
+	 */
 	private static MoneyBox theBox;
+	/**
+	 * Attribute currencyMap holding the map of currency in ExchangeSite
+	 */
 	private static Map<String, Currency> currencyMap;
+	/**
+	 * Attribute rates holding the exchange rates for ExchangeSite
+	 */
 	private static List<ExchangeRate> rates;
 
+	/**
+	 * Attribute logger holding the Logger for ExchangeSite
+	 */
 	private static Logger logger;
 
 	static {
 		logger = Logger.getLogger("affix.java.project.moneyservice");
 	}
-	
+
+	/**
+	 * Constructor
+	 * @param Name holding the name of the Site in String
+	 */
 	public ExchangeSite(String Name) {
 		this(Name,LocalDateTime.now());
 	}
 
+	/**
+	 * Overloaded Constructor
+	 * @param Name holding the name of the site in String
+	 * @param TimeStamp holding the time for the Report in LocalDateTime
+	 */
 	public ExchangeSite(String Name, LocalDateTime TimeStamp) {
 		ExchangeSite.name = Name;
 		backupReport = new Report(TimeStamp, transactionList);
@@ -39,25 +71,30 @@ public class ExchangeSite implements MoneyService {
 		ExchangeSite.theBox= new MoneyBox(currencyMap);
 		ExchangeSite.rates = new ArrayList<ExchangeRate>();
 	}
-/**
- * Fills the MoneyBox and set the rates.
- */
+
+	/**
+	 * Fills the MoneyBox and set the rates.
+	 * Calls function fillTheMoneyBox with theBox and currencyMap
+	 * Calls function setTheRates and sets rates in ExchangeSite
+	 * Calls function setRatesInCurrency and sends currencyMap and rates
+	 */
 	public void startTheDay() {
 		logger.fine("Starting the day!");
-		
+
 		Config.fillTheMoneyBox(ExchangeSite.theBox, ExchangeSite.currencyMap);
-		
+
 		ExchangeSite.rates = Config.setTheRates();
 
 		Config.setRatesInCurrency(ExchangeSite.rates, currencyMap);
-		
+
 	}
 
 	/**
-	 * Skip the one in Order and use this one instead to get price.
-	 * @param currencyCode
-	 * @param amount
-	 * @return int price
+	 * Calculates the price 
+	 * @param currencyCode is the currency
+	 * @param amount is the amount of currency
+	 * @param transactionType is the type of Transaction
+	 * @return int holding the cost
 	 */
 	public int calculatePrice(String currencyCode, int amount,TransactionMode transactionType) {
 		Map<String, Currency> currencyMap= MoneyBox.getCurrencyMap();
@@ -76,12 +113,12 @@ public class ExchangeSite implements MoneyService {
 		return (int) Math.round(price);
 	}
 
-/**
- *  Checks if we can afford to buy inputed Order.
- * @param Order obj
- * @throws IllegalArgumentException
- * @return Boolean, if we can afford to buy the currency 
- */
+	/**
+	 *  Checks if we can buy the currency the customer wants to sell.
+	 * @param orderData holding value, currencyCode and transaction mode
+	 * @throws IllegalArgumentException
+	 * @return Boolean, if we can afford to buy the currency 
+	 */
 	@Override
 	public boolean buyMoney(Order orderData) throws IllegalArgumentException {
 		int value = orderData.getValue();
@@ -97,16 +134,16 @@ public class ExchangeSite implements MoneyService {
 			return false;
 		}
 		double exRate = calculatePrice(currency, value,TransactionMode.BUY);
-		
-		
+
+
 		return exRate<totalRefCurrency.get();
 
 
 	}
 
 	/**
-	 *  Checks if we can buy the currency the customer wants to sell.
-	 * @param Order obj
+	 *  Checks if we can sell the currency the customer wants to buy.
+	 * @param orderData holding value, currencyCode and Transaction Mode
 	 * @throws IllegalArgumentException
 	 * @return Boolean, if we have the foreign currency and right amount 
 	 */
@@ -126,8 +163,8 @@ public class ExchangeSite implements MoneyService {
 	}
 
 	/**
-	 * Prints all the transactions in the transactionsList
-	 * @param String file format
+	 * Prints the SiteReport to a text file
+	 * @param fileFormat holding the name of the to be created file
 	 */
 	@Override
 	public void printSiteReport(String fileFormat) {
@@ -136,7 +173,8 @@ public class ExchangeSite implements MoneyService {
 	}
 
 	/**
-	 * @param String file format
+	 * Called when ExchangeSite shuts down and prints the daily Transactions to a file
+	 * @param fileFormat holding the name of the to be created file either txt or serialized
 	 */
 	@Override
 	public void shutDownService(String fileFormat) {
@@ -149,9 +187,9 @@ public class ExchangeSite implements MoneyService {
 			MoneyServiceIO.saveSerializedDailyTransactions(transactionList, MoneyServiceIO.getPathName("Transactions")+ backupReport.getUniqueFileName());
 		}
 		MoneyServiceIO.saveDailyTransactionListAsText(transactionList, "tempFile.txt");
-		
+
 		printSiteReport(fileFormat);
-		
+
 	}
 
 	@Override
@@ -159,10 +197,10 @@ public class ExchangeSite implements MoneyService {
 		Map<String,Currency> tempMap = MoneyBox.getCurrencyMap();
 		return tempMap; 
 	}
-/**
- * Checks how much of the param we have available and removes any type of null
- * @param String of the type Currency
- */
+	/**
+	 * Checks how much of the input String we have available and removes any type of null
+	 * @param currencyCode holding the type of Currency in a String
+	 */
 	@Override
 	public Optional<Double> getAvailableAmount(String currencyCode) 
 	{
@@ -173,13 +211,13 @@ public class ExchangeSite implements MoneyService {
 		}
 		Optional <Double> temp = Optional.of(MoneyBox.getCurrencyMap().get(currencyCode).getTotalValue());
 		return temp;
-
 	}
+	
 	/**
 	 * Calls after buyMoney or sellMoney
-	 * Complete the transaction
-	 * @param Order obj
-	 * @return Order
+	 * Complete The Transaction
+	 * @param orderData holding value, currencyCode and Transaction Mode
+	 * @return Order holding the order
 	 */
 	public Order completeOrder(Order orderData) {		
 		int value = orderData.getValue();
@@ -215,8 +253,9 @@ public class ExchangeSite implements MoneyService {
 	}
 
 	/**
-	 * @param "d" Order
-	 * @return A list of Order from d
+	 * Adds the input Order in Order queue list
+	 * @param d holding the Order
+	 * @return A list of the added Order
 	 */
 	public List<Order> addOrderToQueue(Order d){
 		List<Order> orderList = new LinkedList<Order>();
@@ -227,8 +266,9 @@ public class ExchangeSite implements MoneyService {
 	}
 
 	/**
-	 * @param orderList. A list of Orders
-	 * @return orderList. Updated a list of orders that didn't go trough.
+	 * Processes a list of orders and returns the leftovers
+	 * @param orderList A list of Orders
+	 * @return orderList Updated a list of orders that didn't go trough.
 	 */
 	public List<Order> processOrderQueue(List<Order> orderList){
 		for(Order o : orderList)
@@ -261,25 +301,25 @@ public class ExchangeSite implements MoneyService {
 		return orderList;
 	}
 
-/**
- * Get a TransactionList
- * @return A list of transactions List<Transaction>
- */
+	/**
+	 * Getter for attribute transactionList
+	 * @return List<Transaction> holding transactionList
+	 */
 	public List<Transaction> getTransactionList(){
 		return transactionList;
 	}
 
 
-/**
- * Get a List of rates
- * @return rates
- */
+	/**
+	 * Getter for attribute rates
+	 * @return List<ExchangeRate> holding rates
+	 */
 	public List<ExchangeRate> getRates() {
 		return rates;
 	}
 	/**
-	 * Sets a name for ExchangeSite
-	 * @param name
+	 * Setter for attribute name
+	 * @param name holding the name of the Site
 	 */
 	public void setName(String name) {
 		ExchangeSite.name = name;

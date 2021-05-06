@@ -10,7 +10,6 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.logging.FileHandler;
-import java.util.logging.Filter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -25,11 +24,24 @@ import affix.java.project.moneyservice.Order;
 import affix.java.project.moneyservice.Transaction;
 import affix.java.project.moneyservice.TransactionMode;
 
+/**
+ * This class is the MoneyServiceApp for MoneyService
+ * MoneyServiceApp holds main and should take in argument in a String Array
+ */
 public class MoneyServiceAPP {
 
+	/**
+	 * Attribute logger holding the Logger for MoneyServiceAPP
+	 */
 	private static Logger logger;
-	private static FileHandler fh;
+	/**
+	 * Attribute fileHandler holding the FileHandler for MoneyServiceAPP
+	 */
+	private static FileHandler fileHandler;
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
  
 
@@ -41,12 +53,12 @@ public class MoneyServiceAPP {
 
 		try {
 			if(Config.getLogFormat().equals("text")) {
-				fh = new FileHandler(MoneyServiceIO.getPathName("Orders")+Config.getLogName()+".txt");
-				fh.setFormatter(new SimpleFormatter());
+				fileHandler = new FileHandler(MoneyServiceIO.getPathName("Orders")+Config.getLogName()+".txt");
+				fileHandler.setFormatter(new SimpleFormatter());
 			}
 			else {
-				fh = new FileHandler(MoneyServiceIO.getPathName("Orders")+Config.getLogName()+".xml");
-				fh.setFormatter(new XMLFormatter());
+				fileHandler = new FileHandler(MoneyServiceIO.getPathName("Orders")+Config.getLogName()+".xml");
+				fileHandler.setFormatter(new XMLFormatter());
 			}
 		} catch (SecurityException e) {
 			e.printStackTrace();
@@ -54,7 +66,7 @@ public class MoneyServiceAPP {
 			e.printStackTrace();
 		}
 
-		logger.addHandler(fh);
+		logger.addHandler(fileHandler);
 
 		String currentLevel = Config.getLogLevel();
 
@@ -99,6 +111,10 @@ public class MoneyServiceAPP {
 		while(!okInput);
 	}
 
+	/**
+	 * Starts up the client menu for the customer
+	 * @param theSite holding the ExchangeSite
+	 */
 	public static void clientMenu(ExchangeSite theSite) {
 		Scanner keyboard = new Scanner(System.in);
 		keyboard.useDelimiter(System.lineSeparator());
@@ -169,6 +185,10 @@ public class MoneyServiceAPP {
 	}
 
 
+	/**
+	 * Starts up the CLI for the Employee menu
+	 * @param theSite holding the ExchangeSite
+	 */
 	public static void mainMenuCLI(ExchangeSite theSite) {
 
 		Scanner keyboard = new Scanner(System.in);
@@ -251,6 +271,11 @@ public class MoneyServiceAPP {
 
 
 
+	/**
+	 * Creates a Order using user inputs
+	 * @param theSite holding the ExchangeSite
+	 * @param keyboard holding the Scanner for input handling
+	 */
 	private static void createOrder(ExchangeSite theSite, Scanner keyboard) {
 		boolean okInput = false;
 		String transactionType ="";
@@ -440,39 +465,4 @@ public class MoneyServiceAPP {
 		}
 	}
 
-	public static Consumer<LocalDate> test(){
-		Consumer<LocalDate> dateConsumer = (ld) -> {
-			List <Transaction> templist = new ArrayList<>();
-			LocalDateTime timestamp = ld.atStartOfDay();
-			ExchangeSite temp = new ExchangeSite("North",timestamp);
-			temp.startTheDay();
-			MoneyServiceIO.setRefDate(ld);
-			List<Order> listOfOrders = Order.generateDailyOrder(temp.getRates(), 35);
-			for(Order d: listOfOrders) {
-				Transaction temptrans = new Transaction(d, timestamp);
-				templist.add(temptrans);
-				if(d.getTransactionType() == (TransactionMode.BUY)) {
-					if(temp.buyMoney(d)) {
-						temp.completeOrder(d);
-						//						shutDownService(String destination);
-						//						System.out.println("(b)Succses order complete"); //DEBUG
-					}
-					else {
-						//						System.out.println("Error couldnt afford"); //DEBUG
-					}
-				}
-				else {
-					if(temp.sellMoney(d)) {
-						temp.completeOrder(d);
-						//						System.out.println("(s)Succses order complete"); //DEBUG
-					}
-					else {
-						//						System.out.println("Error not enough money"); //DEBUG
-					}
-				}			
-			}
-			System.out.println(templist);
-		};
-		return dateConsumer;
-	}
 }

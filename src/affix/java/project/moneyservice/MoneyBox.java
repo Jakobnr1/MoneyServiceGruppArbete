@@ -89,7 +89,7 @@ public class MoneyBox implements java.io.Serializable {
 	/**
 	 * @param currencyName a String holding the currency name
 	 * @param amount a double holding the amount
-	 * @return an int holding the outcome of the calculation
+	 * @return int holding the outcome of the calculation
 	 */
 	public static int denominationControl(String currencyName, double amount) {
 
