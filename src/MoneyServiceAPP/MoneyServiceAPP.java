@@ -1,6 +1,6 @@
 package MoneyServiceAPP;
 
-import java.time.DayOfWeek;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,8 +10,12 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.logging.FileHandler;
+import java.util.logging.Filter;
+import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.XMLFormatter;
+
 import affix.java.project.moneyservice.Config;
 import affix.java.project.moneyservice.Currency;
 import affix.java.project.moneyservice.ExchangeSite;
@@ -27,12 +31,34 @@ public class MoneyServiceAPP {
 	private static FileHandler fh;
 
 	public static void main(String[] args) {
+ 
 
 		if(args.length >= 1) {
 			Config.readConfigFile(args[0]);
 		}
 
-		logger = Config.setUpLogger(logger, fh);
+		logger = Logger.getLogger("affix.java.project.moneyservice");
+
+		try {
+			if(Config.getLogFormat().equals("text")) {
+				fh = new FileHandler(MoneyServiceIO.getPathName("Orders")+Config.getLogName()+".txt");
+				fh.setFormatter(new SimpleFormatter());
+			}
+			else {
+				fh = new FileHandler(MoneyServiceIO.getPathName("Orders")+Config.getLogName()+".xml");
+				fh.setFormatter(new XMLFormatter());
+			}
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		logger.addHandler(fh);
+
+		String currentLevel = Config.getLogLevel();
+
+		logger.setLevel(Level.parse(currentLevel));
 
 		ExchangeSite theSite = new ExchangeSite(Config.getSiteName());
 
@@ -80,12 +106,11 @@ public class MoneyServiceAPP {
 		boolean backToSettings=false;
 
 		int choice=0;
-		
+
 		do {
 			try { 
-				
+				System.out.println("********* Customer menu **********");
 				System.out.println("\n\nPlease make a choice:");
-				System.out.println("-----------------------------");
 				System.out.println("1. - Show todays exchange rates");
 				System.out.println("2. - Create order");
 				System.out.println("3. - Employee menu ");
@@ -103,25 +128,30 @@ public class MoneyServiceAPP {
 							System.out.format("Buying: %.3f",er.getValue().getSellRate());
 							System.out.format(" Selling: %.3f",er.getValue().getBuyRate());
 							System.out.println();
-							System.out.println("Buying 100 "+er.getKey().toString()+", cost you: "+ExchangeSite.calculatePrice(er.getKey().toString(),100, TransactionMode.SELL) +" "+MoneyServiceIO.referenceCurrency);
-							System.out.println("Selling 100 "+er.getKey().toString()+", you will get paid: "+ExchangeSite.calculatePrice(er.getKey().toString(),100, TransactionMode.BUY) +" "+MoneyServiceIO.referenceCurrency);
+							System.out.println("Buying 100 "+er.getKey().toString()+", cost you: "+theSite.calculatePrice(er.getKey().toString(),100, TransactionMode.SELL) +" "+MoneyServiceIO.referenceCurrency);
+							System.out.println("Selling 100 "+er.getKey().toString()+", you will get paid: "+theSite.calculatePrice(er.getKey().toString(),100, TransactionMode.BUY) +" "+MoneyServiceIO.referenceCurrency);
 							System.out.println();
 						}
 					}
+					logger.fine("Press 1. Showing todays rates in customer menu");
 					System.out.println("********************************************************");
-					
+
 					break;
 				case 2:
+					logger.fine("Press 2. Creating new order from customer menu");
 					createOrder(theSite, keyboard);
 					break;
 				case 3:
+					logger.fine("Press 3. Going to employee menu from customer menu");
 					System.out.println("Enter password: ");
 					String temp = keyboard.next().strip();
 					if(Config.controlPwd(temp)) {
+						logger.fine("Correct password entered");
 						backToSettings = true;						
 					}
 					else {
 						System.out.println("Wrong password!");
+						logger.fine("Wrong password entered!");
 					}
 					break;
 				default:
@@ -148,16 +178,14 @@ public class MoneyServiceAPP {
 		int choice=0;
 		do { 
 			try { 
-				System.out.println("\n\nPlease make a choice:");
-				System.out.println("-----------------------------");
+				System.out.println("******** Employee menu for Exchange site "+Config.getSiteName()+" *********");
+				System.out.println("\nPlease make a choice:");
 				System.out.println("1. - Show todays exchange rates");
-				System.out.println("2. - Create order for customer");
-				System.out.println("3. - Random generate 25 orders");
-				System.out.println("4. - Random generate 25 orders per day for all days in april");
-				System.out.println("5. - Show cash box content");
-				System.out.println("6. - User menu");
+				System.out.println("2. - Show cash box content");
+				System.out.println("3. - Create order for customer");
+				System.out.println("4. - User menu");
 				System.out.println("0. - Exit the program, and end the day");
-				System.out.println("-----------------------------");
+				System.out.println("*********************************");
 
 				String input=keyboard.next();
 				choice=Integer.parseInt(input);	
@@ -174,84 +202,30 @@ public class MoneyServiceAPP {
 						}
 					}
 					System.out.println("********************************************************");
-
+					logger.finer("Press 1. Showing todays rates for employee");
 					break;
 
-				case 2: 
+				case 2:
+					System.out.println("Content in cash box right now: ");
+					logger.finer("Press 2. Showing content in cash box for employee");
+					for(String k:theSite.getCurrencyMap().keySet()) {
+						System.out.println(k+": "+theSite.getCurrencyMap().get(k).getTotalValue().intValue());
+						logger.finer(k+": "+theSite.getCurrencyMap().get(k).getTotalValue().intValue());
+					}
+					break;
+
+				case 3: 
+					logger.finer("Press 3. Creating new order for customer from employee menu");
 					createOrder(theSite, keyboard);
 					break;
 
-				case 3:
-					List<Order> listOfOrders;
-					int i=0;
-					boolean stop = false;
-					do {
-						listOfOrders = Order.generateDailyOrder(ExchangeSite.getRates(), 35);
-						for(Order d: listOfOrders) {
-							if(i>24) {
-								stop = true;
-							}else {
-								if(d.getTransactionType() == TransactionMode.BUY) {
-									System.out.println("Tried: "+d.toString());
-									if(theSite.buyMoney(d)) {
-										theSite.completeOrder(d);
-										i++;
-										System.out.println(i + ": Worked");
-									}
-								}else {
-									System.out.println("Tried: "+d.toString());
-									if(theSite.sellMoney(d)) {
-										theSite.completeOrder(d);
-										i++;
-										System.out.println(i + ": Worked");
-									}
-								}
-							}
-						}
-
-					}while(!stop);
-
-					for(Transaction t : ExchangeSite.transactionList) {
-						System.out.println(""+t.toString());
-					}
-
-					Set<String> keySet = theSite.getCurrencyMap().keySet();
-
-					for(String k:keySet) {
-						System.out.println(k+": "+theSite.getCurrencyMap().get(k).toString());
-					}
-
-					break;
-
 				case 4:
-					String userInput;
-					Scanner sc = new Scanner(System.in);
-					System.out.println("Enter the first date: YYYY-MM-DD");
-					userInput = sc.nextLine();
-					LocalDate firstDate = LocalDate.parse(userInput);
-					System.out.println("Enter the second date: YYYY-MM-DD");
-					userInput = sc.nextLine();
-					//OBS tar inte med sista dagen d�rav plus en dag.
-					LocalDate secondDate = LocalDate.parse(userInput).plusDays(1);
-					Stream<LocalDate> ldStream = firstDate.datesUntil(secondDate)
-							.filter(ld -> !(ld.getDayOfWeek().equals(DayOfWeek.SATURDAY)) && !(ld.getDayOfWeek().equals(DayOfWeek.SUNDAY)));
-					ldStream.forEach(test());
-					break;
-
-				case 5:
-					System.out.println("Content in cash box: ");
-					keySet = theSite.getCurrencyMap().keySet();
-
-					for(String k:keySet) {
-						System.out.println(k+": "+theSite.getCurrencyMap().get(k).getTotalValue().intValue());
-					}
-					break;
-					
-				case 6:
+					logger.finer("Press 4. Enter user menu");
 					clientMenu(theSite);
-					break;
+					break;				
 
 				case 0:
+					logger.finer("Press 0. Exit the program from menu");
 					exit=true;
 					break;
 
@@ -259,7 +233,6 @@ public class MoneyServiceAPP {
 					System.out.println("Wrong choice!");
 					break;
 				}
-
 
 			}
 			catch (NumberFormatException e) {
@@ -295,10 +268,12 @@ public class MoneyServiceAPP {
 			transactionType = keyboard.next().strip().toLowerCase();
 			switch (transactionType) {
 			case "b":
+				logger.finer("BUY currency chosen (Transaction.SELL)");
 				okInput = true;
 				transMode = TransactionMode.SELL;
 				break;
 			case "s":
+				logger.finer("SELL currency chosen (Transaction.BUY)");
 				okInput = true;
 				transMode = TransactionMode.BUY;
 				break;
@@ -340,25 +315,30 @@ public class MoneyServiceAPP {
 			currencyChoice = keyboard.next().strip().toUpperCase();
 
 			if(currencyChoice.equals("0")) {
+				logger.finer("User stopped creating order by pressing 0");
 				okInput = true;
 				stopOrder = true;
 			}
 			else {
 				if(!theSite.getCurrencyMap().keySet().contains(currencyChoice))  {
 					System.out.println("Bad input of currency, try again!");
+					logger.finer("Bad input of currency: "+currencyChoice);
 				}
 				else {
 					if(transMode == TransactionMode.SELL){ 
 						if(theSite.getCurrencyMap().get(currencyChoice).getTotalValue() > Config.getMIN_AMMOUNT() &! 
 								currencyChoice.equalsIgnoreCase(MoneyServiceIO.referenceCurrency)){ 
+							logger.finer("OK input of currency: "+currencyChoice);
 							okInput = true;
 						}
 						else {
 							System.out.println("Bad input of currency, try again!");
+							logger.finer("Bad input of currency: "+currencyChoice);
 						}
 					}
 					else {
 						okInput = true;
+						logger.finer("OK input of currency: "+currencyChoice);
 					}
 				}	
 			}
@@ -377,10 +357,12 @@ public class MoneyServiceAPP {
 					amount = Integer.parseInt(temp);
 					if(amount >= Config.getMIN_AMMOUNT() && amount <= Config.getMAX_AMMOUNT()) {
 						amount= MoneyBox.denominationControl(currencyChoice, amount);
+						logger.finer("OK input of amount: "+amount);
 						okInput = true;	
 					}
 					else {
 						System.out.println("Bad input! The amount must be between "+Config.getMIN_AMMOUNT()+" and "+Config.getMAX_AMMOUNT());
+						logger.finer("Bad input!"+Config.getMIN_AMMOUNT()+" and "+Config.getMAX_AMMOUNT());
 						System.out.println("Try again");
 					}
 				}
@@ -391,7 +373,7 @@ public class MoneyServiceAPP {
 			}
 			while(!okInput);
 
-			int price= ExchangeSite.calculatePrice(currencyChoice, amount, transMode); 
+			int price= theSite.calculatePrice(currencyChoice, amount, transMode); 
 
 			if(transMode == TransactionMode.SELL) {
 				System.out.println("\nCost for buying "+amount+" "+currencyChoice+ ": "+price+" "+MoneyServiceIO.getReferenceCurrency()); 
@@ -408,29 +390,30 @@ public class MoneyServiceAPP {
 
 			String choiceContinue = keyboard.next().strip().toLowerCase();
 			do {
+				List<Order> orderList;
 				okInput = false;
 				switch(choiceContinue) {
 				case "y":
+					logger.finer("Complete order YES chosen");
 					Order myOrder = new Order(amount,currencyChoice, transMode);
 					if(myOrder.getTransactionType() == TransactionMode.SELL) {
-						logger.finer("Order created from user input: "+myOrder.toString());
+						logger.fine("Order created from user input: "+myOrder.toString());
 						if(theSite.sellMoney(myOrder)) {
-							// to jacobs list Map
-							// consume from jacobs list
-							theSite.completeOrder(myOrder);
+							orderList = theSite.addOrderToQueue(myOrder);
+							theSite.processOrderQueue(orderList);	
 							System.out.println("Thanks you for doing business with us!");
 
 						}
 						else {
 							System.out.println("Not enough money that currency. Order canceled");
-							logger.finer("Not enough money that currency. Order canceled");
+							logger.fine("Not enough money that currency. Order canceled. In box:" +theSite.getCurrencyMap().get(currencyChoice).getTotalValue());
 						}
 					}
 					else {
 						logger.finer("Order created from user input: "+myOrder.toString());
 						if(theSite.buyMoney(myOrder)) {
-							// to jacobs Map
-							// consume from jacobs list 
+							orderList = theSite.addOrderToQueue(myOrder);
+							theSite.processOrderQueue(orderList);
 							theSite.completeOrder(myOrder);
 							System.out.println("Thanks you for doing business with us!");
 						}
@@ -445,6 +428,7 @@ public class MoneyServiceAPP {
 					break;
 				case "n":
 					System.out.println("Order canceled");
+					logger.finer("Canceled order chosen");
 					okInput = true;
 					break;
 				default:
@@ -463,14 +447,14 @@ public class MoneyServiceAPP {
 			ExchangeSite temp = new ExchangeSite("North",timestamp);
 			temp.startTheDay();
 			MoneyServiceIO.setRefDate(ld);
-			List<Order> listOfOrders = Order.generateDailyOrder(ExchangeSite.getRates(), 35);
+			List<Order> listOfOrders = Order.generateDailyOrder(temp.getRates(), 35);
 			for(Order d: listOfOrders) {
 				Transaction temptrans = new Transaction(d, timestamp);
 				templist.add(temptrans);
 				if(d.getTransactionType() == (TransactionMode.BUY)) {
 					if(temp.buyMoney(d)) {
 						temp.completeOrder(d);
-//						shutDownService(String destination);
+						//						shutDownService(String destination);
 						//						System.out.println("(b)Succses order complete"); //DEBUG
 					}
 					else {

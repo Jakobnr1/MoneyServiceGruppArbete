@@ -11,14 +11,34 @@ import java.util.stream.Stream;
 
 
 
+/**
+ * This class defines an Order in MoneyService
+ * Order should be created by a String, int and Enum
+ * holding respectively Amount, Currency and TransactionMode.
+ */
 public class Order {
 
+	/**
+	 * Attribute TransactionType defining the TransactionMode for Buying or Selling
+	 */
 	private TransactionMode TransactionType;
+	/**
+	 * Attribute value defining the amount of the Order
+	 */
 	private int value;
+	/**
+	 * Attribute currencyCode holding a String of the Currency for Order
+	 */
 	private String currencyCode;
 
 
 
+	/**
+	 * Constructor
+	 * @param value an int holding the amount for the Order
+	 * @param currencyCode a String holding the Currency for the Order
+	 * @param Transaction a TransactionMode holding the TransactionMode for Order
+	 */
 	public Order(int value, String currencyCode,TransactionMode Transaction) {
 		this.value = value;
 		this.currencyCode = currencyCode;
@@ -27,33 +47,31 @@ public class Order {
 	}
 
 
-
 	/**
-	 * @return the Order Value
+	 * Getter for attribute value
+	 * @return an int holding value
 	 */
 	public int getValue(){
 		return value;
 	}
 
 	/**
-	 * @return the Order TransactionType
+	 * Getter for attribute TransactionType
+	 * @return a TransactionMode holding TransactionType
 	 */
 	public TransactionMode getTransactionType(){
 		return TransactionType;
 	}
 
 	/**
-	 * @return the Order currencyCode
+	 * Getter for attribute currencyCode
+	 * @return a String holding currencyCode
 	 */
 	public String getCurrencyCode() {
 		return currencyCode;
 	}
 
 
-
-	/**
-	 * 
-	 */
 	@Override
 	public String toString() {
 		return String.format("OrderData [currencyCode=%s, amount= %d, mode= %s ]",

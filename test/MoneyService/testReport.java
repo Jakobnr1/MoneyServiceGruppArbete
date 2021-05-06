@@ -33,7 +33,7 @@ public class testReport {
 		int i=0;
 		boolean stop = false;
 		do {
-			System.out.println(theSite.getRates());
+
 			listOfOrders = Order.generateDailyOrder(theSite.getRates(), 35);
 			for(Order d: listOfOrders) {
 				if(i>24) {
