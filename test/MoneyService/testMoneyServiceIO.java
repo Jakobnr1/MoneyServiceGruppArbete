@@ -8,13 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import affix.java.project.moneyservice.Currency;
+import affix.java.project.moneyservice.Config;
 import affix.java.project.moneyservice.ExchangeRate;
 import affix.java.project.moneyservice.ExchangeSite;
 import affix.java.project.moneyservice.MoneyServiceIO;
@@ -33,6 +31,7 @@ public class testMoneyServiceIO {
 	static ExchangeSite theSite = new ExchangeSite("North");
 	@BeforeClass
 	public static void preCode() {
+		Config.readConfigFile("configFileNorthTest.txt");
 		theSite.startTheDay();
 		List<Order> listOfOrders;
 		int i=0;
@@ -86,18 +85,9 @@ public class testMoneyServiceIO {
 
 	@Test
 	public void tesParceCurrencyConfig() {
-		List <ExchangeRate> testList = new ArrayList<ExchangeRate>();
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 1, "AUD", 6.5024f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 100, "CHF", 917.305f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 100, "DKK", 136.1902f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 1, "EUR", 10.1273f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 1, "GBP", 11.6702f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 100, "JPY", 7.7879f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 100, "NOK", 100.9289f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 100, "RUB", 11.1971f));
-		testList.add(new ExchangeRate(LocalDate.of(2021,04,27), 1, "USD", 8.4066f));
-
-		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.currencyConfigFilename)));
+		List <ExchangeRate> testList = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("DalyRates")+ "CurrencyConfig_2021-04-01.txt")));
+		
+		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("DalyRates")+ "CurrencyConfig_2021-04-01.txt")));
 		
 		assertEquals(testList.toString(), test.toString());
 	}
@@ -132,17 +122,12 @@ public class testMoneyServiceIO {
 	public void testSaveSerializedCurrencyMap() {
 
 		String fileName = "test2.txt";
-		assertTrue(MoneyServiceIO.saveSerializedCurrencyMap(theSite.getCurrencyMap(), fileName)); // changed name? ERROR
-		
-	}
-	@Test
-	public void testSaveSerializedCurrencyMapFail() {
 
-		String fileName = "";
-		Map <String, Currency> emptyMap = new HashMap<String, Currency>();
-		assertFalse(MoneyServiceIO.saveSerializedCurrencyMap(emptyMap, fileName));
+		assertTrue(MoneyServiceIO.saveTxtMoneyBox(theSite.getCurrencyMap(), fileName));
+
 		
 	}
+	
 	
 	@SuppressWarnings("static-access")
 	@Test
@@ -150,6 +135,11 @@ public class testMoneyServiceIO {
 
 		Report report = new Report(LocalDateTime.now(), theSite.getTransactionList());
 		assertTrue(MoneyServiceIO.saveSerializedReport(report));
+	}
+	
+	@Test
+	public void testPrintPathList() {
+		MoneyServiceIO.printPathList();
 	}
 	
 	
@@ -168,5 +158,36 @@ public class testMoneyServiceIO {
 		String fileName ="testTesxt4.txt";
 		assertTrue(MoneyServiceIO.saveDailyTransactionListAsText(theSite.getTransactionList(), fileName));
 	}
-
+	
+	@Test
+	public void testSetRefDate() {
+		LocalDate now = MoneyServiceIO.refDate;
+		MoneyServiceIO.setRefDate(LocalDate.of(2021, 01, 01));
+		assertFalse(now==MoneyServiceIO.refDate);
+	}
+	
+	
+	@Test
+	public void testReadSerialzedFail() {
+		String test ="";
+		MoneyServiceIO temp = new MoneyServiceIO();
+		temp.readSerializedDailyTransactionList(test);
+	
+	}
+	@Test
+	public void testStoreSerialzedFail() {
+		List<Transaction> testList = new ArrayList<>();
+		String test = "";
+		MoneyServiceIO.saveDailyTransactionListAsText(testList, test);
+		
+	
+	}
+	
+	@Test
+	public void testGetTransactionFolderPath() {
+		String expected = "Transactions/NORTH/";
+		String recived = MoneyServiceIO.getPathName("Transactions");
+		assertEquals(expected, recived);
+	}
+	
 }

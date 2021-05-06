@@ -18,5 +18,5 @@ import org.junit.runners.Suite.SuiteClasses;
 	testTransactionMode.class,
 	})
 public class AllTests {
-
 }
+ 

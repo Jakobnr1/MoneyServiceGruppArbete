@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import affix.java.project.moneyservice.Config;
@@ -64,14 +65,34 @@ public class TestMoneyBox {
 		
 		assertTrue(testBox.addNewCurrency(1000.00D, "FIN", 4.20f));
 	}
+	
 	@SuppressWarnings("static-access")
 	@Test
 	public void testAddNewCurrfalse() {
 		Config.setRatesInCurrency(exchangeRateList, currencyMap);
 		testBox = new MoneyBox(currencyMap);
 		testBox = Config.fillTheMoneyBox(testBox, currencyMap);
-		
+		testBox.addNewCurrency(1000.00D, "EUR", 4.20f);
 		assertFalse(testBox.addNewCurrency(1000.00D, "EUR", 4.20f));
+	}
+	@SuppressWarnings("static-access")
+	@Test
+	public void testDenominationControllWithoutCurrency() {
+		Config.setRatesInCurrency(exchangeRateList, currencyMap);
+		testBox = new MoneyBox(currencyMap);
+		testBox = Config.fillTheMoneyBox(testBox, currencyMap);
+		int testInt = 50;
+		assertEquals(testInt, testBox.denominationControl("EUR", testInt));
+	}
+	@SuppressWarnings("static-access")
+	@Test
+	public void testDenominationControllWithCurrency() {
+		Config.setRatesInCurrency(exchangeRateList, currencyMap);
+		testBox = new MoneyBox(currencyMap);
+		testBox = Config.fillTheMoneyBox(testBox, currencyMap);
+		int testInt = 50;
+		testBox.addNewCurrency(1000.00D, "EUR", 4.20f);
+		assertEquals(testInt, testBox.denominationControl("EUR", testInt));
 	}
 	
 }

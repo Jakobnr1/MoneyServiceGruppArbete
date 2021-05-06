@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,14 +18,18 @@ import affix.java.project.moneyservice.ExchangeSite;
 
 
 public class testConfig {
-	Config testInitialize = new Config();
+	private static Logger logger;
+	private static FileHandler fh ;
+	
 	ExchangeSite tempExchangeSite = new ExchangeSite("North");
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
 		
 	@Test
 	public void testGetExchangeRateList(){
-		tempExchangeSite.startTheDay();
+		Config.readConfigFile("configFileNorthTest.txt");
+
 		exchangeRateList = Config.getExchangeRateList();
+		tempExchangeSite.startTheDay();
 		assertNotNull(exchangeRateList);
 		
 	}
@@ -49,4 +56,12 @@ public class testConfig {
 		assertEquals(max, Config.getMAX_AMMOUNT());
 	}
 	
+	@Test
+	public void testControllPwd() {
+		Config.readConfigFile("configFileNorthTest.txt");
+
+		exchangeRateList = Config.getExchangeRateList();
+		tempExchangeSite.startTheDay();
+		assertTrue(Config.controlPwd("asdf1234"));
+	}
 }

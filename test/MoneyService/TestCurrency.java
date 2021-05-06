@@ -7,9 +7,9 @@ import org.junit.Test;
 import affix.java.project.moneyservice.Currency;
 
 public class TestCurrency {
-	
+
 	Currency testCurr;
-	
+
 	@Test
 	public void testConstructor() {
 		testCurr = new Currency(1000, 5.45f, 6.45f);
@@ -18,13 +18,12 @@ public class TestCurrency {
 	public void testConstructorNoValue() {
 		testCurr = new Currency(0, 5.45f, 6.45f);
 	}
-	
+
 	@Test
 	public void testGetBuyRate() {
 		testCurr = new Currency(1000, 5.45f, 6.45f);
 		Float buyRate = 5.45f;
 		assertEquals(buyRate, testCurr.getBuyRate());
-		
 	}
 	@Test
 	public void testSetBuyRate() {
@@ -32,7 +31,7 @@ public class TestCurrency {
 		Float buyRate = 8.45f;
 		testCurr.setBuyRate(buyRate);
 		assertEquals(buyRate, testCurr.getBuyRate());
-		
+
 	}
 	@Test
 	public void testSetSellRate() {
@@ -40,24 +39,24 @@ public class TestCurrency {
 		Float sellRate = 3.45f;
 		testCurr.setSellRate(sellRate);
 		assertEquals(sellRate, testCurr.getSellRate());
-		
+
 	}
-	
+
 	@Test
 	public void testGetSellRate() {
 		testCurr = new Currency(1000, 5.45f, 6.45f);
 		Float sellRate = 6.45f;
 		assertEquals(sellRate, testCurr.getSellRate());
-		
+
 	}
-	
+
 	@Test
 	public void testGetTotalValue() {
 		testCurr = new Currency(1000, 5.45f, 6.45f);
 		Double value = 1000D;
 		assertEquals(value, testCurr.getTotalValue());
 	}
-	
+
 	@Test
 	public void testSetTotalValue() {
 		testCurr = new Currency(1000, 5.45f, 6.45f);

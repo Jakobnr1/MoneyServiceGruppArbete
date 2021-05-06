@@ -9,7 +9,9 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import affix.java.project.moneyservice.Config;
 import affix.java.project.moneyservice.ExchangeSite;
+import affix.java.project.moneyservice.MoneyServiceIO;
 import affix.java.project.moneyservice.Order;
 import affix.java.project.moneyservice.Report;
 import affix.java.project.moneyservice.Transaction;
@@ -17,16 +19,21 @@ import affix.java.project.moneyservice.TransactionMode;
 
 public class testReport {
 
-	static ExchangeSite theSite = new ExchangeSite("North");
+	static ExchangeSite theSite = new ExchangeSite("NORTH");
 	static Report testReport;
 	@SuppressWarnings("static-access")
 	@BeforeClass
 	public static void beforeTest() {
+		
+		Config.readConfigFile("configFileNorthTest.txt");
+		
+
 		theSite.startTheDay();
 		List<Order> listOfOrders;
 		int i=0;
 		boolean stop = false;
 		do {
+
 			listOfOrders = Order.generateDailyOrder(theSite.getRates(), 35);
 			for(Order d: listOfOrders) {
 				if(i>24) {
@@ -58,6 +65,10 @@ public class testReport {
 		testReport = new Report(LocalDateTime.of(2021, 04, 10, 06, 00), theSite.getTransactionList());
 	}
 	@Test
+	public void test() {
+		
+	}
+	@Test
 	public void testGetDay() {
 		LocalDateTime now = LocalDateTime.of(2021, 04, 10, 06, 00);
 		assertEquals(now, testReport.getDay());
@@ -76,6 +87,7 @@ public class testReport {
 		List<Transaction> testList = theSite.getTransactionList();
 		assertEquals(testList.toString(), testReport.getDailyTransaction().toString());
 	}
+	@SuppressWarnings("static-access")
 	@Test
 	public void testSetDalyTransaction() {
 		List<Transaction> testList = theSite.getTransactionList();
