@@ -20,14 +20,16 @@ import affix.java.project.moneyservice.ExchangeSite;
 public class testConfig {
 	private static Logger logger;
 	private static FileHandler fh ;
-	Config testInitialize = new Config();
+	
 	ExchangeSite tempExchangeSite = new ExchangeSite("North");
 	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
 		
 	@Test
 	public void testGetExchangeRateList(){
-		tempExchangeSite.startTheDay();
+		Config.readConfigFile("configFileNorthTest.txt");
+
 		exchangeRateList = Config.getExchangeRateList();
+		tempExchangeSite.startTheDay();
 		assertNotNull(exchangeRateList);
 		
 	}
@@ -55,24 +57,11 @@ public class testConfig {
 	}
 	
 	@Test
-	public void testSetUpLogger0() {
-		ExchangeSite theSite = new ExchangeSite("Test");
-		Config.readConfigFile("configFileNorthTest.txt");
-
-		theSite.startTheDay();
-		logger = Config.setUpLogger(logger, fh);
-	}
-	@Test
-	public void testSetUpLogger1() {
-		ExchangeSite theSite = new ExchangeSite("Test");
-		Config.readConfigFile("configFileNorthTest.txt");
-
-		theSite.startTheDay();
-		Config.setLogLevel(Level.ALL);
-		logger = Config.setUpLogger(logger, fh);
-	}
-	@Test
 	public void testControllPwd() {
+		Config.readConfigFile("configFileNorthTest.txt");
+
+		exchangeRateList = Config.getExchangeRateList();
+		tempExchangeSite.startTheDay();
 		assertTrue(Config.controlPwd("asdf1234"));
 	}
 }
