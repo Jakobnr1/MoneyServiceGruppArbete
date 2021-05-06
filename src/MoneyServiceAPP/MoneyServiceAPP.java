@@ -21,7 +21,6 @@ import affix.java.project.moneyservice.Currency;
 import affix.java.project.moneyservice.ExchangeSite;
 import affix.java.project.moneyservice.MoneyBox;
 import affix.java.project.moneyservice.MoneyServiceIO;
-import affix.java.project.moneyservice.MonyeServiceLoggFilter;
 import affix.java.project.moneyservice.Order;
 import affix.java.project.moneyservice.Transaction;
 import affix.java.project.moneyservice.TransactionMode;
@@ -60,9 +59,6 @@ public class MoneyServiceAPP {
 		String currentLevel = Config.getLogLevel();
 
 		logger.setLevel(Level.parse(currentLevel));
-
-//		Filter currentFilter = new MonyeServiceLoggFilter();
-//		fh.setFilter(currentFilter);
 
 		ExchangeSite theSite = new ExchangeSite(Config.getSiteName());
 
