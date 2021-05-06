@@ -33,8 +33,7 @@ public class MoneyServiceIO {
 	 * Attribute currencyConfigFilename holding filepath for CurrencyConfig
 	 */
 	public static String currencyConfigFilename = "CurrencyConfig_"+LocalDate.now().toString()+".txt";
-	//	public static  String projectConfigFilename = "ProjectConfig_2021-04-19.txt";
-	//	public static String currencyConfigFilename = "CurrencyConfig_2021-04-19.txt";	
+
 	/**
 	 * Attribute folderPaths holding File paths for storing files
 	 */
@@ -46,6 +45,18 @@ public class MoneyServiceIO {
 	/**
 	 * Attribute textFormattedDailyTransactions holding filename for textfile DailyTransactions
 	 */
+
+	/**
+	 * Attribute referenceCurrency defining the referenced Currency
+	 */
+	static String textFormattedDailyTransactions = "DailyTransactions.txt";
+	/**
+	 * Attribute refDate holding a LocalDate.
+	 */
+	public static String referenceCurrency;
+	/**
+	 * Attribute LDT holding the current day and time
+
 	static String textFormattedDailyTransactions = "DailyTransactions.txt";
 	/**
 	 * Attribute referenceCurrency defining the referenced Currency
@@ -53,13 +64,13 @@ public class MoneyServiceIO {
 	public static String referenceCurrency;
 	/**
 	 * Attribute refDate holding a LocalDate.
+
 	 */
 	public static LocalDate refDate;
 	/**
 	 * Attribute LDT holding the current day and time
 	 */
 	public static LocalDateTime LDT = LocalDateTime.now(); //TODO
-
 
 	/**
 	 * Changes the filepaths for projectConfigFilename
@@ -70,7 +81,6 @@ public class MoneyServiceIO {
 		projectConfigFilename = getPathName("Configs")+ "ProjectConfig_"+date.toString()+".txt";
 		currencyConfigFilename = getPathName("DailyRates")+ "CurrencyConfig_"+date.toString()+".txt";
 	}
-
 
 	/**
 	 * Getter for attribute referenceCurrency
@@ -207,7 +217,6 @@ public class MoneyServiceIO {
 	 * @param filename holding the name of the file
 	 * @return boolean holding outcome of the operation
 	 */
-
 	public static boolean saveTxtMoneyBox(Map<String, Currency> listToBeSaved, String filename) {
 		boolean saved = false;
 		try(PrintWriter pw = new PrintWriter(new FileWriter(filename.trim()))){
@@ -225,15 +234,11 @@ public class MoneyServiceIO {
 	}	
 
 
-
-
-
 	/**
 	 * Saves a daily report in serialized form.
 	 * @param r Report to be saved
 	 * @return Boolean true if successful.
 	 */
-
 	public static boolean saveSerializedReport(Report r) {
 		boolean saved = false;
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(r.getUniqueFileName().trim()))){
@@ -254,7 +259,6 @@ public class MoneyServiceIO {
 	 * @param  filename holding the name of the file to be read
 	 * @return the list
 	 */
-
 	@SuppressWarnings("unchecked")
 	public static List<Transaction> readSerializedDailyTransactionList(String filename){
 		List<Transaction> transactionList = null;
@@ -285,39 +289,6 @@ public class MoneyServiceIO {
 		return saved;
 
 	}
-
-	
-	/**
-	 * Saves serialized customer database 
-	 * @param mapToBeSaved
-	 * @return boolean true if done
-	 */
-	/*
-	public static boolean saveSerializedCustomerDatabase(Map<String,List<Customer>> mapToBeSaved) {
-		boolean saved = false;
-		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(serializedCustomerDataBaseFilename))){
-			oos.writeObject(mapToBeSaved);
-		}
-		catch(IOException ioe) {System.out.println(String.format("Error when saving serialized daily transaction"+ioe.toString()));}
-		saved = true;
-		return saved;
-	}	
-	 */
-	/**
-	 * Reads serialized customer database 
-	 * @return the map
-	 */
-	/*
-	public static Map<String,List<Customer>> readSerializedCustomerDatabase(){
-		Map<String,List<Customer>> customerMap = null;
-		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(serializedCustomerDataBaseFilename))){
-		customerMap = (Map<String,List<Customer>>)ois.readObject();
-		}
-		catch(IOException |ClassNotFoundException ioe) {System.out.println(String.format("Error when reading serialized daily transactions"+ioe.toString()));
-		}
-		return customerMap;
-	}
-	 */
 	
 	/**
 	 * Adds the String path as a File in folderPaths

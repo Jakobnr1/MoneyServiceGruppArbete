@@ -25,8 +25,9 @@ public class ExchangeSite implements MoneyService {
 	private static Logger logger;
 
 	static {
-		logger = Logger.getLogger(Config.getLogName());
+		logger = Logger.getLogger("affix.java.project.moneyservice");
 	}
+	
 	public ExchangeSite(String Name) {
 		this(Name,LocalDateTime.now());
 	}
@@ -92,10 +93,12 @@ public class ExchangeSite implements MoneyService {
 
 
 		if(customerCur.isEmpty() || totalRefCurrency.isEmpty()) {
+			logger.finest("buyMoney returns false");
 			return false;
 		}
 		double exRate = calculatePrice(currency, value,TransactionMode.BUY);
-
+		
+		
 		return exRate<totalRefCurrency.get();
 
 
@@ -115,6 +118,7 @@ public class ExchangeSite implements MoneyService {
 		Optional<Double> totalRefCurrency = getAvailableAmount(currency);
 
 		if(totalRefCurrency.isEmpty()) {
+			logger.finest("sellMoney returns false");
 			return false;	
 		}
 
@@ -127,6 +131,7 @@ public class ExchangeSite implements MoneyService {
 	 */
 	@Override
 	public void printSiteReport(String fileFormat) {
+		logger.finest("Printing site report to file: "+MoneyServiceIO.getPathName("SiteReports")+"SiteReport_"+Config.getSiteName()+"_"+LocalDate.now()+".txt");
 		MoneyServiceIO.saveTxtMoneyBox(MoneyBox.getCurrencyMap(), MoneyServiceIO.getPathName("SiteReports")+"SiteReport_"+Config.getSiteName()+"_"+LocalDate.now()+".txt");
 	}
 
@@ -216,7 +221,7 @@ public class ExchangeSite implements MoneyService {
 	public List<Order> addOrderToQueue(Order d){
 		List<Order> orderList = new LinkedList<Order>();
 		orderList.add(d);
-
+		logger.finer("Order added to queue");
 
 		return orderList;
 	}
@@ -231,19 +236,25 @@ public class ExchangeSite implements MoneyService {
 			if(o.getTransactionType() == (TransactionMode.BUY)) {
 				if(buyMoney(o)) {
 					completeOrder(o);
+					logger.finer("Order completed");
 					orderList.remove(o);
+					logger.finer("Order removed from orderList");
 				}
 				else {
 					System.out.println("Order :"+ o +" did not go trough");
+					logger.fine("Order :"+ o +" did not go trough");
 				}
 			}
 			else if(o.getTransactionType() == (TransactionMode.SELL)) {
 				if(sellMoney(o)) {
 					completeOrder(o);
+					logger.finer("Order completed");
 					orderList.remove(o);
+					logger.finer("Order removed from orderList");
 				}
 				else {
 					System.out.println("Order :"+ o +" did not go trough");
+					logger.fine("Order :"+ o +" did not go trough");
 				}
 			}
 		}

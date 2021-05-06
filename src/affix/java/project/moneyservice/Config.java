@@ -24,7 +24,7 @@ public class Config {
 	private static int MIN_AMMOUNT = 50;
 	private static int MAX_AMMOUNT = 50000;
 	private static float buyRateConfig = 0.995f;
-	private static float sellRateConfig = 1.005F;
+	private static float sellRateConfig = 1.005f;
 	private static char[] password = {'Q','w','e','r','t','y','u','i'}; 
 
 
@@ -33,44 +33,9 @@ public class Config {
 	private static Logger logger;
 
 	static {
-		logger = Logger.getLogger(logName);
+		logger = Logger.getLogger("affix.java.project.moneyservice");
 	}
 
-
-
-	public static Logger setUpLogger(Logger logger, FileHandler fh) {
-
-		logger = Logger.getLogger(logName);
-
-		try {
-			if(logFormat.equals("text")) {
-				fh = new FileHandler(MoneyServiceIO.getPathName("Orders")+logName+".txt");
-				fh.setFormatter(new SimpleFormatter());
-			}
-			else {
-				fh = new FileHandler(MoneyServiceIO.getPathName("Orders")+logName+".xml");
-				fh.setFormatter(new XMLFormatter());
-			}
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		logger.addHandler(fh);
-
-		String currentLevel = getLogLevel();
-
-		logger.setLevel(Level.parse(currentLevel));
-
-		Filter currentFilter = new MonyeServiceLoggFilter();
-		fh.setFilter(currentFilter);
-
-		return logger;
-
-	}
-
-		
 	public enum LogLev {ALL, CONFIG, FINE, FINER, FINEST, INFO, SEVERE, WARNING, OFF}
 
 	public static boolean readConfigFile(String filename) {
@@ -85,7 +50,7 @@ public class Config {
 					String key = parts[0].strip();
 					String value = parts[1].strip();
 
-										
+
 					switch (key) {
 					case "siteName":
 						if(value.isEmpty()) {
@@ -117,13 +82,15 @@ public class Config {
 						System.out.println("Log format set to: "+value);
 						ok++;		
 						break;
-						
+
 					case "logLevel":					
 						for(LogLev l: LogLev.values()) {
 							String temp = l.toString();
 							if(temp.equals(value)){
 								logLevel = value.toUpperCase().trim();
 								System.out.println("Log level set to: "+value);
+								ok++;
+								break;
 							}
 						}						 
 						break;
@@ -188,10 +155,9 @@ public class Config {
 			System.out.println("Exception occurred: " + ioe);
 		}
 		catch (NumberFormatException e) {
-			System.out.println("Bad input of MIN_AMMOUNT or MAX_AMMOUNT in config file! ");
-		}
+				}
 
-		if(ok == 9) {
+		if(ok == 14) {
 			System.out.println("Configuration of the system OK!");
 			return okRead=true;
 		}
@@ -201,10 +167,10 @@ public class Config {
 
 	/**
 	 * The method sets buy and sell rate in each currency.
-	 * Needs to be run early in program start! 
 	 * @param currencyList
 	 * @param currencyMap
 	 */
+
 	public static void setRatesInCurrency(List<ExchangeRate> currencyList, Map<String, Currency> currencyMap) {			
 		for(ExchangeRate s : currencyList) {
 			String key = s.getName();
@@ -213,7 +179,7 @@ public class Config {
 				currencyMap.get(key).setBuyRate(buyRate);
 				Float sellRate = s.getExchangeRate() * getSellRateConfig();
 				currencyMap.get(key).setSellRate(sellRate);
-				logger.fine(""+key+" buyRate: "+buyRate+ ", sellRate"+sellRate);				
+				logger.finer(""+key+" buyRate: "+buyRate+ ", sellRate: "+sellRate);				
 			}
 		}
 	}
@@ -221,7 +187,7 @@ public class Config {
 
 	public static List<ExchangeRate> setTheRates() {
 		List<ExchangeRate> test = new ArrayList<ExchangeRate>(MoneyServiceIO.parseCurrencyConfig(MoneyServiceIO.readTextFiles(MoneyServiceIO.getPathName("DailyRates")+MoneyServiceIO.currencyConfigFilename)));
-		logger.fine("*********** Getting rates from "+MoneyServiceIO.currencyConfigFilename+ " ************");
+		logger.finer("*********** Getting rates from "+MoneyServiceIO.currencyConfigFilename+ " ************");
 
 		return test;
 	}
@@ -234,7 +200,7 @@ public class Config {
 		for(String k:keySet) {
 			Currency tempCurrency = new Currency(testMap.get(k).intValue(), 0.0f, 0.0f);
 			currencyMap.putIfAbsent(k, tempCurrency);
-			logger.fine("Filled MoneyBox with: "+k+" amount: "+tempCurrency);
+			logger.finer("Filled MoneyBox with: "+k+" amount: "+tempCurrency);
 		}
 
 		return theBox;
