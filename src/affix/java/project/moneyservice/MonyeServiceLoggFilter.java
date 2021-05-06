@@ -8,7 +8,7 @@ import java.util.logging.LogRecord;
  *
  *
  */
-public class MonyeServiceLoggFilter implements Filter{
+public class MonyeServiceLoggFilter implements Filter {
 
 	@Override
 	public boolean isLoggable(LogRecord lr) {

@@ -18,7 +18,7 @@ public class MoneyBox implements java.io.Serializable {
 	private static Logger logger;
 
 	static {
-		logger = Logger.getLogger(Config.getLogName());
+		logger = Logger.getLogger("affix.java.project.moneyservice");
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class MoneyBox implements java.io.Serializable {
 		if(currencyMap.containsKey(currencyName)) {
 		result = (int) (amount % 50);	
 		}
-		
+		logger.finer("Round off "+(int)amount+ " to "+((int) amount - result));
 		return (int) amount - result ;	
 	}
 
