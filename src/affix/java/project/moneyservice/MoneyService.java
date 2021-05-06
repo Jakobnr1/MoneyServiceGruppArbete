@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * This class is an interface for ExchangeSite in MoneyService
+ */
 public interface MoneyService {
 	
 	/**

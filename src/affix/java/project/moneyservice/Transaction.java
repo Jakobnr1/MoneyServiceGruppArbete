@@ -46,7 +46,7 @@ public class Transaction implements Serializable {
 	}
 	
 	/**
-	 * Constructor
+	 * Overloaded Constructor
 	 * @param order holding value, currencyCode and transaction mode
 	 * @param ref Time indicating when the order is being processed
 	 */
