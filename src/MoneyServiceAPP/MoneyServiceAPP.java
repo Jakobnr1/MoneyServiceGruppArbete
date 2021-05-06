@@ -362,8 +362,15 @@ public class MoneyServiceAPP {
 						}
 					}
 					else {
-						okInput = true;
-						logger.finer("OK input of currency: "+currencyChoice);
+						if(theSite.getCurrencyMap().get(currencyChoice).getTotalValue() > Config.getMIN_AMMOUNT() &! 
+								currencyChoice.equalsIgnoreCase(MoneyServiceIO.referenceCurrency)){ 
+							logger.finer("OK input of currency: "+currencyChoice);
+							okInput = true;
+						}
+						else {
+							System.out.println("Bad input of currency, try again!");
+							logger.finer("Bad input of currency: "+currencyChoice);
+						}
 					}
 				}	
 			}
