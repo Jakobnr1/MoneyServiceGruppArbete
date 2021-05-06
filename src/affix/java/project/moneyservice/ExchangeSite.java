@@ -186,8 +186,7 @@ public class ExchangeSite implements MoneyService {
 			logger.fine("Saving daily transactions as serialized");
 			MoneyServiceIO.saveSerializedDailyTransactions(transactionList, MoneyServiceIO.getPathName("Transactions")+ backupReport.getUniqueFileName());
 		}
-		MoneyServiceIO.saveDailyTransactionListAsText(transactionList, "tempFile.txt");
-
+		
 		printSiteReport(fileFormat);
 
 	}
@@ -229,23 +228,24 @@ public class ExchangeSite implements MoneyService {
 
 
 		if(orderData.getTransactionType() == TransactionMode.BUY) {
+			int cost = calculatePrice(currency, value,TransactionMode.BUY);
 			int buy = customerCur.get().intValue();
 			MoneyBox.getCurrencyMap().get(currency).setTotalValue(value + buy);
-			logger.finest("Adding "+buy+" "+currency+ " to theBox. Total in box after: "+MoneyBox.getCurrencyMap().get(currency).getTotalValue());
 			int sell = companyCur.get().intValue();
-			int cost = calculatePrice(currency, value,TransactionMode.BUY);
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(sell - cost);
-			logger.finest("Buying "+cost+" "+companyCur+ " total in box after: "+MoneyBox.getCurrencyMap().get(refCurrency).getTotalValue());
+			logger.finest("Removing "+cost+refCurrency+" from "+(currencyMap.get(refCurrency).getTotalValue()+cost)+ " theBox. Total in box after: "+MoneyBox.getCurrencyMap().get(refCurrency).getTotalValue().intValue());
+			logger.finest("Adding "+value+currency+" to total: "+buy+ ". Total in box after: "+MoneyBox.getCurrencyMap().get(currency).getTotalValue().intValue());
 			transactionList.add(new Transaction(orderData));
 		}
 
 		else if(orderData.getTransactionType() == TransactionMode.SELL) {
-			int sell = customerCur.get().intValue();
-			MoneyBox.getCurrencyMap().get(currency).setTotalValue(sell - value);
+			int amountBeforeTransaction = customerCur.get().intValue();
+			MoneyBox.getCurrencyMap().get(currency).setTotalValue(amountBeforeTransaction - value);
+			logger.finest("Removing "+value+currency+" from "+amountBeforeTransaction+" box. Total after sell: "+MoneyBox.getCurrencyMap().get(currency).getTotalValue().intValue());
 			int ourCurrency = companyCur.get().intValue();
 			int priceOfOrder = calculatePrice(currency, value,TransactionMode.SELL);
 			MoneyBox.getCurrencyMap().get(refCurrency).setTotalValue(ourCurrency + priceOfOrder);
-			logger.finest("Selling "+priceOfOrder+" "+companyCur+ " total in box after: "+MoneyBox.getCurrencyMap().get(refCurrency).getTotalValue()); //TODO kolla companyCur
+			logger.finest("Income "+priceOfOrder+" "+MoneyServiceIO.getReferenceCurrency()+" to box. "+companyCur+ " total in box after: "+MoneyBox.getCurrencyMap().get(refCurrency).getTotalValue().intValue()); 
 			transactionList.add(new Transaction(orderData));
 		}
 		logger.fine("Completed order: "+orderData.toString());

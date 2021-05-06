@@ -1,20 +1,15 @@
 package MoneyServiceAPP;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
-
 import affix.java.project.moneyservice.Config;
 import affix.java.project.moneyservice.Currency;
 import affix.java.project.moneyservice.ExchangeSite;
@@ -76,39 +71,91 @@ public class MoneyServiceAPP {
 
 		theSite.startTheDay();
 
-		boolean okInput=false;
-		do {
-			System.out.println("\nDo you want to use console or graphic version?");
-			System.out.println("\nPress c for console ");
-			System.out.println("Press g for graphic");
-			System.out.println("Press e for exit Program");
+		Scanner keyboard = new Scanner(System.in);
+		keyboard.useDelimiter(System.lineSeparator());
+		boolean exit=false;
 
-			@SuppressWarnings("resource")
-			Scanner input = new Scanner(System.in);
+		int choice=0;
+		do { 
+			try { 
+				System.out.println("\n******** Employee menu for Exchange site "+Config.getSiteName()+" *********");
+				System.out.println("\nPlease make a choice:");
+				System.out.println("1. - Show todays exchange rates");
+				System.out.println("2. - Show cash box content");
+				System.out.println("3. - Create order for customer");
+				System.out.println("4. - User menu");
+				System.out.println("5. - Show daily transactions");
+				System.out.println("0. - Exit the program, and end the day");
+				System.out.println("\n*********************************");
 
-			String choice =input.next().strip().toLowerCase();
+				String input=keyboard.next();
+				choice=Integer.parseInt(input);	
 
-			switch (choice) {
-			case "c":
-				mainMenuCLI(theSite);
-				break;
-			case "g":
-				System.out.println("GUI not supported right now, console started instead! ");
+				switch (choice) {
+				case 1: 
+					System.out.println("********************* Todays rates *********************");
+					for(Entry<String, Currency> er:theSite.getCurrencyMap().entrySet()) {
+						if(!(er.getKey().equalsIgnoreCase(MoneyServiceIO.referenceCurrency)) && !(er.getValue().getBuyRate() == 0.000f)){
+							System.out.format(er.getKey().toString());
+							System.out.format(" Buying: %.3f",er.getValue().getBuyRate());
+							System.out.format(" Selling: %.3f",er.getValue().getSellRate());
+							System.out.println("");							
+						}
+					}
+					System.out.println("********************************************************");
+					logger.finer("Press 1. Showing todays rates for employee");
+					break;
 
-				//				MoneyServiceGUI.main(args);
-				//				okInput=true;
-				mainMenuCLI(theSite);
-				break;
-			case "e":
-				okInput=true;
-				break;
+				case 2:
+					System.out.println("Content in cash box right now: ");
+					logger.finer("Press 2. Showing content in cash box for employee");
+					for(String k:theSite.getCurrencyMap().keySet()) {
+						System.out.println(k+": "+theSite.getCurrencyMap().get(k).getTotalValue().intValue());
+						logger.finer(k+": "+theSite.getCurrencyMap().get(k).getTotalValue().intValue());
+					}
+					break;
 
-			default:
-				System.out.println("Wrong choice!");
-				break;
+				case 3: 
+					logger.finer("Press 3. Creating new order for customer from employee menu");
+					createOrder(theSite, keyboard);
+					break;
+
+				case 4:
+					logger.finer("Press 4. Enter user menu");
+					clientMenu(theSite);
+					break;		
+					
+				case 5:
+					logger.finer("Press 5. Show transactions");
+					for(Transaction t:theSite.getTransactionList()) {
+					System.out.println(t.toString());
+					}
+					break;
+
+				case 0:
+					logger.finer("Press 0. Exit the program from menu");
+					exit=true;
+					break;
+
+				default:
+					System.out.println("Wrong choice!");
+					break;
+				}
+
+			}
+			catch (NumberFormatException e) {
+				System.out.println("Wrong choice! Try again");
+				logger.warning("Wrong choice! Try again");
 			}
 		}
-		while(!okInput);
+		while(!exit);
+
+		String destination = "testShutDown.db";
+
+		theSite.shutDownService(destination);
+
+		System.exit(0);
+	
 	}
 
 	/**
@@ -183,92 +230,6 @@ public class MoneyServiceAPP {
 		}
 		while(!backToSettings);
 	}
-
-
-	/**
-	 * Starts up the CLI for the Employee menu
-	 * @param theSite holding the ExchangeSite
-	 */
-	public static void mainMenuCLI(ExchangeSite theSite) {
-
-		Scanner keyboard = new Scanner(System.in);
-		keyboard.useDelimiter(System.lineSeparator());
-		boolean exit=false;
-
-		int choice=0;
-		do { 
-			try { 
-				System.out.println("******** Employee menu for Exchange site "+Config.getSiteName()+" *********");
-				System.out.println("\nPlease make a choice:");
-				System.out.println("1. - Show todays exchange rates");
-				System.out.println("2. - Show cash box content");
-				System.out.println("3. - Create order for customer");
-				System.out.println("4. - User menu");
-				System.out.println("0. - Exit the program, and end the day");
-				System.out.println("*********************************");
-
-				String input=keyboard.next();
-				choice=Integer.parseInt(input);	
-
-				switch (choice) {
-				case 1: 
-					System.out.println("********************* Todays rates *********************");
-					for(Entry<String, Currency> er:theSite.getCurrencyMap().entrySet()) {
-						if(!(er.getKey().equalsIgnoreCase(MoneyServiceIO.referenceCurrency)) && !(er.getValue().getBuyRate() == 0.000f)){
-							System.out.format(er.getKey().toString());
-							System.out.format(" Buying: %.3f",er.getValue().getSellRate());
-							System.out.format(" Selling: %.3f",er.getValue().getBuyRate());
-							System.out.println("");							
-						}
-					}
-					System.out.println("********************************************************");
-					logger.finer("Press 1. Showing todays rates for employee");
-					break;
-
-				case 2:
-					System.out.println("Content in cash box right now: ");
-					logger.finer("Press 2. Showing content in cash box for employee");
-					for(String k:theSite.getCurrencyMap().keySet()) {
-						System.out.println(k+": "+theSite.getCurrencyMap().get(k).getTotalValue().intValue());
-						logger.finer(k+": "+theSite.getCurrencyMap().get(k).getTotalValue().intValue());
-					}
-					break;
-
-				case 3: 
-					logger.finer("Press 3. Creating new order for customer from employee menu");
-					createOrder(theSite, keyboard);
-					break;
-
-				case 4:
-					logger.finer("Press 4. Enter user menu");
-					clientMenu(theSite);
-					break;				
-
-				case 0:
-					logger.finer("Press 0. Exit the program from menu");
-					exit=true;
-					break;
-
-				default:
-					System.out.println("Wrong choice!");
-					break;
-				}
-
-			}
-			catch (NumberFormatException e) {
-				System.out.println("Wrong choice! Try again");
-				logger.warning("Wrong choice! Try again");
-			}
-		}
-		while(!exit);
-
-		String destination = "testShutDown.db";
-
-		theSite.shutDownService(destination);
-
-		System.exit(0);
-	}
-
 
 
 	/**
