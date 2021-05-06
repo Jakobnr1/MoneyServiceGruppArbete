@@ -1,9 +1,9 @@
 siteName= NORTH
 logName= MoneyServiceLogNORTH
 logFormat= text
-logLevel= FINER
+logLevel= ALL
 min_ammount=50
-max_ammount=50000
+max_ammount=10000
 buyRate= 0.995
 sellRate= 1.005
 password= asdf1234

@@ -40,15 +40,7 @@ public class testExchangeRate {
 		
 		assertEquals(name, testExchangeRate.getName());
 	}
-	
-	@Test
-	public void testSetName() {
 		
-		testExchangeRate = new ExchangeRate(LocalDate.now(), 10, "EUR", 10.54f);
-		
-		
-		assertTrue(testExchangeRate.setName("SEK"));
-	}
 	
 	@Test
 	public void testGetExRate() {
