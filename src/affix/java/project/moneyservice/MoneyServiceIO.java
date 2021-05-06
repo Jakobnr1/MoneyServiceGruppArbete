@@ -29,6 +29,7 @@ public class MoneyServiceIO {
 	 * Attribute projectConfigFilename holding filepath for ProjectConfig
 	 */
 	public static String projectConfigFilename = "ProjectConfig_"+LocalDate.now().toString()+".txt";
+	
 	/**
 	 * Attribute currencyConfigFilename holding filepath for CurrencyConfig
 	 */
@@ -38,35 +39,27 @@ public class MoneyServiceIO {
 	 * Attribute folderPaths holding File paths for storing files
 	 */
 	public static List<File> folderPaths = new ArrayList<>();
+	
 	/**
 	 * Attribute serializedDailyTransactionFilename holding filename for serialized DailyTransaction
 	 */
 	static String serializedDailyTransactionFilename = "DailyTransactions.ser";
+
 	/**
 	 * Attribute textFormattedDailyTransactions holding filename for textfile DailyTransactions
 	 */
+	static String textFormattedDailyTransactions = "DailyTransactions.txt";
 
 	/**
 	 * Attribute referenceCurrency defining the referenced Currency
 	 */
-	static String textFormattedDailyTransactions = "DailyTransactions.txt";
+	public static String referenceCurrency;
+	
 	/**
 	 * Attribute refDate holding a LocalDate.
-	 */
-	public static String referenceCurrency;
-	/**
-	 * Attribute LDT holding the current day and time
-
-	static String textFormattedDailyTransactions = "DailyTransactions.txt";
-	/**
-	 * Attribute referenceCurrency defining the referenced Currency
-	 */
-	public static String referenceCurrency;
-	/**
-	 * Attribute refDate holding a LocalDate.
-
 	 */
 	public static LocalDate refDate;
+	
 	/**
 	 * Attribute LDT holding the current day and time
 	 */
@@ -77,6 +70,7 @@ public class MoneyServiceIO {
 	 *  and currencyConfigFilename to the inputed LocalDate
 	 * @param date holding a LocalDate
 	 */
+	
 	public void changeDate(LocalDate date) {
 		projectConfigFilename = getPathName("Configs")+ "ProjectConfig_"+date.toString()+".txt";
 		currencyConfigFilename = getPathName("DailyRates")+ "CurrencyConfig_"+date.toString()+".txt";
