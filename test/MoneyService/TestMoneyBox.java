@@ -3,70 +3,93 @@ package MoneyService;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-
 import org.junit.Test;
 
+import affix.java.project.moneyservice.Config;
+import affix.java.project.moneyservice.Currency;
+import affix.java.project.moneyservice.ExchangeRate;
+import affix.java.project.moneyservice.MoneyBox;
+
 public class TestMoneyBox {
-
+	
+	Map<String, Currency> currencyMap = new HashMap<>();
+	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
+	
+	MoneyBox testBox;
+	@SuppressWarnings("static-access")
 	@Test
-	public void creatingEmptyMoneyBox() {
-		Map<String, List<Currency>> currencyMap = new TreeMap<String, List<Currency>>();
+	public void testGetCurrencyMap() {
+		Config.setRatesInCurrency(exchangeRateList, currencyMap);
+		testBox = new MoneyBox(currencyMap);
+		testBox = Config.fillTheMoneyBox(testBox, currencyMap);
 		
-		MoneyBox testBox = new MoneyBox(0, currencyMap);		
-		
-		assertNotNull(testBox);
-	}
-
-	@Test
-	public void creatingMoneyBox() {
-		Map<String, List<Currency>> currencyMap = new TreeMap<String, List<Currency>>();
-		MoneyBox testBox = new MoneyBox(0, currencyMap);
-		
-		String currencyName = "SEK";
-		
-		List<Currency> testList = new ArrayList<Currency>();
-		Currency[] myCurrencyList =new Currency[2];
-		myCurrencyList[0] = new Currency(50,100);
-		myCurrencyList[1] = new Currency(100,200);
-				
-		for(Currency c: myCurrencyList) {
-			testList.add(c);
-		}
-		currencyMap.putIfAbsent(currencyName, testList);
-				
-		assertNotNull(testBox);
+		assertEquals(currencyMap, testBox.getCurrencyMap());
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
-	public void getIdTest() {
-		Map<String, List<Currency>> currencyMap = new TreeMap<String, List<Currency>>();
-		MoneyBox testBox = new MoneyBox(999, currencyMap);
-					
-		assertEquals(testBox.getId(),999);
+	public void testSetMap() {
+		Config.setRatesInCurrency(exchangeRateList, currencyMap);
+		testBox = new MoneyBox(currencyMap);
+		testBox = Config.fillTheMoneyBox(testBox, currencyMap);
+		Map<String, Currency> currencyMapTemp = new HashMap<>();
+		currencyMapTemp = testBox.getCurrencyMap();
+		
+		testBox.setCurrencyMap(currencyMapTemp);
+		
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
-	public void toStringTest() {
-		Map<String, List<Currency>> currencyMap = new TreeMap<String, List<Currency>>();
-		MoneyBox testBox = new MoneyBox(999, currencyMap);
+	public void testGetSerial() {
+		Config.setRatesInCurrency(exchangeRateList, currencyMap);
+		testBox = new MoneyBox(currencyMap);
+		testBox = Config.fillTheMoneyBox(testBox, currencyMap);
+		long test = testBox.getSerialversionuid();
 		
-String currencyName = "SEK";
+		assertEquals(test, testBox.getSerialversionuid());
+	}
+	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testAddNewCurr() {
+		Config.setRatesInCurrency(exchangeRateList, currencyMap);
+		testBox = new MoneyBox(currencyMap);
+		testBox = Config.fillTheMoneyBox(testBox, currencyMap);
 		
-		List<Currency> testList = new ArrayList<Currency>();
-		Currency[] myCurrencyList =new Currency[1];
-		myCurrencyList[0] = new Currency(50,100);
-					
-		for(Currency c: myCurrencyList) {
-			testList.add(c);
-		}
-		currencyMap.putIfAbsent(currencyName, testList);	
-
-		String test = testBox.toString();
-				
-		assertEquals(test, "MoneyBox [id=999, currencyMap={SEK=[Currency [denomination=50, numberOfNotes=100]]}]");
+		assertTrue(testBox.addNewCurrency(1000.00D, "FIN", 4.20f));
+	}
+	
+	@SuppressWarnings("static-access")
+	@Test
+	public void testAddNewCurrfalse() {
+		Config.setRatesInCurrency(exchangeRateList, currencyMap);
+		testBox = new MoneyBox(currencyMap);
+		testBox = Config.fillTheMoneyBox(testBox, currencyMap);
+		testBox.addNewCurrency(1000.00D, "EUR", 4.20f);
+		assertFalse(testBox.addNewCurrency(1000.00D, "EUR", 4.20f));
+	}
+	@SuppressWarnings("static-access")
+	@Test
+	public void testDenominationControllWithoutCurrency() {
+		Config.setRatesInCurrency(exchangeRateList, currencyMap);
+		testBox = new MoneyBox(currencyMap);
+		testBox = Config.fillTheMoneyBox(testBox, currencyMap);
+		int testInt = 50;
+		assertEquals(testInt, testBox.denominationControl("EUR", testInt));
+	}
+	@SuppressWarnings("static-access")
+	@Test
+	public void testDenominationControllWithCurrency() {
+		Config.setRatesInCurrency(exchangeRateList, currencyMap);
+		testBox = new MoneyBox(currencyMap);
+		testBox = Config.fillTheMoneyBox(testBox, currencyMap);
+		int testInt = 50;
+		testBox.addNewCurrency(1000.00D, "EUR", 4.20f);
+		assertEquals(testInt, testBox.denominationControl("EUR", testInt));
 	}
 	
 }

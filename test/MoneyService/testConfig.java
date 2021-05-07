@@ -4,77 +4,63 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
+import affix.java.project.moneyservice.Config;
+import affix.java.project.moneyservice.ExchangeRate;
+import affix.java.project.moneyservice.ExchangeSite;
+
+
+
+@SuppressWarnings("unused")
 public class testConfig {
+	private static Logger logger;
+	private static FileHandler fh ;
+	
+	ExchangeSite tempExchangeSite = new ExchangeSite("North");
+	public static List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
+		
+	@Test
+	public void testGetExchangeRateList(){
+		Config.readConfigFile("configFileNorth.txt");
 
-	int min = 2;
-	int max = 4;
-	ExchangeRate x = new ExchangeRate("GBP/JPY", 3.0F);
-	ExchangeRate y = new ExchangeRate("SEK/JPY", 4.0F);
-	ExchangeRate z = new ExchangeRate("EUR/SEK", 5.0F);
-	
-	@Ignore
-	@Test
-	public void testConstructor() {
-		ExchangeRate y = new ExchangeRate("SEK/EUR",4.02F);
-		assertNotNull(y);
-	}
-	
-	@Test
-	public void testList() {
-		List<ExchangeRate> testList = new ArrayList<>();
-		testList.add(x);
-		testList.add(y);
-		testList.add(z);
-		Config.exchangeRateList = testList;
-		assertFalse(testList.isEmpty());
-		assertFalse(Config.exchangeRateList.isEmpty());
+		exchangeRateList = Config.getExchangeRateList();
+		tempExchangeSite.startTheDay();
+		assertNotNull(exchangeRateList);
 		
 	}
 	
 	@Test
-	public void testGetList() {
-		List<ExchangeRate> testList = new ArrayList<>();
-		Config.exchangeRateList = testList;
-		testList.add(x);
-		testList.add(y);
-		testList.add(z);
-		List<ExchangeRate> fillThisList;
-		fillThisList = Config.getExchangeRateList();
-		assertFalse(Config.exchangeRateList.isEmpty());
-		assertFalse(fillThisList.isEmpty());
+	public void testSetMIN_AMOUNt() {
+		assertTrue(Config.setMIN_AMMOUNT(100));
+	}
+	@Test
+	public void testSetMAX_AMOUNt() {
+		assertTrue(Config.setMAX_AMMOUNT(100000));
 	}
 	
 	@Test
-	public void testSetMIN_AMMOUNT() {
-		Config.setMIN_AMMOUNT(10);
-		assertNotNull(Config.getMIN_AMMOUNT());
-		assertEquals(10, Config.getMIN_AMMOUNT());
-		
+	public void testGetMIN_AMOUNT() {
+		int min = 100;
+		Config.setMIN_AMMOUNT(min);
+		assertEquals(min, Config.getMIN_AMMOUNT());
+	}
+	@Test
+	public void testGetMAX_AMOUNT() {
+		int max = 5000;
+		Config.setMAX_AMMOUNT(max);
+		assertEquals(max, Config.getMAX_AMMOUNT());
 	}
 	
 	@Test
-	public void testSetMAX_AMMOUNT() {
-		Config.setMAX_AMMOUNT(50);
-		assertNotNull(Config.getMAX_AMMOUNT());
-		assertEquals(50,Config.getMAX_AMMOUNT());
-		
-	}
-	
-	@Test
-	public void testGetMIN_AMMOUNT() {
-		Config.setMIN_AMMOUNT(10);
-		assertEquals(10, Config.getMIN_AMMOUNT());
-	}
-	
-	@Test
-	public void testGetMAX_AMMOUNT() {
-		Config.setMAX_AMMOUNT(50);
-		assertEquals(50, Config.getMAX_AMMOUNT());
-	}
+	public void testControllPwd() {
+		Config.readConfigFile("configFileNorth.txt");
 
-
+		exchangeRateList = Config.getExchangeRateList();
+		tempExchangeSite.startTheDay();
+		assertTrue(Config.controlPwd("asdf1234"));
+	}
 }
