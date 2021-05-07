@@ -30,7 +30,7 @@ public class testMoneyServiceIO {
 	static ExchangeSite theSite = new ExchangeSite("North");
 	@BeforeClass
 	public static void preCode() {
-		Config.readConfigFile("configFileNorthTest.txt");
+		Config.readConfigFile("configFileNorth.txt");
 		theSite.startTheDay();
 		List<Order> listOfOrders;
 		int i=0;

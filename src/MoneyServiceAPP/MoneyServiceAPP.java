@@ -239,6 +239,7 @@ public class MoneyServiceAPP {
 	 */
 	private static void createOrder(ExchangeSite theSite, Scanner keyboard) {
 		boolean okInput = false;
+		
 		String transactionType ="";
 		TransactionMode transMode = TransactionMode.BUY;
 		int amount = 0;
