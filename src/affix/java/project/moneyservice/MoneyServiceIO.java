@@ -215,9 +215,12 @@ public class MoneyServiceIO {
 		boolean saved = false;
 		try(PrintWriter pw = new PrintWriter(new FileWriter(filename.trim()))){
 			
+			pw.println("CurrencyConfig = CurrencyConfig_" + LocalDate.now().toString()+ ".txt");
 			for(String k:listToBeSaved.keySet()) {
 				pw.println(k+" = "+listToBeSaved.get(k).getTotalValue().intValue());
 			}
+			pw.println("End");
+			pw.println("ReferenceCurrency = " + MoneyServiceIO.getReferenceCurrency());
 				
 
 		}

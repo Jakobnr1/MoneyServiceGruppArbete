@@ -169,6 +169,7 @@ public class ExchangeSite implements MoneyService {
 	@Override
 	public void printSiteReport(String fileFormat) {
 		logger.finest("Printing site report to file: "+MoneyServiceIO.getPathName("SiteReports")+"SiteReport_"+Config.getSiteName()+"_"+LocalDate.now()+".txt");
+		
 		MoneyServiceIO.saveTxtMoneyBox(MoneyBox.getCurrencyMap(), MoneyServiceIO.getPathName("SiteReports")+"SiteReport_"+Config.getSiteName()+"_"+LocalDate.now()+".txt");
 	}
 
