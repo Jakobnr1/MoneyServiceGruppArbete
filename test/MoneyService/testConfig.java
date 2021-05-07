@@ -25,7 +25,7 @@ public class testConfig {
 		
 	@Test
 	public void testGetExchangeRateList(){
-		Config.readConfigFile("configFileNorthTest.txt");
+		Config.readConfigFile("configFileNorth.txt");
 
 		exchangeRateList = Config.getExchangeRateList();
 		tempExchangeSite.startTheDay();
@@ -57,7 +57,7 @@ public class testConfig {
 	
 	@Test
 	public void testControllPwd() {
-		Config.readConfigFile("configFileNorthTest.txt");
+		Config.readConfigFile("configFileNorth.txt");
 
 		exchangeRateList = Config.getExchangeRateList();
 		tempExchangeSite.startTheDay();

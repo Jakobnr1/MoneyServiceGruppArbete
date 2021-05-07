@@ -20,7 +20,7 @@ public class testOrder {
 	static Order testOrder;
 	@BeforeClass
 	public static void beforeTest() {
-		Config.readConfigFile("configFileNorthTest.txt");
+		Config.readConfigFile("configFileNorth.txt");
 		
 		testOrder = new Order(150, "AUD", TransactionMode.BUY);
 		theSite.startTheDay();

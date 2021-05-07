@@ -23,7 +23,7 @@ public class testReport {
 	@BeforeClass
 	public static void beforeTest() {
 		
-		Config.readConfigFile("configFileNorthTest.txt");
+		Config.readConfigFile("configFileNorth.txt");
 		
 
 		theSite.startTheDay();

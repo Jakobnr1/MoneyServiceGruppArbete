@@ -27,7 +27,7 @@ public class TestExchangeSite {
 	List<Order> orderList = new ArrayList<>();
 	@BeforeClass
 	public static void preCode() {
-		Config.readConfigFile("configFileNorthTest.txt");
+		Config.readConfigFile("configFileNorth.txt");
 
 	}
 	@Test

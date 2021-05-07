@@ -3,6 +3,8 @@ package affix.java.project.moneyservice;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -146,7 +148,8 @@ public class Config {
 							System.out.println("Default used: "+Config.getLogName());
 							break;
 						}
-						Config.setLogName(value);
+						
+						Config.setLogName(value+LocalDate.now());
 						System.out.println("Log name set to: "+value);
 						ok++;			
 						break;
