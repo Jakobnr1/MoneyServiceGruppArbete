@@ -1,0 +1,118 @@
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.ExchangeSite startTheDay
+FINE: Starting the day!
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: AUD amount: Currency [totalValue=5000.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: CHF amount: Currency [totalValue=1000.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: JPY amount: Currency [totalValue=20000.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: EUR amount: Currency [totalValue=5000.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: GBP amount: Currency [totalValue=2500.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: DKK amount: Currency [totalValue=10000.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: USD amount: Currency [totalValue=5000.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: SEK amount: Currency [totalValue=50000.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: NOK amount: Currency [totalValue=10000.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: RUB amount: Currency [totalValue=30000.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config fillTheMoneyBox
+FINER: Filled MoneyBox with: CNY amount: Currency [totalValue=0.0]
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setTheRates
+FINER: *********** Getting rates from CurrencyConfig_2021-05-07.txt ************
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINER: AUD buyRate: 6.4805346, sellRate: 6.5456657
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINER: CHF buyRate: 9.181323, sellRate: 9.273597
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINER: CNY buyRate: 1.288724, sellRate: 1.301676
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINER: DKK buyRate: 1.3584615, sellRate: 1.3721143
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINER: EUR buyRate: 10.1014385, sellRate: 10.202961
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINER: GBP buyRate: 11.608864, sellRate: 11.725536
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINER: JPY buyRate: 0.07664883, sellRate: 0.07741918
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINER: NOK buyRate: 1.0164194, sellRate: 1.0266347
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINER: RUB buyRate: 0.11167979, sellRate: 0.11280221
+maj 07, 2021 2:58:16 EM affix.java.project.moneyservice.Config setRatesInCurrency
+FINER: USD buyRate: 8.342577, sellRate: 8.426422
+maj 07, 2021 2:58:24 EM MoneyServiceAPP.MoneyServiceAPP main
+FINER: Press 3. Creating new order for customer from employee menu
+maj 07, 2021 2:58:25 EM MoneyServiceAPP.MoneyServiceAPP createOrder
+FINER: BUY currency chosen (Transaction.SELL)
+maj 07, 2021 2:58:28 EM MoneyServiceAPP.MoneyServiceAPP createOrder
+FINER: OK input of currency: RUB
+maj 07, 2021 2:58:31 EM affix.java.project.moneyservice.MoneyBox denominationControl
+FINER: Round off 500 to 500
+maj 07, 2021 2:58:31 EM MoneyServiceAPP.MoneyServiceAPP createOrder
+FINER: OK input of amount: 500
+maj 07, 2021 2:58:31 EM affix.java.project.moneyservice.ExchangeSite calculatePrice
+FINER: Calculate price for: RUB 500 price: 56
+maj 07, 2021 2:58:33 EM MoneyServiceAPP.MoneyServiceAPP createOrder
+FINER: Complete order YES chosen
+maj 07, 2021 2:58:33 EM MoneyServiceAPP.MoneyServiceAPP createOrder
+FINE: Order created from user input: OrderData [currencyCode=RUB, amount= 500, mode= SELL ]
+maj 07, 2021 2:58:33 EM affix.java.project.moneyservice.ExchangeSite addOrderToQueue
+FINER: Order added to queue
+maj 07, 2021 2:58:33 EM affix.java.project.moneyservice.ExchangeSite completeOrder
+FINEST: Removing 500RUB from 30000 box. Total after sell: 29500
+maj 07, 2021 2:58:33 EM affix.java.project.moneyservice.ExchangeSite calculatePrice
+FINER: Calculate price for: RUB 500 price: 56
+maj 07, 2021 2:58:33 EM affix.java.project.moneyservice.ExchangeSite completeOrder
+FINEST: Income 56 SEK to box. Optional[50000.0] total in box after: 50056
+maj 07, 2021 2:58:33 EM affix.java.project.moneyservice.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=RUB, amount= 500, mode= SELL ]
+maj 07, 2021 2:58:33 EM affix.java.project.moneyservice.ExchangeSite processOrderQueue
+FINER: Order completed
+maj 07, 2021 2:58:33 EM affix.java.project.moneyservice.ExchangeSite processOrderQueue
+FINER: Order removed from orderList
+maj 07, 2021 2:58:34 EM MoneyServiceAPP.MoneyServiceAPP main
+FINER: Press 3. Creating new order for customer from employee menu
+maj 07, 2021 2:58:35 EM MoneyServiceAPP.MoneyServiceAPP createOrder
+FINER: SELL currency chosen (Transaction.BUY)
+maj 07, 2021 2:58:37 EM MoneyServiceAPP.MoneyServiceAPP createOrder
+FINER: OK input of currency: CNY
+maj 07, 2021 2:58:40 EM affix.java.project.moneyservice.MoneyBox denominationControl
+FINER: Round off 609 to 600
+maj 07, 2021 2:58:40 EM MoneyServiceAPP.MoneyServiceAPP createOrder
+FINER: OK input of amount: 600
+maj 07, 2021 2:58:40 EM affix.java.project.moneyservice.ExchangeSite calculatePrice
+FINER: Calculate price for: CNY 600 price: 773
+maj 07, 2021 2:58:41 EM MoneyServiceAPP.MoneyServiceAPP createOrder
+FINER: Complete order YES chosen
+maj 07, 2021 2:58:41 EM MoneyServiceAPP.MoneyServiceAPP createOrder
+FINER: Order created from user input: OrderData [currencyCode=CNY, amount= 600, mode= BUY ]
+maj 07, 2021 2:58:41 EM affix.java.project.moneyservice.ExchangeSite calculatePrice
+FINER: Calculate price for: CNY 600 price: 773
+maj 07, 2021 2:58:41 EM affix.java.project.moneyservice.ExchangeSite addOrderToQueue
+FINER: Order added to queue
+maj 07, 2021 2:58:41 EM affix.java.project.moneyservice.ExchangeSite calculatePrice
+FINER: Calculate price for: CNY 600 price: 773
+maj 07, 2021 2:58:41 EM affix.java.project.moneyservice.ExchangeSite calculatePrice
+FINER: Calculate price for: CNY 600 price: 773
+maj 07, 2021 2:58:41 EM affix.java.project.moneyservice.ExchangeSite completeOrder
+FINEST: Removing 773SEK from 50056.0 theBox. Total in box after: 49283
+maj 07, 2021 2:58:41 EM affix.java.project.moneyservice.ExchangeSite completeOrder
+FINEST: Adding 600CNY to total: 0. Total in box after: 600
+maj 07, 2021 2:58:41 EM affix.java.project.moneyservice.ExchangeSite completeOrder
+FINE: Completed order: OrderData [currencyCode=CNY, amount= 600, mode= BUY ]
+maj 07, 2021 2:58:41 EM affix.java.project.moneyservice.ExchangeSite processOrderQueue
+FINER: Order completed
+maj 07, 2021 2:58:41 EM affix.java.project.moneyservice.ExchangeSite processOrderQueue
+FINER: Order removed from orderList
+maj 07, 2021 2:58:45 EM MoneyServiceAPP.MoneyServiceAPP main
+FINER: Press 5. Show transactions
+maj 07, 2021 2:58:50 EM MoneyServiceAPP.MoneyServiceAPP main
+FINER: Press 0. Exit the program from menu
+maj 07, 2021 2:58:50 EM affix.java.project.moneyservice.ExchangeSite shutDownService
+FINE: Saving daily transactions as serialized
+maj 07, 2021 2:58:50 EM affix.java.project.moneyservice.ExchangeSite printSiteReport
+FINEST: Printing site report to file: SiteReports/SiteReport_NORTH_2021-05-07.txt
