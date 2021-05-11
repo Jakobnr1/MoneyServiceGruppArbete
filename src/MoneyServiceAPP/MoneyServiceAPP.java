@@ -38,10 +38,19 @@ public class MoneyServiceAPP {
 	 * @param args
 	 */
 	public static void main(String[] args) {
- 
+
 
 		if(args.length >= 1) {
-			Config.readConfigFile(args[0]);
+			if(!Config.readConfigFile(args[0])){
+				System.out.println("All config parameters in config file need to be correct!");
+				System.out.println("Exiting the program...");
+				System.exit(0);
+			}
+		}
+		else {
+			System.out.println("You need a config file to get the program started!");
+			System.out.println("Exiting the program...");
+			System.exit(0);
 		}
 
 		logger = Logger.getLogger("affix.java.project.moneyservice");
@@ -73,8 +82,8 @@ public class MoneyServiceAPP {
 
 		Scanner keyboard = new Scanner(System.in);
 		keyboard.useDelimiter(System.lineSeparator());
-		boolean exit=false;
 
+		boolean exit=false;
 		int choice=0;
 		do { 
 			try { 
@@ -117,18 +126,18 @@ public class MoneyServiceAPP {
 
 				case 3: 
 					logger.finer("Press 3. Creating new order for customer from employee menu");
-					createOrder(theSite, keyboard);
+					createOrder(theSite, keyboard, true);
 					break;
 
 				case 4:
 					logger.finer("Press 4. Enter user menu");
 					clientMenu(theSite);
 					break;		
-					
+
 				case 5:
 					logger.finer("Press 5. Show transactions");
 					for(Transaction t:theSite.getTransactionList()) {
-					System.out.println(t.toString());
+						System.out.println(t.toString());
 					}
 					break;
 
@@ -155,7 +164,7 @@ public class MoneyServiceAPP {
 		theSite.shutDownService(destination);
 
 		System.exit(0);
-	
+
 	}
 
 	/**
@@ -202,7 +211,7 @@ public class MoneyServiceAPP {
 					break;
 				case 2:
 					logger.fine("Press 2. Creating new order from customer menu");
-					createOrder(theSite, keyboard);
+					createOrder(theSite, keyboard, false);
 					break;
 				case 3:
 					logger.fine("Press 3. Going to employee menu from customer menu");
@@ -237,19 +246,28 @@ public class MoneyServiceAPP {
 	 * @param theSite holding the ExchangeSite
 	 * @param keyboard holding the Scanner for input handling
 	 */
-	private static void createOrder(ExchangeSite theSite, Scanner keyboard) {
+	private static void createOrder(ExchangeSite theSite, Scanner keyboard, boolean employee) {
 		boolean okInput = false;
-		
+
 		String transactionType ="";
 		TransactionMode transMode = TransactionMode.BUY;
 		int amount = 0;
 
-		System.out.println("BUY or SELL?");  
-		System.out.println("(BUY if you want to buy ex 50 EUR from exchange site)");
-		System.out.println("(SELL if you want to sell ex 350 GBP to exchange site)");
-		System.out.println();
-		System.out.println("press b for BUY a currency");
-		System.out.println("press s for SELL a currency");
+		System.out.println("BUY or SELL?"); 
+		if(employee) {
+			System.out.println("(SELL if customer want to buy ex 50 EUR from exchange site)");
+			System.out.println("(BUY if customer want to sell ex 350 GBP to exchange site)");
+			System.out.println();
+			System.out.println("press s for SELL a currency to customer");
+			System.out.println("press b for BUY currency from customer");
+		}
+		else {
+			System.out.println("(BUY if you want to buy ex 50 EUR from exchange site)");
+			System.out.println("(SELL if you want to sell ex 350 GBP to exchange site)");
+			System.out.println();
+			System.out.println("press b for BUY a currency");
+			System.out.println("press s for SELL a currency");
+		}
 
 		do {
 			transactionType = keyboard.next().strip().toLowerCase();
@@ -257,12 +275,22 @@ public class MoneyServiceAPP {
 			case "b":
 				logger.finer("BUY currency chosen (Transaction.SELL)");
 				okInput = true;
-				transMode = TransactionMode.SELL;
+				if(employee) {
+					transMode = TransactionMode.BUY;			
+				}
+				else {
+					transMode = TransactionMode.SELL;
+				}
 				break;
 			case "s":
 				logger.finer("SELL currency chosen (Transaction.BUY)");
 				okInput = true;
-				transMode = TransactionMode.BUY;
+				if(employee) {
+					transMode = TransactionMode.SELL;					
+				}
+				else {
+					transMode = TransactionMode.BUY;
+				}
 				break;
 			default:
 				System.out.println("Wrong choice!");
@@ -313,7 +341,7 @@ public class MoneyServiceAPP {
 				}
 				else {
 					if(transMode == TransactionMode.SELL){ 
-						if(theSite.getCurrencyMap().get(currencyChoice).getTotalValue() > Config.getMIN_AMMOUNT() &! 
+						if(theSite.getCurrencyMap().get(currencyChoice).getTotalValue() >= Config.getMIN_AMMOUNT() &! 
 								currencyChoice.equalsIgnoreCase(MoneyServiceIO.referenceCurrency)){ 
 							logger.finer("OK input of currency: "+currencyChoice);
 							okInput = true;
@@ -368,14 +396,30 @@ public class MoneyServiceAPP {
 
 			int price= theSite.calculatePrice(currencyChoice, amount, transMode); 
 
-			if(transMode == TransactionMode.SELL) {
-				System.out.println("\nCost for buying "+amount+" "+currencyChoice+ ": "+price+" "+MoneyServiceIO.getReferenceCurrency()); 
-				System.out.format("Exchange buy rate in calculation: %.3f",theSite.getCurrencyMap().get(currencyChoice).getSellRate());
+			if(employee) {
+				if(transMode == TransactionMode.SELL) {
+					System.out.println("\nPrice for customter buying "+amount+" "+currencyChoice+ ": "+price+" "+MoneyServiceIO.getReferenceCurrency()); 
+					System.out.format("Exchange buy rate in calculation: %.3f",theSite.getCurrencyMap().get(currencyChoice).getSellRate());
+				}
+				else {
+					System.out.println("Cost for Exchangesite buying: "+amount+" "+currencyChoice+": "+price+" "+MoneyServiceIO.getReferenceCurrency());
+					System.out.format("Exchange sell rate in calculation: %.3f",theSite.getCurrencyMap().get(currencyChoice).getBuyRate());
+				}
 			}
+			
 			else {
-				System.out.println("You will get paid: "+price+ " "+MoneyServiceIO.getReferenceCurrency()+" when selling "+amount+" "+currencyChoice);
-				System.out.format("Exchange sell rate in calculation: %.3f",theSite.getCurrencyMap().get(currencyChoice).getBuyRate());
+				if(transMode == TransactionMode.SELL) {
+					System.out.println("\nCost for buying "+amount+" "+currencyChoice+ ": "+price+" "+MoneyServiceIO.getReferenceCurrency()); 
+					System.out.format("Exchange buy rate in calculation: %.3f",theSite.getCurrencyMap().get(currencyChoice).getSellRate());
+				}
+				else {
+					System.out.println("You will get paid: "+price+ " "+MoneyServiceIO.getReferenceCurrency()+" when selling "+amount+" "+currencyChoice);
+					System.out.format("Exchange sell rate in calculation: %.3f",theSite.getCurrencyMap().get(currencyChoice).getBuyRate());
+				}				
 			}
+
+
+
 
 			System.out.println("\n\nComplete order? ");
 			System.out.println("press y for complete order ");
@@ -389,6 +433,7 @@ public class MoneyServiceAPP {
 				case "y":
 					logger.finer("Complete order YES chosen");
 					Order myOrder = new Order(amount,currencyChoice, transMode);
+
 					if(myOrder.getTransactionType() == TransactionMode.SELL) {
 						logger.fine("Order created from user input: "+myOrder.toString());
 						if(theSite.sellMoney(myOrder)) {
@@ -399,7 +444,7 @@ public class MoneyServiceAPP {
 						}
 						else {
 							System.out.println("Not enough money that currency. Order canceled");
-							logger.fine("Not enough money that currency. Order canceled. In box:" +theSite.getCurrencyMap().get(currencyChoice).getTotalValue());
+							logger.fine("\n*****Not enough money that currency. Order canceled. In box:" +theSite.getCurrencyMap().get(currencyChoice).getTotalValue()+"*****\n");
 						}
 					}
 					else {
@@ -411,7 +456,7 @@ public class MoneyServiceAPP {
 						}
 						else {
 							System.out.println("Not enough money in that currency. Order canceled");
-							logger.finer("Not enough money that currency. Order canceled");
+							logger.fine("\n*****Not enough money that currency. Order canceled. In box:" +theSite.getCurrencyMap().get(currencyChoice).getTotalValue()+"*****\n");
 						}
 
 					}

@@ -308,7 +308,6 @@ public class Config {
 		for(int i=0; i<temp.length(); i++) {
 			tempPass[i] = temp.charAt(i);
 		}
-		System.out.println(password);
 		boolean passwordMatch = Arrays.equals(tempPass, password);
 
 		return passwordMatch;
