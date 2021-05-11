@@ -126,7 +126,7 @@ public class MoneyServiceAPP {
 
 				case 3: 
 					logger.finer("Press 3. Creating new order for customer from employee menu");
-					createOrder(theSite, keyboard, true);
+					createOrder(theSite, keyboard, true); 
 					break;
 
 				case 4:
