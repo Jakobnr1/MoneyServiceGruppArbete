@@ -166,7 +166,8 @@ public class MoneyServiceAPP {
 		System.exit(0);
 
 	}
-
+ 
+	
 	/**
 	 * Starts up the client menu for the customer
 	 * @param theSite holding the ExchangeSite
